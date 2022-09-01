@@ -7,6 +7,7 @@ const theme = {
     primaryLight: "#e8eaef",
     secondary: "#248e38",
     secondaryMid: "",
+    lightGray: "#777",
   },
   heading: {
     primary: "5.4rem",

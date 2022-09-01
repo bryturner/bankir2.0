@@ -7,14 +7,12 @@ const Container = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.utilGap};
   background-color: #fff;
   padding: 1.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
 `;
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
+  margin-bottom: 24px;
 `;
 
 const Title = styled.h3`
@@ -50,7 +48,7 @@ const TransactionHeader = styled.p`
   }
 `;
 
-function Account({ title, balance, earnings, apy }) {
+function Account({ title, balance, earnings, apy, transactions }) {
   return (
     <Container>
       <Grid>
