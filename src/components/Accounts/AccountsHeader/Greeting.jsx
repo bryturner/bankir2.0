@@ -11,7 +11,7 @@ const Date = styled.p``;
 function Greeting({ firstName }) {
   return (
     <Container>
-      <Header>Welcome {firstName}</Header>
+      <Header>Welcome {firstName},</Header>
       <Date>Aug 28</Date>
     </Container>
   );

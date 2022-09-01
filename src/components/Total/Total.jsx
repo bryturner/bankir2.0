@@ -9,11 +9,11 @@ const Title = styled.p``;
 
 const TotalAmount = styled.p``;
 
-function Total({ title, amount }) {
+function Total({ type, val }) {
   return (
     <Container>
-      <Title>{title}</Title>
-      <TotalAmount>{amount}</TotalAmount>
+      <Title>{type}</Title>
+      <TotalAmount>${val}</TotalAmount>
     </Container>
   );
 }

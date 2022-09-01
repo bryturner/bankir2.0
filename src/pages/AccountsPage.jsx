@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import Greeting from "../components/account/AccountsHeader/Greeting";
-import Total from "../components/account/AccountsHeader/Total";
-import Totals from "../components/account/AccountsHeader/Totals";
+import Account from "../components/Accounts/Account/Account";
+import AccountsHeader from "../components/Accounts/AccountsHeader/AccountsHeader";
 
 const Container = styled.div`
   margin-top: ${({ theme }) => theme.spacing.utilGap};
@@ -22,11 +21,18 @@ function AccountPage() {
   return (
     <Container>
       <HeaderContainer>
-        <HeaderGrid>
-          <Greeting firstName="Bryan" />
-          <Totals />
-        </HeaderGrid>
+        <AccountsHeader
+          firstName="Bryan"
+          accountTotal="15000"
+          earningsTotal="700"
+        />
       </HeaderContainer>
+      <Account
+        title="Standard Savings"
+        balance="10000"
+        earnings="200"
+        apy="2.5"
+      />
     </Container>
   );
 }

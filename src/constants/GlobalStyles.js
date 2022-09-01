@@ -14,7 +14,8 @@ body {
   font-size: 1.6rem;
   line-height: 1.6;
   color: #0e1b3a; 
-  background-color: #e8eaef;
+  /* primaryLight background */
+  background-color: #e8eaef; 
 }  
 `;
 
