@@ -5,34 +5,17 @@ import styled from "styled-components";
 import { PATH } from "../../constants/paths";
 import AuthContext from "../../contexts/AuthContext";
 import LoginButton from "../Button/LoginButton";
+import Form from "./Form";
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 2.6rem;
-  width: 100%;
-  justify-self: center;
-  padding: 4rem 3.6rem;
-  background-color: #fff;
-  box-shadow: 0 0.6rem 3rem rgba(0, 0, 0, 0.1);
-
-  > button {
-    width: 100%;
-    display: block;
-  }
+const InputWrapper = styled.div`
+  /* &:first-child {
+    margin-bottom: 2rem;
+  } */
 `;
-
-const Header = styled.h2`
-  font-size: 3rem;
-  font-weight: 500;
-  text-align: center;
-`;
-
-const InputWrapper = styled.div``;
 
 const Input = styled.input`
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-size: 1.6rem;
   padding: 0.6rem;
   border-radius: 3px;
@@ -43,6 +26,23 @@ const DefaultInfo = styled.p`
   font-size: 1.4rem;
   padding-left: 6px;
   color: ${({ theme }) => theme.color.primaryMid};
+`;
+
+const ButtonContainer = styled.div`
+  > button {
+    width: 100%;
+    display: block;
+    margin-bottom: 1rem;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  padding-left: 6px;
+  margin-bottom: 4px;
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.color.error};
+  visibility: ${(props) => (props.isError !== "" ? "visible" : "hidden")};
+  /* visibility: hidden; */
 `;
 
 const TextWrapper = styled.div`
@@ -74,9 +74,8 @@ const Text = styled.p`
 function LoginForm() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-
+  const [error, setError] = useState("");
   const { getIsLoggedIn } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
   async function login(e) {
@@ -95,11 +94,11 @@ function LoginForm() {
       navigate(PATH.ACCOUNT);
     } catch (err) {
       console.error(err);
+      setError(err.response.data.errorMessage);
     }
   }
   return (
-    <Form onSubmit={login}>
-      <Header>Log In</Header>
+    <Form onSubmit={login} header="Log in">
       <InputWrapper>
         <Input
           type="text"
@@ -122,11 +121,14 @@ function LoginForm() {
         <DefaultInfo>Password: password</DefaultInfo>
       </InputWrapper>
 
-      <LoginButton />
-      <TextWrapper>
-        <Text>Don't have an account yet?</Text>
-        <Link to={PATH.REGISTER}>Register here</Link>
-      </TextWrapper>
+      <ButtonContainer>
+        <ErrorMessage isError={error}>*{error}</ErrorMessage>
+        <LoginButton />
+        <TextWrapper>
+          <Text>Don't have an account yet?</Text>
+          <Link to={PATH.REGISTER}>Register here</Link>
+        </TextWrapper>
+      </ButtonContainer>
     </Form>
   );
 }

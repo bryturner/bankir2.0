@@ -1,15 +1,6 @@
 import styled from "styled-components";
-import LoginForm from "../components/Login/LoginForm";
-
-const Container = styled.div`
-  max-width: 120rem;
-  margin: 0 auto;
-  margin-top: 2.4rem;
-  padding: 0 3.2rem;
-  display: grid;
-  grid-template-columns: 60fr 40fr;
-  gap: 9.6rem;
-`;
+import LoginForm from "../components/Form/LoginForm";
+import { LandingLayout } from "../constants/styles";
 
 const Wrapper = styled.div``;
 
@@ -31,7 +22,7 @@ const Subheading = styled.p`
 
 function LoginPage() {
   return (
-    <Container>
+    <LandingLayout>
       <Wrapper>
         <Heading>
           Make <span>investing</span> in your <span>future</span> count
@@ -42,7 +33,7 @@ function LoginPage() {
         </Subheading>
       </Wrapper>
       <LoginForm />
-    </Container>
+    </LandingLayout>
   );
 }
 

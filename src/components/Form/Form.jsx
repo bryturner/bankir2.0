@@ -1,10 +1,7 @@
 import styled from "styled-components";
 const FormStyled = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 2.6rem;
-  width: 100%;
   justify-self: center;
+  width: 100%;
   padding: 4rem 3.6rem;
   background-color: #fff;
   box-shadow: 0 0.6rem 3rem rgba(0, 0, 0, 0.1);
@@ -19,6 +16,7 @@ const Header = styled.h2`
   font-size: 3rem;
   font-weight: 500;
   text-align: center;
+  margin-bottom: 2rem;
 `;
 
 function Form({ onSubmit, header, children }) {

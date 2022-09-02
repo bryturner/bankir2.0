@@ -10,6 +10,7 @@ const theme = {
     secondary: "#248e38",
     secondaryMid: "",
     lightGray: "#777",
+    error: "#ff0000",
   },
   heading: {
     primary: "5.4rem",
