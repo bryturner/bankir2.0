@@ -3,8 +3,12 @@ import styled from "styled-components";
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  padding: 1.2rem;
+  padding: 1rem;
   border-bottom: 0.75px solid ${({ theme }) => theme.color.primaryLight};
+
+  /* &:nth-child(even) {
+    background-color: ${({ theme }) => theme.color.primaryLightest};
+  } */
 `;
 
 const Text = styled.p`

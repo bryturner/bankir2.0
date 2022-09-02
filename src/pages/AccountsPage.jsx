@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Account from "../components/Accounts/Account/Account";
 import AccountForm from "../components/Accounts/AccountForm/AccountForm";
 import AccountsHeader from "../components/Accounts/AccountsHeader/AccountsHeader";
+import Messages from "../components/Accounts/Messages/Messages";
 
 const Container = styled.div`
   margin-top: ${({ theme }) => theme.spacing.utilGap};
@@ -56,6 +57,7 @@ function AccountPage() {
 
         <FormContainer>
           <AccountForm />
+          <Messages />
         </FormContainer>
       </BodyContainer>
     </Container>

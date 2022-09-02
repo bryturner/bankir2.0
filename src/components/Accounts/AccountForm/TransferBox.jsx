@@ -2,7 +2,7 @@ import styled from "styled-components";
 import AccountFormButton from "./AccountFormButton";
 import AccountInputs from "./AccountInputs/AccountInputs";
 import AccountOption from "./AccountOption";
-import FormBox from "./FormBox";
+import DetailsBox from "../../DetailsBox/DetailsBox";
 
 const SelectWrapper = styled.div``;
 
@@ -18,7 +18,7 @@ const Select = styled.select`
 
 function TransferBox() {
   return (
-    <FormBox header="Transfer Money">
+    <DetailsBox header="Transfer Money">
       <SelectWrapper>
         <Label htmlFor="transferFrom">Transfer from:</Label>
         <Select name="accountForm" id="transferFrom">
@@ -38,7 +38,7 @@ function TransferBox() {
       <AccountInputs dateId="transferDate" amountId="transferAmount" />
 
       <AccountFormButton text="Submit Transfer" />
-    </FormBox>
+    </DetailsBox>
   );
 }
 

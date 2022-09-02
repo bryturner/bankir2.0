@@ -6,6 +6,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.utilGap};
+  margin-bottom: ${({ theme }) => theme.spacing.utilGap};
 `;
 
 function AccountForm() {

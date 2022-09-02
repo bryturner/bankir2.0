@@ -5,12 +5,22 @@ import Greeting from "./Greeting";
 const Container = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
+  align-items: center;
   max-width: 120rem;
   margin: 0 auto;
   margin-bottom: ${({ theme }) => theme.spacing.utilGap};
+  padding: 2rem 0;
 `;
 
-const Totals = styled.div``;
+const Totals = styled.div`
+  > div > p {
+    color: ${({ theme }) => theme.color.primaryMid};
+    font-size: 1.8rem;
+  }
+  > div > span {
+    font-size: 2rem;
+  }
+`;
 
 function AccountsHeader({ firstName, accountTotal, earningsTotal }) {
   return (

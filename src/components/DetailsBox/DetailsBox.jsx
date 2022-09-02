@@ -3,6 +3,7 @@ import styled from "styled-components";
 const Container = styled.div`
   background-color: #fff;
   padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Summary = styled.summary`
@@ -14,9 +15,13 @@ const ContentContainer = styled.div`
   flex-direction: column;
   gap: 2rem;
   margin-top: 2rem;
+
+  > button {
+    margin-top: 1rem;
+  }
 `;
 
-function FormBox({ children, header }) {
+function DetailsBox({ children, header }) {
   return (
     <Container>
       <details>
@@ -27,4 +32,4 @@ function FormBox({ children, header }) {
   );
 }
 
-export default FormBox;
+export default DetailsBox;

@@ -3,7 +3,7 @@ import AccountFormButton from "./AccountFormButton";
 import AccountInputs from "./AccountInputs/AccountInputs";
 import AccountOption from "./AccountOption";
 import DescriptionInput from "./AccountInputs/DescriptionInput";
-import FormBox from "./FormBox";
+import DetailsBox from "../../DetailsBox/DetailsBox";
 
 const SelectWrapper = styled.div``;
 
@@ -19,12 +19,12 @@ const Select = styled.select`
 
 function TransactionBox() {
   return (
-    <FormBox header="Record a Transaction">
+    <DetailsBox header="Record a Transaction">
       <SelectWrapper>
         <Label htmlFor="transactionType">Transaction type:</Label>
         <Select name="accountForm" id="transactionType">
           <AccountOption value="deposit" title="Deposit" />
-          <AccountOption value="withdrawl" title="Withdrawl" />
+          <AccountOption value="withdrawal" title="Withdrawal" />
         </Select>
       </SelectWrapper>
       <SelectWrapper>
@@ -40,7 +40,7 @@ function TransactionBox() {
       <AccountInputs dateId="transactionDate" amountId="transactionAmount" />
 
       <AccountFormButton text="Submit Transaction" />
-    </FormBox>
+    </DetailsBox>
   );
 }
 
