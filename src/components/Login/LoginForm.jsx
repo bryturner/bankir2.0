@@ -32,7 +32,7 @@ const InputWrapper = styled.div``;
 
 const Input = styled.input`
   width: 100%;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-size: 1.6rem;
   padding: 0.6rem;
   border-radius: 3px;
@@ -41,6 +41,7 @@ const Input = styled.input`
 
 const DefaultInfo = styled.p`
   font-size: 1.4rem;
+  padding-left: 6px;
   color: ${({ theme }) => theme.color.primaryMid};
 `;
 
@@ -102,7 +103,7 @@ function LoginForm() {
       <InputWrapper>
         <Input
           type="text"
-          id="userId"
+          id="username"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}

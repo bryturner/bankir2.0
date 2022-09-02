@@ -4,7 +4,8 @@ import LoginForm from "../components/Login/LoginForm";
 const Container = styled.div`
   max-width: 120rem;
   margin: 0 auto;
-  padding: 2.4rem 3.2rem 0 3.2rem;
+  margin-top: 2.4rem;
+  padding: 0 3.2rem;
   display: grid;
   grid-template-columns: 60fr 40fr;
   gap: 9.6rem;
