@@ -2,11 +2,12 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Account from "../components/Account/Account";
-import AccountForm from "../components/Form/AccountForm";
 import AccountsHeader from "../components/Header/AccountsHeader/AccountsHeader";
 import Messages from "../components/DetailsBox/MessagesBox/Messages";
 import AccountContext from "../contexts/AccountContext";
 import Modal from "../components/Modal/Modal";
+import TransferForm from "../components/Form/TransferForm";
+import TransactionForm from "../components/Form/TransactionForm";
 
 const Container = styled.div`
   position: relative;
@@ -16,19 +17,24 @@ const HeaderContainer = styled.div`
   background-color: #fff;
 `;
 
-const BodyContainer = styled.div`
+const Grid = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   max-width: 120rem;
   margin: 0 auto;
 `;
 
-const AccountsContainer = styled.div`
+const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const FormContainer = styled.div``;
+const RightContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.utilGap};
+  margin-bottom: ${({ theme }) => theme.spacing.utilGap};
+`;
 
 function AccountPage() {
   const [firstName, setFirstName] = useState("");
@@ -109,8 +115,8 @@ function AccountPage() {
             />
           </HeaderContainer>
 
-          <BodyContainer>
-            <AccountsContainer>
+          <Grid>
+            <LeftContainer>
               <Account
                 title="Standard Savings"
                 balance={standardBalance}
@@ -125,13 +131,14 @@ function AccountPage() {
                 apy={premiumAPY}
                 transactions={premiumTransactions}
               />
-            </AccountsContainer>
+            </LeftContainer>
 
-            <FormContainer>
-              <AccountForm />
+            <RightContainer>
+              <TransferForm />
+              <TransactionForm />
               <Messages messages={messages} />
-            </FormContainer>
-          </BodyContainer>
+            </RightContainer>
+          </Grid>
         </Container>
       )}
     </>

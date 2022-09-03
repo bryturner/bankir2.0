@@ -47,7 +47,7 @@ const Input = styled.input`
   font-size: 1.4rem;
 `;
 
-function AmountInput({ name, id }) {
+function AmountInput({ formName, id }) {
   return (
     <Container>
       <Label htmlFor={id}>Amount:</Label>
@@ -57,7 +57,7 @@ function AmountInput({ name, id }) {
           type="text"
           inputMode="numeric"
           pattern="\d*"
-          name={name}
+          name={formName}
           id={id}
           placeholder="0.00"
         />

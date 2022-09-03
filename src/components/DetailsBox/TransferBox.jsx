@@ -16,26 +16,30 @@ const Select = styled.select`
   width: 100%;
 `;
 
-function TransferBox() {
+function TransferBox({ formName }) {
   return (
     <DetailsBox header="Transfer Money">
       <SelectWrapper>
         <Label htmlFor="transferFrom">Transfer from:</Label>
-        <Select name="accountForm" id="transferFrom">
+        <Select formName={formName} id="transferFrom">
           <AccountOption value="standard" title="Standard Account" />
           <AccountOption value="premium" title="Premium Account" />
         </Select>
       </SelectWrapper>
       <SelectWrapper>
         <Label htmlFor="transferTo">Transfer to:</Label>
-        <Select name="accountForm" id="transferTo">
+        <Select formName={formName} id="transferTo">
           <AccountOption value="standard" title="Standard Account" />
           <AccountOption value="premium" title="Premium Account" />
           <AccountOption value="otherUser" title="Other User" />
         </Select>
       </SelectWrapper>
 
-      <AccountInputs dateId="transferDate" amountId="transferAmount" />
+      <AccountInputs
+        formName={formName}
+        dateId="transferDate"
+        amountId="transferAmount"
+      />
 
       <AccountFormButton text="Submit Transfer" />
     </DetailsBox>

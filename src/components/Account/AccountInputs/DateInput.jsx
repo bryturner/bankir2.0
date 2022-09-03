@@ -23,14 +23,14 @@ const formatDate = (year) => {
   return new Date(dateRange).toISOString().split("T")[0];
 };
 
-function DateInput({ name, id }) {
+function DateInput({ formName, id }) {
   const maxDate = formatDate(1);
   const minDate = formatDate(-1);
 
   return (
     <Container>
       <Label htmlFor={id}>Date:</Label>
-      <Input type="date" name={name} id={id} max={maxDate} min={minDate} />
+      <Input type="date" name={formName} id={id} max={maxDate} min={minDate} />
     </Container>
   );
 }

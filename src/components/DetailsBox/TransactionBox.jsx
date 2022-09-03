@@ -17,27 +17,31 @@ const Select = styled.select`
   width: 100%;
 `;
 
-function TransactionBox() {
+function TransactionBox({ formName }) {
   return (
     <DetailsBox header="Record a Transaction">
       <SelectWrapper>
         <Label htmlFor="transactionType">Transaction type:</Label>
-        <Select name="accountForm" id="transactionType">
+        <Select formName={formName} id="transactionType">
           <AccountOption value="deposit" title="Deposit" />
           <AccountOption value="withdrawal" title="Withdrawal" />
         </Select>
       </SelectWrapper>
       <SelectWrapper>
         <Label htmlFor="transactionAccount">Choose an account:</Label>
-        <Select name="accountForm" id="transactionAccount">
+        <Select formName={formName} id="transactionAccount">
           <AccountOption value="standard" title="Standard Account" />
           <AccountOption value="premium" title="Premium Account" />
         </Select>
       </SelectWrapper>
 
-      <DescriptionInput name="accountForm" id="transactionDesc" />
+      <DescriptionInput formName={formName} id="transactionDesc" />
 
-      <AccountInputs dateId="transactionDate" amountId="transactionAmount" />
+      <AccountInputs
+        formName={formName}
+        dateId="transactionDate"
+        amountId="transactionAmount"
+      />
 
       <AccountFormButton text="Submit Transaction" />
     </DetailsBox>

@@ -18,12 +18,12 @@ const Input = styled.input`
   width: 100%;
 `;
 
-function DescriptionInput({ name, id }) {
+function DescriptionInput({ formName, id }) {
   return (
     <Container>
       <Title>Description:</Title>
       <Label htmlFor={id}>
-        <Input type="text" name={name} id={id} maxLength={30} />
+        <Input type="text" name={formName} id={id} maxLength={30} />
       </Label>
     </Container>
   );

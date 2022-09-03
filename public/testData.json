@@ -40,8 +40,23 @@
   },
   "messages": [
     {
-      "type": "welcome",
-      "date": 1662154610849
+      "type": "deposit",
+      "amount": 50.44,
+      "date": 1662154610849,
+      "toAccount": "Standard"
+    },
+    {
+      "type": "withdrawal",
+      "amount": 50.44,
+      "date": 1662154610849,
+      "fromAccount": "Standard"
+    },
+    {
+      "type": "transfer",
+      "amount": 50.44,
+      "date": 1662154610849,
+      "toAccount": "Standard",
+      "fromAccount": "Premium"
     }
   ],
   "accountTotal": 23000.0,

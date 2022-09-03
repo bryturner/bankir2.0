@@ -7,11 +7,11 @@ const Flex = styled.div`
   gap: 2rem;
 `;
 
-function AccountInputs({ dateId, amountId }) {
+function AccountInputs({ formName, dateId, amountId }) {
   return (
     <Flex>
-      <DateInput name="accountForm" id={dateId} />
-      <AmountInput name="accountForm" id={amountId} />
+      <DateInput formName={formName} id={dateId} />
+      <AmountInput formName={formName} id={amountId} />
     </Flex>
   );
 }
