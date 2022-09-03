@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
 import GlobalStyles from "./constants/GlobalStyles";
+import { AccountContextProvider } from "./contexts/AccountContext";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import Router from "./router/Router";
 
@@ -11,9 +12,11 @@ function App() {
     <>
       <GlobalStyles />
       <AuthContextProvider>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
+        <AccountContextProvider>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </AccountContextProvider>
       </AuthContextProvider>
     </>
   );

@@ -4,6 +4,7 @@ import { useContext, useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PATH } from "../../constants/paths";
+import AccountContext from "../../contexts/AccountContext";
 import AuthContext from "../../contexts/AuthContext";
 import RegisterButton from "../Button/RegisterButton";
 import Form from "./Form";
@@ -64,7 +65,7 @@ const Text = styled.p`
   text-align: center;
 `;
 
-const initialValue = {
+const initialState = {
   firstName: "",
   username: "",
   password: "",
@@ -84,9 +85,10 @@ const reducer = (state, action) => {
 };
 
 function RegisterForm() {
-  const [state, dispatch] = useReducer(reducer, initialValue);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [error, setError] = useState("");
   const { getIsLoggedIn } = useContext(AuthContext);
+  const { setAccountInfo } = useContext(AccountContext);
   const navigate = useNavigate();
 
   const inputAction = (e) => {
@@ -99,17 +101,22 @@ function RegisterForm() {
   async function register(e) {
     e.preventDefault();
 
-    try {
-      const data = {
-        firstName: state.firstName,
-        username: state.username,
-        password: state.password,
-        passwordVerify: state.passwordVerify,
-      };
+    const regData = {
+      username: state.username,
+      password: state.password,
+      passwordVerify: state.passwordVerify,
+    };
 
-      await axios.post("http://localhost:5002/auth/register", data);
+    const acctData = {
+      firstName: state.firstName,
+    };
+
+    try {
+      await axios.post("http://localhost:5002/auth/register", regData);
 
       await getIsLoggedIn();
+
+      await axios.post("http://localhost:5002/account/newAccount", acctData);
 
       navigate(PATH.ACCOUNT);
     } catch (err) {
@@ -124,7 +131,8 @@ function RegisterForm() {
         <Input
           type="text"
           id="firstName"
-          placeholder="First Name*"
+          placeholder="First name*"
+          maxLength={20}
           value={state.firstName}
           onChange={inputAction}
         />
@@ -149,7 +157,7 @@ function RegisterForm() {
       <Input
         type="password"
         id="passwordVerify"
-        placeholder="Re-enter Password*"
+        placeholder="Re-enter password*"
         value={state.passwordVerify}
         onChange={inputAction}
       />

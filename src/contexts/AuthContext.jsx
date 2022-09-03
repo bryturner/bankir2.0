@@ -8,16 +8,14 @@ function AuthContextProvider(props) {
 
   // Checks token to see if user is logged in and authorized
   async function getIsLoggedIn() {
-    const loggedInResponse = await axios.get(
-      "http://localhost:5002/auth/isLoggedIn"
-    );
+    const response = await axios.get("http://localhost:5002/auth/isLoggedIn");
 
-    setIsLoggedIn(loggedInResponse.data);
+    setIsLoggedIn(response.data);
   }
 
-  useEffect(() => {
-    getIsLoggedIn();
-  }, []);
+  //   useEffect(() => {
+  //     getIsLoggedIn();
+  //   }, []);
   return (
     <AuthContext.Provider value={{ isLoggedIn, getIsLoggedIn }}>
       {props.children}

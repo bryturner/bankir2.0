@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Total from "../../Total/Total";
+import Total from "../Total/Total";
 import Transaction from "./Transaction";
 
 const Container = styled.div`
@@ -72,7 +72,7 @@ function Account({ title, balance, earnings, apy, transactions }) {
           <Total type="Interest Earned" val={earnings} />
           <APYWrapper>
             <APYTitle>APY</APYTitle>
-            <APYText>{apy}%</APYText>
+            <APYText>{apy.toFixed(1)}%</APYText>
           </APYWrapper>
         </TotalsContainer>
       </Grid>
@@ -81,8 +81,15 @@ function Account({ title, balance, earnings, apy, transactions }) {
         <TransactionHeader>Description</TransactionHeader>
         <TransactionHeader>Amount</TransactionHeader>
       </TransactionsContainer>
-      <Transaction transDate="8/30/22" description="Dinner" amount="50.00" />
-      <Transaction transDate="8/30/22" description="Dinner" amount="50.00" />
+
+      {transactions.map((transaction) => (
+        <Transaction
+          transDate={transaction.transDate}
+          description={transaction.description}
+          amount={transaction.amount}
+          key={transaction.id}
+        />
+      ))}
     </Container>
   );
 }

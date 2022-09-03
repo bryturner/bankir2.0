@@ -14,7 +14,7 @@ function Total({ type, val }) {
   return (
     <Container>
       <Title>{type}</Title>
-      <TotalAmount>${val}</TotalAmount>
+      <TotalAmount>${val.toFixed(2).toLocaleString()}</TotalAmount>
     </Container>
   );
 }

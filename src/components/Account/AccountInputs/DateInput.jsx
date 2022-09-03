@@ -17,11 +17,20 @@ const Input = styled.input`
   color: ${({ theme }) => theme.color.lightGray};
 `;
 
+const formatDate = (year) => {
+  const dtToday = new Date();
+  const dateRange = dtToday.setFullYear(dtToday.getFullYear() + year);
+  return new Date(dateRange).toISOString().split("T")[0];
+};
+
 function DateInput({ name, id }) {
+  const maxDate = formatDate(1);
+  const minDate = formatDate(-1);
+
   return (
     <Container>
       <Label htmlFor={id}>Date:</Label>
-      <Input type="date" name={name} id={id} />
+      <Input type="date" name={name} id={id} max={maxDate} min={minDate} />
     </Container>
   );
 }

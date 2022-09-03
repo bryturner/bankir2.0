@@ -7,8 +7,7 @@ const Container = styled.div`
   grid-template-columns: 2fr 1fr;
   align-items: center;
   max-width: 120rem;
-  margin: 0 auto;
-  margin-bottom: ${({ theme }) => theme.spacing.utilGap};
+  margin: ${({ theme }) => theme.spacing.utilGap} auto;
   padding: 2rem 0;
 `;
 
@@ -28,7 +27,7 @@ function AccountsHeader({ firstName, accountTotal, earningsTotal }) {
       <Greeting firstName={firstName} />
       <Totals>
         <Total type="Account Total" val={accountTotal} />
-        <Total type="Interest Total" val={earningsTotal} />
+        <Total type="Earnings Total" val={earningsTotal} />
       </Totals>
     </Container>
   );

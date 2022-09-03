@@ -12,7 +12,7 @@ const Title = styled.p`
 const Label = styled.label``;
 
 const Input = styled.input`
-  padding: 0.6rem 0;
+  padding: 0.6rem;
   border: 1px solid #777;
   border-radius: 3px;
   width: 100%;
@@ -23,7 +23,7 @@ function DescriptionInput({ name, id }) {
     <Container>
       <Title>Description:</Title>
       <Label htmlFor={id}>
-        <Input type="text" name={name} id={id} />
+        <Input type="text" name={name} id={id} maxLength={30} />
       </Label>
     </Container>
   );

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import TransactionBox from "./TransactionBox";
-import TransferBox from "./TransferBox";
+import TransactionBox from "../DetailsBox/TransactionBox";
+import TransferBox from "../DetailsBox/TransferBox";
 
 const Form = styled.form`
   display: flex;
@@ -11,7 +11,7 @@ const Form = styled.form`
 
 function AccountForm() {
   return (
-    <Form>
+    <Form name="accountForm">
       <TransferBox />
       <TransactionBox />
     </Form>

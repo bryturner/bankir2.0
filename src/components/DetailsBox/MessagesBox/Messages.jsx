@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import DetailsBox from "../../DetailsBox/DetailsBox";
+import DetailsBox from "../DetailsBox";
 import Message from "./Message";
 
 const Container = styled.div`
@@ -7,7 +7,7 @@ const Container = styled.div`
   border-top: 2px solid black;
 `;
 
-function Messages() {
+function Messages({ messages }) {
   return (
     <DetailsBox header="Messages">
       <Container>

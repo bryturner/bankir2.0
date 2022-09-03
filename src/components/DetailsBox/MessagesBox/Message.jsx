@@ -10,7 +10,7 @@ const Text = styled.p`
   font-weight: 500;
 `;
 
-const Date = styled.p`
+const MsgDate = styled.p`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.color.primaryMid}; ;
 `;
@@ -19,7 +19,7 @@ function Message({ text, date }) {
   return (
     <Container>
       <Text>{text}</Text>
-      <Date>{date}</Date>
+      <MsgDate>{date}</MsgDate>
     </Container>
   );
 }

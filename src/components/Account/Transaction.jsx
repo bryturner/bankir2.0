@@ -11,22 +11,27 @@ const Container = styled.div`
   } */
 `;
 
-const Text = styled.p`
-  &:nth-child(2) {
-    text-align: center;
-  }
+const TransDate = styled.p``;
 
-  &:last-child {
-    text-align: right;
-  }
+const Desc = styled.p`
+  text-align: center;
+`;
+
+const Amount = styled.p`
+  text-align: right;
+  color: ${(props) => (props.type === "negative" ? "#ff0000" : "#376805")};
 `;
 
 function Transaction({ transDate, description, amount }) {
   return (
     <Container>
-      <Text>{transDate}</Text>
-      <Text>{description}</Text>
-      <Text>${amount}</Text>
+      <TransDate>{transDate}</TransDate>
+      <Desc>{description}</Desc>
+      {amount < 0 ? (
+        <Amount type="negative">-${amount.toFixed(2).slice(1)}</Amount>
+      ) : (
+        <Amount type="positive">${amount.toFixed(2)}</Amount>
+      )}
     </Container>
   );
 }

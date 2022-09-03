@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import AccountFormButton from "./AccountFormButton";
-import AccountInputs from "./AccountInputs/AccountInputs";
-import AccountOption from "./AccountOption";
-import DescriptionInput from "./AccountInputs/DescriptionInput";
-import DetailsBox from "../../DetailsBox/DetailsBox";
+import AccountFormButton from "../Button/AccountFormButton";
+import AccountInputs from "../Account/AccountInputs/AccountInputs";
+import AccountOption from "../Account/AccountOption";
+import DescriptionInput from "../Account/AccountInputs/DescriptionInput";
+import DetailsBox from "./DetailsBox";
 
 const SelectWrapper = styled.div``;
 

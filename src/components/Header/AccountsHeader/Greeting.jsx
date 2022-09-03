@@ -7,19 +7,19 @@ const Header = styled.h2`
   line-height: normal;
 `;
 
-const Date = styled.p`
+const LoginDate = styled.p`
   color: ${({ theme }) => theme.color.primaryMidLight};
   font-size: 1.5rem;
   padding-left: 4px;
 `;
 
-// const today = Date.now();
-
 function Greeting({ firstName }) {
+  const dt = new Date().toString().replace(/g.+/i, "");
+
   return (
     <Container>
       <Header>Welcome {firstName},</Header>
-      <Date>Logged in at </Date>
+      <LoginDate>Logged in {dt}</LoginDate>
     </Container>
   );
 }
