@@ -7,11 +7,13 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import AuthContext from "../contexts/AuthContext";
 import { PATH } from "../constants/paths";
+import GlobalStyles from "../constants/GlobalStyles";
 
 function Router() {
   const { isLoggedIn } = useContext(AuthContext);
   return (
     <Theme>
+      <GlobalStyles />
       <Header isLoggedIn={isLoggedIn} />
       <Routes>
         <Route

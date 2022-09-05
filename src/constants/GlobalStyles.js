@@ -17,6 +17,12 @@ body {
   /* primaryLight background */
   background-color: #e8eaef; 
 }  
+
+*:focus {
+	outline: none;
+    border-color: ${({ theme }) => theme.color.secondary};
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.color.secondary};
+}
 `;
 
 export default GlobalStyles;

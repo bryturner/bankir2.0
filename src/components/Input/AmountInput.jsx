@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Input from "./Input";
 
 const Container = styled.div`
   display: flex;
@@ -8,8 +9,6 @@ const Container = styled.div`
 
 const Label = styled.label`
   font-size: 1.4rem;
-  /* border: 1px solid #777;
-  border-radius: 3px; */
 `;
 
 const InputWrapper = styled.div`
@@ -28,6 +27,14 @@ const InputWrapper = styled.div`
     font-weight: 300;
   }
 
+  > input {
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding-left: 1.8rem;
+    font-size: 1.4rem;
+  }
+
   > input::-webkit-inner-spin-button,
   input::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -39,15 +46,7 @@ const InputWrapper = styled.div`
   }
 `;
 
-const Input = styled.input`
-  border: none;
-  width: 100%;
-  height: 100%;
-  padding-left: 1.8rem;
-  font-size: 1.4rem;
-`;
-
-function AmountInput({ formName, id }) {
+function AmountInput({ formName, id, value, onChange }) {
   return (
     <Container>
       <Label htmlFor={id}>Amount:</Label>
@@ -60,6 +59,8 @@ function AmountInput({ formName, id }) {
           name={formName}
           id={id}
           placeholder="0.00"
+          value={value}
+          onChange={onChange}
         />
       </InputWrapper>
     </Container>

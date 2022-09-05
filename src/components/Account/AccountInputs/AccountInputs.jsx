@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import AmountInput from "./AmountInput";
-import DateInput from "./DateInput";
+import AmountInput from "../../Input/AmountInput";
+import DateInput from "../../Input/DateInput";
 
 const Flex = styled.div`
   display: flex;
