@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 
-const theme = {
+export const theme = {
   color: {
     primary: "#172d61",
     primaryMid: "#455781",
@@ -10,7 +10,7 @@ const theme = {
     secondary: "#248e38",
     secondaryMid: "",
     lightGray: "#777",
-    error: "#ff0000",
+    error: "#ff9494",
   },
   heading: {
     primary: "5.4rem",

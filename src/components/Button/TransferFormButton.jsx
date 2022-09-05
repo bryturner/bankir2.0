@@ -1,7 +1,7 @@
 import Button from "./Button";
 
-function AccountFormButton({ text }) {
+function TransferFormButton({ text }) {
   return <Button type="submit" text={text} />;
 }
 
-export default AccountFormButton;
+export default TransferFormButton;

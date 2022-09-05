@@ -15,14 +15,25 @@ body {
   line-height: 1.6;
   color: #0e1b3a; 
   /* primaryLight background */
-  background-color: #e8eaef; 
+  background-color: ${({ theme }) => theme.color.primaryLight}; 
 }  
 
-*:focus {
+input:focus, select:focus {
 	outline: none;
-    border-color: ${({ theme }) => theme.color.secondary};
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.color.secondary};
+   border-color: ${({ theme }) => theme.color.secondary};
+   box-shadow: 0 0 0 1px ${({ theme }) => theme.color.secondary};
 }
+
+input {
+	padding: 0.6rem;
+   border: 1px solid #777;
+   border-radius: 3px;
+}
+
+input:invalid {
+    border-color: ${({ theme }) => theme.color.error};
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.color.error};
+  }
 `;
 
 export default GlobalStyles;

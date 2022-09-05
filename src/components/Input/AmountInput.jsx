@@ -12,8 +12,6 @@ const Label = styled.label`
 `;
 
 const InputWrapper = styled.div`
-  border: 1px solid ${({ theme }) => theme.color.lightGray};
-  border-radius: 3px;
   position: relative;
   flex: 1;
 
@@ -28,39 +26,41 @@ const InputWrapper = styled.div`
   }
 
   > input {
-    border: none;
     width: 100%;
     height: 100%;
     padding-left: 1.8rem;
     font-size: 1.4rem;
   }
-
-  > input::-webkit-inner-spin-button,
-  input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  > input[type="number"] {
-    -moz-appearance: textfield;
-  }
 `;
 
-function AmountInput({ formName, id, value, onChange }) {
+function AmountInput({ formName, id, value, setAmount }) {
+  function formatAmount(e) {
+    const amount = e.target.value;
+    if (amount.startsWith("0")) {
+      setAmount("");
+      return;
+    }
+
+    const updatedAmount = amount
+      .replace(/(?!\.)\D/g, "")
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      .replace(/(?<=\..*)\./g, "")
+      .replace(/(?<=\.\d\d).*/g, "");
+    setAmount(updatedAmount);
+  }
+
   return (
     <Container>
       <Label htmlFor={id}>Amount:</Label>
       <InputWrapper>
-        {/* <Input type="number" name={name} id={id} placeholder="0.00" /> */}
         <Input
           type="text"
           inputMode="numeric"
-          pattern="\d*"
           name={formName}
           id={id}
           placeholder="0.00"
           value={value}
-          onChange={onChange}
+          onChange={formatAmount}
         />
       </InputWrapper>
     </Container>

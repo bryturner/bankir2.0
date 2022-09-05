@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import DescriptionInput from "../Input/DescriptionInput";
 import SelectOption from "../SelectOption/SelectOption";
 import AccountOptions from "../SelectOption/AccountOptions";
@@ -20,7 +20,6 @@ const initialState = {
   transactionType: "deposit",
   transactionAccount: "standard",
   transactionDesc: "",
-  transactionAmount: "",
   transactionDate: "",
 };
 
@@ -38,6 +37,7 @@ const reducer = (state, action) => {
 
 function TransactionForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [amount, setAmount] = useState("");
 
   const inputAction = (e) => {
     dispatch({
@@ -57,7 +57,6 @@ function TransactionForm() {
       transactionType,
       transactionAccount,
       transactionDesc,
-      transactionAmount,
       transactionDate,
     } = state;
 
@@ -65,8 +64,8 @@ function TransactionForm() {
       type: transactionType,
       account: transactionAccount,
       description: transactionDesc,
-      amount: transactionAmount,
       date: transactionDate,
+      amount: amount,
     };
 
     console.log(data);
@@ -113,8 +112,8 @@ function TransactionForm() {
           <AmountInput
             formName="transactionForm"
             id="transactionAmount"
-            value={state.transactionAmount}
-            onChange={inputAction}
+            value={amount}
+            setAmount={setAmount}
           />
         </Flex>
 

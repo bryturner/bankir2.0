@@ -1,5 +1,9 @@
-function Option({ value, title }) {
-  return <option value={value}>{title}</option>;
+function Option({ value, title, disabled, selected }) {
+  return (
+    <option value={value} disabled={disabled} selected={selected}>
+      {title}
+    </option>
+  );
 }
 
 export default Option;
