@@ -16,18 +16,17 @@ const Label = styled.label`
   }
 `;
 
-function DescriptionInput({ formName, id, value, onChange, placeholder }) {
+function OtherUserInput({ formName, id, value, onChange, placeholder }) {
   return (
     <Container>
-      <Title>Description:</Title>
       <Label htmlFor={id}>
         <Input
           type="text"
           name={formName}
           id={id}
-          maxLength={35}
-          pattern="\w*"
-          title="Use letters or numbers only"
+          pattern="[a-z]*\d*"
+          title="Use lower case letters or numbers only"
+          maxLength={10}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -37,4 +36,4 @@ function DescriptionInput({ formName, id, value, onChange, placeholder }) {
   );
 }
 
-export default DescriptionInput;
+export default OtherUserInput;

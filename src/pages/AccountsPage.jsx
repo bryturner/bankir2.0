@@ -6,7 +6,7 @@ import AccountsHeader from "../components/Header/AccountsHeader/AccountsHeader";
 import Messages from "../components/DetailsBox/MessagesBox/Messages";
 import AccountContext from "../contexts/AccountContext";
 import Modal from "../components/Modal/Modal";
-import TransferForm from "../components/Form/TransferForm";
+import AccountTransferForm from "../components/Form/AccountTransferForm";
 import TransactionForm from "../components/Form/TransactionForm";
 
 const Container = styled.div`
@@ -119,6 +119,7 @@ function AccountPage() {
             <LeftContainer>
               <Account
                 title="Standard Savings"
+                //  acctType="standard"
                 balance={standardBalance}
                 earnings={standardEarnings}
                 apy={standardAPY}
@@ -126,6 +127,7 @@ function AccountPage() {
               />
               <Account
                 title="Premium Savings"
+                //  acctType="premium"
                 balance={premiumBalance}
                 earnings={premiumEarnings}
                 apy={premiumAPY}
@@ -134,7 +136,7 @@ function AccountPage() {
             </LeftContainer>
 
             <RightContainer>
-              <TransferForm />
+              <AccountTransferForm />
               <TransactionForm />
               <Messages messages={messages} />
             </RightContainer>

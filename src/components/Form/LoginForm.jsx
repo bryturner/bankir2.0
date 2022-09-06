@@ -7,19 +7,16 @@ import AuthContext from "../../contexts/AuthContext";
 import LoginButton from "../Button/LoginButton";
 import Form from "./Form";
 
-const InputWrapper = styled.div`
-  /* &:first-child {
-    margin-bottom: 2rem;
-  } */
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
 `;
 
 const Input = styled.input`
   width: 100%;
   margin-bottom: 6px;
   font-size: 1.6rem;
-  padding: 0.6rem;
-  border-radius: 3px;
-  border: 1px solid black;
 `;
 
 const DefaultInfo = styled.p`
@@ -99,27 +96,29 @@ function LoginForm() {
   }
   return (
     <Form onSubmit={login} header="Log in">
-      <InputWrapper>
-        <Input
-          type="text"
-          id="username"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <DefaultInfo>Trial users: user1 or user2</DefaultInfo>
-      </InputWrapper>
+      <InputContainer>
+        <div>
+          <Input
+            type="text"
+            id="username"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <DefaultInfo>Trial users: user1 or user2</DefaultInfo>
+        </div>
 
-      <InputWrapper>
-        <Input
-          type="password"
-          id="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <DefaultInfo>Password: password</DefaultInfo>
-      </InputWrapper>
+        <div>
+          <Input
+            type="password"
+            id="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <DefaultInfo>Password: password</DefaultInfo>
+        </div>
+      </InputContainer>
 
       <ButtonContainer>
         <ErrorMessage isError={error}>*{error}</ErrorMessage>

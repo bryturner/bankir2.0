@@ -84,7 +84,7 @@ function Account({ title, balance, earnings, apy, transactions }) {
 
       {transactions.map((transaction) => (
         <Transaction
-          transDate={transaction.transDate}
+          transDate={transaction.date}
           description={transaction.description}
           amount={transaction.amount}
           key={transaction.id}

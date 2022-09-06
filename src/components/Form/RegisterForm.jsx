@@ -14,12 +14,15 @@ const RequiredText = styled.p`
   color: ${({ theme }) => theme.color.lightGray};
 `;
 
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
 const Input = styled.input`
   width: 100%;
   font-size: 1.6rem;
-  padding: 0.6rem;
-  border-radius: 3px;
-  border: 1px solid black;
 `;
 
 const ButtonContainer = styled.div`
@@ -36,7 +39,6 @@ const ErrorMessage = styled.p`
   font-size: 1.4rem;
   color: ${({ theme }) => theme.color.error};
   visibility: ${(props) => (props.isError !== "" ? "visible" : "hidden")};
-  /* visibility: hidden; */
 `;
 
 const TextWrapper = styled.div`
@@ -126,41 +128,50 @@ function RegisterForm() {
   }
   return (
     <Form onSubmit={register} header="Register">
-      <div>
-        <RequiredText>* Required</RequiredText>
+      <RequiredText>* Required</RequiredText>
+      <InputContainer>
         <Input
           type="text"
           id="firstName"
           placeholder="First name*"
+          pattern="[a-zA-Z]*"
+          title="Use lower or upper case letters only"
           maxLength={20}
           value={state.firstName}
           onChange={inputAction}
         />
-      </div>
 
-      <Input
-        type="text"
-        id="username"
-        placeholder="Username*"
-        value={state.username}
-        onChange={inputAction}
-      />
+        <Input
+          type="text"
+          id="username"
+          placeholder="Username*"
+          pattern="[a-z]*\d*"
+          title="Use lower case letters or numbers only"
+          maxLength={10}
+          value={state.username}
+          onChange={inputAction}
+        />
 
-      <Input
-        type="password"
-        id="password"
-        placeholder="Password*"
-        value={state.password}
-        onChange={inputAction}
-      />
+        <Input
+          type="password"
+          id="password"
+          placeholder="Password*"
+          pattern="\S"
+          title="White space is not allowed in the password"
+          value={state.password}
+          onChange={inputAction}
+        />
 
-      <Input
-        type="password"
-        id="passwordVerify"
-        placeholder="Re-enter password*"
-        value={state.passwordVerify}
-        onChange={inputAction}
-      />
+        <Input
+          type="password"
+          id="passwordVerify"
+          placeholder="Re-enter password*"
+          pattern="\S"
+          title="White space is not allowed in the password"
+          value={state.passwordVerify}
+          onChange={inputAction}
+        />
+      </InputContainer>
 
       <ButtonContainer>
         <ErrorMessage isError={error}>*{error}</ErrorMessage>

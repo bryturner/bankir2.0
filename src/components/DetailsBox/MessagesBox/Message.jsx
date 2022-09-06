@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -15,11 +16,29 @@ const MsgDate = styled.p`
   color: ${({ theme }) => theme.color.primaryMid}; ;
 `;
 
-function Message({ text, date }) {
+function Message({ message }) {
+  const { amount, type, account, transferFrom, transferTo, date } = message;
+
+  const curDate = new Date(date).toLocaleString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
+
+  const transferMsg = `Transfer $${amount} from ${transferFrom} to ${transferTo}`;
+  const withdrawal = `Withdawal of $${amount} from ${account} Savings`;
+  const deposit = `Deposit of $${amount} from ${account} Savings`;
+
   return (
     <Container>
-      <Text>{text}</Text>
-      <MsgDate>{date}</MsgDate>
+      {type === "transfer" ? (
+        <Text>{transferMsg}</Text>
+      ) : type === "withdrawal" ? (
+        <Text>{withdrawal}</Text>
+      ) : (
+        <Text>{deposit}</Text>
+      )}
+      <MsgDate>{curDate}</MsgDate>
     </Container>
   );
 }

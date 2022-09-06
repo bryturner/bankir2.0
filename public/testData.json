@@ -4,13 +4,13 @@
     "balance": 2000.0,
     "transactions": [
       {
-        "transDate": "2/2/22",
+        "date": "2/2/22",
         "description": "This is a description",
         "amount": 30.95,
         "id": "std2222"
       },
       {
-        "transDate": "1/1/22",
+        "date": "1/1/22",
         "description": "This is a something",
         "amount": -50.44,
         "id": "std1122"
@@ -23,13 +23,13 @@
     "balance": 5000.24,
     "transactions": [
       {
-        "transDate": "2/2/22",
+        "date": "2/2/23",
         "description": "This is a premium",
         "amount": -30.95,
         "id": "prm2222"
       },
       {
-        "transDate": "1/1/22",
+        "date": "1/1/22",
         "description": "This is premium something",
         "amount": 50.44,
         "id": "prm1122"
@@ -43,20 +43,23 @@
       "type": "deposit",
       "amount": 50.44,
       "date": 1662154610849,
-      "toAccount": "Standard"
+      "account": "Standard",
+      "id": "msg1"
     },
     {
       "type": "withdrawal",
       "amount": 50.44,
       "date": 1662154610849,
-      "fromAccount": "Standard"
+      "account": "Standard",
+      "id": "2"
     },
     {
       "type": "transfer",
       "amount": 50.44,
       "date": 1662154610849,
-      "toAccount": "Standard",
-      "fromAccount": "Premium"
+      "transferTo": "Standard",
+      "transferFrom": "Premium",
+      "id": "3"
     }
   ],
   "accountTotal": 23000.0,

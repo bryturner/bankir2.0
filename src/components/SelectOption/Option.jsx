@@ -1,6 +1,6 @@
-function Option({ value, title, disabled, selected }) {
+function Option({ value, title, selected }) {
   return (
-    <option value={value} disabled={disabled} selected={selected}>
+    <option value={value} selected={selected}>
       {title}
     </option>
   );

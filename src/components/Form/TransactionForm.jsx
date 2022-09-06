@@ -5,7 +5,7 @@ import DescriptionInput from "../Input/DescriptionInput";
 import SelectOption from "../SelectOption/SelectOption";
 import AccountOptions from "../SelectOption/AccountOptions";
 import Option from "../SelectOption/Option";
-import TempForm from "./TempForm";
+import TransferForm from "./TransferForm";
 import DetailsBox from "../DetailsBox/DetailsBox";
 import DateInput from "../Input/DateInput";
 import AmountInput from "../Input/AmountInput";
@@ -72,7 +72,7 @@ function TransactionForm() {
   };
 
   return (
-    <TempForm onSubmit={test} id="transactionForm">
+    <TransferForm onSubmit={test} id="transactionForm">
       <DetailsBox header="Record a Transaction">
         <SelectOption
           formName="transactionForm"
@@ -100,6 +100,7 @@ function TransactionForm() {
           id="transactionDesc"
           value={state.transactionDesc}
           onChange={inputAction}
+          placeholder="ex. received paycheck"
         />
 
         <Flex>
@@ -119,7 +120,7 @@ function TransactionForm() {
 
         <TransactionFormButton />
       </DetailsBox>
-    </TempForm>
+    </TransferForm>
   );
 }
 

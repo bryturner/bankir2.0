@@ -2,8 +2,6 @@ import styled from "styled-components";
 import RegisterForm from "../components/Form/RegisterForm";
 import { LandingLayout } from "../constants/styles";
 
-const Wrapper = styled.div``;
-
 const Heading = styled.h1`
   font-size: ${({ theme }) => theme.heading.primary};
   letter-spacing: -1px;
@@ -23,7 +21,7 @@ const Subheading = styled.p`
 function RegisterPage() {
   return (
     <LandingLayout>
-      <Wrapper>
+      <div>
         <Heading>
           Make <span>investing</span> in your <span>future</span> count
         </Heading>
@@ -31,7 +29,7 @@ function RegisterPage() {
           Consistently high interest rates and excellent customer service will
           keep your mind at ease and make retiring early a breeze.
         </Subheading>
-      </Wrapper>
+      </div>
       <RegisterForm />
     </LandingLayout>
   );
