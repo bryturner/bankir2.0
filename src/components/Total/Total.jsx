@@ -11,10 +11,12 @@ const Title = styled.p``;
 const TotalAmount = styled.span``;
 
 function Total({ type, val }) {
+  const formattedVal = val.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   return (
     <Container>
       <Title>{type}</Title>
-      <TotalAmount>${val.toFixed(2).toLocaleString()}</TotalAmount>
+      <TotalAmount>${formattedVal}</TotalAmount>
     </Container>
   );
 }

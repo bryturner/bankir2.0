@@ -16,8 +16,13 @@ const MsgDate = styled.p`
   color: ${({ theme }) => theme.color.primaryMid}; ;
 `;
 
+const upperCase = (str) => {
+  return str && str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 function Message({ message }) {
-  const { amount, type, account, transferFrom, transferTo, date } = message;
+  const { amount, type, account, transferFrom, transferTo, date, firstName } =
+    message;
 
   const curDate = new Date(date).toLocaleString("en-US", {
     month: "short",
@@ -25,13 +30,19 @@ function Message({ message }) {
     year: "numeric",
   });
 
+  const welcome = `Congrats ${firstName}, you have opened an account!`;
+
   const transferMsg = `Transfer $${amount} from ${transferFrom} to ${transferTo}`;
-  const withdrawal = `Withdawal of $${amount} from ${account} Savings`;
-  const deposit = `Deposit of $${amount} from ${account} Savings`;
+
+  const withdrawal = `Withdawal $${amount} from ${upperCase(account)} Savings`;
+
+  const deposit = `Deposit $${amount} to ${upperCase(account)} Savings`;
 
   return (
     <Container>
-      {type === "transfer" ? (
+      {type === "welcome" ? (
+        <Text>{welcome}</Text>
+      ) : type === "transfer" ? (
         <Text>{transferMsg}</Text>
       ) : type === "withdrawal" ? (
         <Text>{withdrawal}</Text>

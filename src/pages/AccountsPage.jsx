@@ -4,10 +4,9 @@ import styled from "styled-components";
 import Account from "../components/Account/Account";
 import AccountsHeader from "../components/Header/AccountsHeader/AccountsHeader";
 import Messages from "../components/DetailsBox/MessagesBox/Messages";
-import AccountContext from "../contexts/AccountContext";
-import Modal from "../components/Modal/Modal";
 import AccountTransferForm from "../components/Form/AccountTransferForm";
 import TransactionForm from "../components/Form/TransactionForm";
+import Header from "../components/Header/Header";
 
 const Container = styled.div`
   position: relative;
@@ -36,7 +35,7 @@ const RightContainer = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.utilGap};
 `;
 
-function AccountPage() {
+function AccountPage({ isLoggedIn }) {
   const [firstName, setFirstName] = useState("");
   const [accountTotal, setAccountTotal] = useState(0);
   const [earningsTotal, setEarningsTotal] = useState(0);
@@ -59,18 +58,20 @@ function AccountPage() {
       const response = await axios.get("http://localhost:5002/account/");
       const { data } = response;
 
+      console.log(data);
       setFirstName(data.firstName);
       setAccountTotal(data.accountTotal);
       setEarningsTotal(data.earningsTotal);
       setStandardBalance(data.standard.balance);
       setStandardEarnings(data.standard.earnings);
-      setStandardTransactions(data.standard.transactions);
+      setStandardTransactions(data.stdTransactions);
       setStandardAPY(data.standard.apy);
       setPremiumBalance(data.premium.balance);
       setPremiumEarnings(data.premium.earnings);
-      setPremiumTransactions(data.premium.transactions);
+      setPremiumTransactions(data.prmTransactions);
       setPremiumAPY(data.premium.apy);
       setMessages(data.messages);
+      setIsDefault(data.isDefault);
       //   setIsLoading(false);
     } catch (err) {
       console.error(err);
@@ -104,11 +105,11 @@ function AccountPage() {
 
   return (
     <>
+      <Header isLoggedIn={isLoggedIn} />
       {isLoading ? (
         <div>Loading</div>
       ) : (
         <Container>
-          {/* <Modal /> */}
           <HeaderContainer>
             <AccountsHeader
               firstName={firstName}

@@ -17,9 +17,9 @@ function Greeting({ firstName }) {
   const dt = new Date().toString().replace(/g.+/i, "");
 
   return (
-    <Container>
-      <Header>Welcome {firstName},</Header>
-      <LoginDate>Logged in {dt}</LoginDate>
+    <Container data-testid="greeting">
+      <Header data-testid="first-name">Welcome {firstName},</Header>
+      <LoginDate data-testid="logged-time">Logged in {dt}</LoginDate>
     </Container>
   );
 }

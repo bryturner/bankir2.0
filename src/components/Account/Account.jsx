@@ -62,6 +62,13 @@ const TransactionHeader = styled.p`
   }
 `;
 
+const DefaultText = styled.p`
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme.color.primaryMidLight};
+  text-align: center;
+  margin: 2rem 0 0.6rem 0;
+`;
+
 function Account({ title, balance, earnings, apy, transactions }) {
   return (
     <Container>
@@ -82,14 +89,18 @@ function Account({ title, balance, earnings, apy, transactions }) {
         <TransactionHeader>Amount</TransactionHeader>
       </TransactionsContainer>
 
-      {transactions.map((transaction) => (
-        <Transaction
-          transDate={transaction.date}
-          description={transaction.description}
-          amount={transaction.amount}
-          key={transaction.id}
-        />
-      ))}
+      {transactions.length === 0 ? (
+        <DefaultText>No transactions or transfers recorded</DefaultText>
+      ) : (
+        transactions.map((transaction) => (
+          <Transaction
+            transDate={transaction.date}
+            description={transaction.description}
+            amount={transaction.amount}
+            key={transaction.id}
+          />
+        ))
+      )}
     </Container>
   );
 }

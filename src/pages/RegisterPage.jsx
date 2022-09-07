@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import RegisterForm from "../components/Form/RegisterForm";
+import Header from "../components/Header/Header";
 import { LandingLayout } from "../constants/styles";
 
 const Heading = styled.h1`
@@ -18,20 +19,23 @@ const Subheading = styled.p`
   margin-bottom: 3.6rem;
 `;
 
-function RegisterPage() {
+function RegisterPage({ isLoggedIn }) {
   return (
-    <LandingLayout>
-      <div>
-        <Heading>
-          Make <span>investing</span> in your <span>future</span> count
-        </Heading>
-        <Subheading>
-          Consistently high interest rates and excellent customer service will
-          keep your mind at ease and make retiring early a breeze.
-        </Subheading>
-      </div>
-      <RegisterForm />
-    </LandingLayout>
+    <>
+      <Header isLoggedIn={isLoggedIn} />
+      <LandingLayout>
+        <div>
+          <Heading>
+            Make <span>investing</span> in your <span>future</span> count
+          </Heading>
+          <Subheading>
+            Consistently high interest rates and excellent customer service will
+            keep your mind at ease and make retiring early a breeze.
+          </Subheading>
+        </div>
+        <RegisterForm />
+      </LandingLayout>
+    </>
   );
 }
 

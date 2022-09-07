@@ -10,6 +10,7 @@ import DetailsBox from "../DetailsBox/DetailsBox";
 import DateInput from "../Input/DateInput";
 import AmountInput from "../Input/AmountInput";
 import TransactionFormButton from "../Button/TransactionFormButton";
+import { appendAmount } from "../../constants/helpers";
 
 const Flex = styled.div`
   display: flex;
@@ -52,10 +53,13 @@ function TransactionForm({ getAccountInfo }) {
     dispatch({
       type: "reset",
     });
+    setAmount("");
   };
 
   const submitTransaction = async (e) => {
     e.preventDefault();
+
+    const updatedAmount = appendAmount(amount);
 
     const {
       transactionType,
@@ -65,7 +69,7 @@ function TransactionForm({ getAccountInfo }) {
     } = state;
 
     const data = {
-      amount: amount,
+      amount: updatedAmount,
       date: transactionDate,
       type: transactionType,
       description: transactionDesc,
@@ -81,6 +85,8 @@ function TransactionForm({ getAccountInfo }) {
   const test = (e) => {
     e.preventDefault();
 
+    const updatedAmount = appendAmount(amount);
+
     const {
       transactionType,
       transactionAccount,
@@ -93,10 +99,11 @@ function TransactionForm({ getAccountInfo }) {
       account: transactionAccount,
       description: transactionDesc,
       date: transactionDate,
-      amount: amount,
+      amount: updatedAmount,
     };
 
     console.log(data);
+    reset();
   };
 
   return (

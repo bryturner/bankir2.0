@@ -11,7 +11,10 @@ const Container = styled.div`
   } */
 `;
 
-const TransDate = styled.p``;
+const TransDate = styled.p`
+  font-size: 1.5rem;
+  align-self: center;
+`;
 
 const Desc = styled.p`
   text-align: center;
@@ -23,9 +26,14 @@ const Amount = styled.p`
 `;
 
 function Transaction({ transDate, description, amount }) {
+  const dt = new Date(transDate).toLocaleString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
   return (
     <Container>
-      <TransDate>{transDate}</TransDate>
+      <TransDate>{dt}</TransDate>
       <Desc>{description}</Desc>
       {amount < 0 ? (
         <Amount type="negative">-${amount.toFixed(2).slice(1)}</Amount>

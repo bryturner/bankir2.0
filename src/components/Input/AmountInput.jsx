@@ -36,17 +36,15 @@ const InputWrapper = styled.div`
 function AmountInput({ formName, id, value, setAmount }) {
   function formatAmount(e) {
     const amount = e.target.value;
-    if (amount.startsWith("0")) {
-      setAmount("");
-      return;
-    }
 
-    const updatedAmount = amount
+    const formattedAmount = amount
+      .replace(/^0+/, "")
       .replace(/(?!\.)\D/g, "")
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       .replace(/(?<=\..*)\./g, "")
       .replace(/(?<=\.\d\d).*/g, "");
-    setAmount(updatedAmount);
+
+    setAmount(formattedAmount);
   }
 
   return (
@@ -59,6 +57,7 @@ function AmountInput({ formName, id, value, setAmount }) {
           name={formName}
           id={id}
           placeholder="0.00"
+          maxLength={8}
           value={value}
           onChange={formatAmount}
         />

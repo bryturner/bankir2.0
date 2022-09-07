@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import TransferFormButton from "../Button/TransferFormButton";
 import DetailsBox from "../DetailsBox/DetailsBox";
 import AmountInput from "../Input/AmountInput";
@@ -9,6 +9,7 @@ import TransferForm from "./TransferForm";
 import Option from "../SelectOption/Option";
 import DescriptionInput from "../Input/DescriptionInput";
 import OtherUserInput from "../Input/OtherUserInput";
+import { appendAmount } from "../../constants/helpers";
 
 const Flex = styled.div`
   display: flex;
@@ -22,6 +23,15 @@ function AccountTransferForm({ getAccountInfo }) {
   const [transferTo, setTransferTo] = useState("premium");
   const [transferDesc, setTransferDesc] = useState("");
   const [transferToOther, setTransferToOther] = useState("");
+
+  const reset = () => {
+    setAmount("");
+    setDate("");
+    setTransferFrom("standard");
+    setTransferTo("premium");
+    setTransferDesc("");
+    setTransferToOther("");
+  };
 
   const updateTransferValues = (value) => {
     setTransferFrom(value);
@@ -41,8 +51,10 @@ function AccountTransferForm({ getAccountInfo }) {
     const transferToValue =
       transferTo === "otherUser" ? transferToOther : transferTo;
 
+    const updatedAmount = appendAmount(amount);
+
     const data = {
-      amount: amount,
+      amount: updatedAmount,
       date: date,
       description: transferDesc,
       type: "transfer",
@@ -57,6 +69,8 @@ function AccountTransferForm({ getAccountInfo }) {
     }
 
     console.log(data);
+    reset();
+    //  getAccountInfo()
   };
 
   return (

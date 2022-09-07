@@ -23,7 +23,7 @@ const Totals = styled.div`
 
 function AccountsHeader({ firstName, accountTotal, earningsTotal }) {
   return (
-    <Container>
+    <Container data-testid="accounts-header">
       <Greeting firstName={firstName} />
       <Totals>
         <Total type="Account Total" val={accountTotal} />

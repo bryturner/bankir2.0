@@ -4,7 +4,6 @@ import { useContext, useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PATH } from "../../constants/paths";
-import AccountContext from "../../contexts/AccountContext";
 import AuthContext from "../../contexts/AuthContext";
 import RegisterButton from "../Button/RegisterButton";
 import Form from "./Form";
@@ -90,7 +89,6 @@ function RegisterForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [error, setError] = useState("");
   const { getIsLoggedIn } = useContext(AuthContext);
-  const { setAccountInfo } = useContext(AccountContext);
   const navigate = useNavigate();
 
   const inputAction = (e) => {
