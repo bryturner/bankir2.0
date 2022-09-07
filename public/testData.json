@@ -2,39 +2,11 @@
   "firstName": "Bryan",
   "standard": {
     "balance": 2000.0,
-    "transactions": [
-      {
-        "date": "2/2/22",
-        "description": "This is a description",
-        "amount": 30.95,
-        "id": "std2222"
-      },
-      {
-        "date": "1/1/22",
-        "description": "This is a something",
-        "amount": -50.44,
-        "id": "std1122"
-      }
-    ],
     "apy": 4.5,
     "earnings": 900.0
   },
   "premium": {
     "balance": 5000.24,
-    "transactions": [
-      {
-        "date": "2/2/23",
-        "description": "This is a premium",
-        "amount": -30.95,
-        "id": "prm2222"
-      },
-      {
-        "date": "1/1/22",
-        "description": "This is premium something",
-        "amount": 50.44,
-        "id": "prm1122"
-      }
-    ],
     "apy": 8.5,
     "earnings": 500.98
   },
@@ -63,5 +35,34 @@
     }
   ],
   "accountTotal": 23000.0,
-  "earningsTotal": 900.24
+  "earningsTotal": 900.24,
+  "stdTransactions": [
+    {
+      "date": "2/2/22",
+      "description": "This is a description",
+      "amount": 30.95,
+      "id": "std2222"
+    },
+    {
+      "date": "1/1/22",
+      "description": "This is a something",
+      "amount": -50.44,
+      "id": "std1122"
+    }
+  ],
+  "prmTransactions": [
+    {
+      "date": "2/2/23",
+      "description": "This is a premium",
+      "amount": -30.95,
+      "id": "prm2222"
+    },
+    {
+      "date": "1/1/22",
+      "description": "This is premium something",
+      "amount": 1000,
+      "id": "prm1122"
+    }
+  ],
+  "isDefault": true
 }

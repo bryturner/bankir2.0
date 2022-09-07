@@ -49,6 +49,7 @@ function AccountPage() {
   const [premiumTransactions, setPremiumTransactions] = useState([]);
   const [premiumAPY, setPremiumAPY] = useState(0);
   const [messages, setMessages] = useState([]);
+  const [isDefault, setIsDefault] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -85,13 +86,14 @@ function AccountPage() {
         setEarningsTotal(data.earningsTotal);
         setStandardBalance(data.standard.balance);
         setStandardEarnings(data.standard.earnings);
-        setStandardTransactions(data.standard.transactions);
+        setStandardTransactions(data.stdTransactions);
         setStandardAPY(data.standard.apy);
         setPremiumBalance(data.premium.balance);
         setPremiumEarnings(data.premium.earnings);
-        setPremiumTransactions(data.premium.transactions);
+        setPremiumTransactions(data.prmTransactions);
         setPremiumAPY(data.premium.apy);
         setMessages(data.messages);
+        setIsDefault(data.isDefault);
       });
   };
 
@@ -136,8 +138,8 @@ function AccountPage() {
             </LeftContainer>
 
             <RightContainer>
-              <AccountTransferForm />
-              <TransactionForm />
+              <AccountTransferForm getAccountInfo={getAccountInfo} />
+              <TransactionForm getAccountInfo={getAccountInfo} />
               <Messages messages={messages} />
             </RightContainer>
           </Grid>

@@ -30,12 +30,14 @@ const reducer = (state, action) => {
         ...state,
         [action.payload.key]: action.payload.value,
       };
+    case "reset":
+      return initialState;
     default:
       throw new Error(`Unknown action type: ${action.type}`);
   }
 };
 
-function TransactionForm() {
+function TransactionForm({ getAccountInfo }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [amount, setAmount] = useState("");
 
@@ -46,8 +48,34 @@ function TransactionForm() {
     });
   };
 
+  const reset = () => {
+    dispatch({
+      type: "reset",
+    });
+  };
+
   const submitTransaction = async (e) => {
-    await axios.post("http://localhost:5002/account/transaction", {});
+    e.preventDefault();
+
+    const {
+      transactionType,
+      transactionAccount,
+      transactionDesc,
+      transactionDate,
+    } = state;
+
+    const data = {
+      amount: amount,
+      date: transactionDate,
+      type: transactionType,
+      description: transactionDesc,
+      account: transactionAccount,
+    };
+
+    await axios.put("http://localhost:5002/account/transaction", { data });
+
+    reset();
+    getAccountInfo();
   };
 
   const test = (e) => {

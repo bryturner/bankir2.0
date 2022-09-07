@@ -15,7 +15,7 @@ const Flex = styled.div`
   gap: 2rem;
 `;
 
-function AccountTransferForm() {
+function AccountTransferForm({ getAccountInfo }) {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [transferFrom, setTransferFrom] = useState("standard");
@@ -38,14 +38,23 @@ function AccountTransferForm() {
   const test = (e) => {
     e.preventDefault();
 
+    const transferToValue =
+      transferTo === "otherUser" ? transferToOther : transferTo;
+
     const data = {
       amount: amount,
       date: date,
       description: transferDesc,
       type: "transfer",
       transferFrom: transferFrom,
-      transferTo: transferTo === "otherUser" ? transferToOther : transferTo,
+      transferTo: transferToValue,
     };
+
+    if (transferTo === "otherUser") {
+      //  transferOther endpoint
+    } else {
+      // transferSame endpoint
+    }
 
     console.log(data);
   };
