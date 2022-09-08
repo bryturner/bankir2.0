@@ -20,8 +20,12 @@ const ButtonStyled = styled.button`
   }
 `;
 
-function Button({ text, type }) {
-  return <ButtonStyled type={type}>{text}</ButtonStyled>;
+function Button({ text, type, onClick, value }) {
+  return (
+    <ButtonStyled type={type} onClick={onClick} value={value}>
+      {text}
+    </ButtonStyled>
+  );
 }
 
 export default Button;

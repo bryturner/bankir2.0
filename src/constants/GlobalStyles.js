@@ -7,15 +7,26 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box; }
 
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%; 
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 body {
-  font-family: "Rubik", sans-serif;
-  font-size: 1.6rem;
-  line-height: 1.6;
-  color: #0e1b3a; 
-  /* primaryLight background */
-  background-color: ${({ theme }) => theme.color.primaryLight}; 
+	font-family: "Rubik", sans-serif;
+	font-size: 1.6rem;
+	line-height: 1.6;
+	color: #0e1b3a; 
+	background-color: ${({ theme }) => theme.color.primaryLight};
+	flex-grow: 1;
+   display: flex;
+   flex-direction: column;
+  
+  > div {
+	flex-grow: 1;
+	position: relative;
+  }
 }  
 
 input:focus, select:focus {

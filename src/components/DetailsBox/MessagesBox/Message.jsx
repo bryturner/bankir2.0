@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { AccountMessage } from "../../../constants/helpers";
 
 const Container = styled.div`
   padding: 1rem 0;
@@ -21,34 +22,28 @@ const upperCase = (str) => {
 };
 
 function Message({ message }) {
-  const { amount, type, account, transferFrom, transferTo, date, firstName } =
-    message;
-
-  const curDate = new Date(date).toLocaleString("en-US", {
+  const curDate = new Date(message.date).toLocaleString("en-US", {
     month: "short",
     day: "2-digit",
     year: "numeric",
   });
 
-  const welcome = `Congrats ${firstName}, you have opened an account!`;
-
-  const transferMsg = `Transfer $${amount} from ${transferFrom} to ${transferTo}`;
-
-  const withdrawal = `Withdawal $${amount} from ${upperCase(account)} Savings`;
-
-  const deposit = `Deposit $${amount} to ${upperCase(account)} Savings`;
+  const acctMessage = new AccountMessage(message);
+  const { type, transfer, withdrawal, deposit, welcome } = acctMessage;
 
   return (
     <Container>
-      {type === "welcome" ? (
-        <Text>{welcome}</Text>
-      ) : type === "transfer" ? (
-        <Text>{transferMsg}</Text>
-      ) : type === "withdrawal" ? (
-        <Text>{withdrawal}</Text>
-      ) : (
-        <Text>{deposit}</Text>
-      )}
+      <Text>
+        {type === "welcome"
+          ? welcome
+          : type === "withdrawal"
+          ? withdrawal
+          : type === "deposit"
+          ? deposit
+          : type === "transfer"
+          ? transfer
+          : ""}
+      </Text>
       <MsgDate>{curDate}</MsgDate>
     </Container>
   );

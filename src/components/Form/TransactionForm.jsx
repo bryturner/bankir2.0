@@ -38,7 +38,12 @@ const reducer = (state, action) => {
   }
 };
 
-function TransactionForm({ getAccountInfo }) {
+function TransactionForm({
+  fetchAccountData,
+  confirm,
+  setModalData,
+  setShowModal,
+}) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [amount, setAmount] = useState("");
 
@@ -56,31 +61,31 @@ function TransactionForm({ getAccountInfo }) {
     setAmount("");
   };
 
-  const submitTransaction = async (e) => {
-    e.preventDefault();
+  //   const submitTransaction = async (e) => {
+  //     e.preventDefault();
 
-    const updatedAmount = appendAmount(amount);
+  //     const updatedAmount = appendAmount(amount);
 
-    const {
-      transactionType,
-      transactionAccount,
-      transactionDesc,
-      transactionDate,
-    } = state;
+  //     const {
+  //       transactionType,
+  //       transactionAccount,
+  //       transactionDesc,
+  //       transactionDate,
+  //     } = state;
 
-    const data = {
-      amount: updatedAmount,
-      date: transactionDate,
-      type: transactionType,
-      description: transactionDesc,
-      account: transactionAccount,
-    };
+  //     const data = {
+  //       amount: updatedAmount,
+  //       date: transactionDate,
+  //       type: transactionType,
+  //       description: transactionDesc,
+  //       account: transactionAccount,
+  //     };
 
-    await axios.put("http://localhost:5002/account/transaction", { data });
+  //     await axios.put("http://localhost:5002/account/transaction", { data });
 
-    reset();
-    getAccountInfo();
-  };
+  //     reset();
+  //     fetchAccountData();
+  //   };
 
   const test = (e) => {
     e.preventDefault();
@@ -102,8 +107,21 @@ function TransactionForm({ getAccountInfo }) {
       amount: updatedAmount,
     };
 
-    console.log(data);
-    reset();
+    const modData = {
+      type: transactionType,
+      amount: updatedAmount,
+      account: transactionAccount,
+    };
+
+    setModalData(modData);
+    setShowModal(true);
+
+    //  if (confirm) {
+    //    console.log(data);
+    //    reset();
+    //  } else {
+    //    console.log("cancel");
+    //  }
   };
 
   return (

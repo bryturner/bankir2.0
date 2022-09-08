@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Account from "../components/Account/Account";
 import AccountsHeader from "../components/Header/AccountsHeader/AccountsHeader";
@@ -7,6 +7,7 @@ import Messages from "../components/DetailsBox/MessagesBox/Messages";
 import AccountTransferForm from "../components/Form/AccountTransferForm";
 import TransactionForm from "../components/Form/TransactionForm";
 import Header from "../components/Header/Header";
+import Modal from "../components/Modal/Modal";
 
 const Container = styled.div`
   position: relative;
@@ -39,20 +40,36 @@ function AccountPage({ isLoggedIn }) {
   const [firstName, setFirstName] = useState("");
   const [accountTotal, setAccountTotal] = useState(0);
   const [earningsTotal, setEarningsTotal] = useState(0);
+  const [messages, setMessages] = useState([]);
+  const [isDefault, setIsDefault] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  //   Standard account values
   const [standardBalance, setStandardBalance] = useState(0);
   const [standardEarnings, setStandardEarnings] = useState(0);
   const [standardTransactions, setStandardTransactions] = useState([]);
   const [standardAPY, setStandardAPY] = useState(0);
+  //   Premium account values
   const [premiumBalance, setPremiumBalance] = useState(0);
   const [premiumEarnings, setPremiumEarnings] = useState(0);
   const [premiumTransactions, setPremiumTransactions] = useState([]);
   const [premiumAPY, setPremiumAPY] = useState(0);
-  const [messages, setMessages] = useState([]);
-  const [isDefault, setIsDefault] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
+  // Modal State
+  const [modalData, setModalData] = useState({
+    type: "deposit",
+    amount: "20.00",
+    account: "Savings",
+  });
+  const [showModal, setShowModal] = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
-  async function getAccountInfo() {
+  const show = (e) => {
+    setShowModal(true);
+    console.log(e.target.value);
+  };
+
+  async function fetchAccountData() {
     //  setIsLoading(true);
     try {
       const response = await axios.get("http://localhost:5002/account/");
@@ -99,17 +116,26 @@ function AccountPage({ isLoggedIn }) {
   };
 
   useEffect(() => {
-    //  getAccountInfo();
+    //  fetchAccountData();
     fetchAccountInfo();
   }, []);
 
   return (
     <>
+      <Modal
+        modalData={modalData}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        setConfirm={setConfirm}
+      />
       <Header isLoggedIn={isLoggedIn} />
       {isLoading ? (
         <div>Loading</div>
       ) : (
         <Container>
+          <button onClick={show} value="show">
+            show
+          </button>
           <HeaderContainer>
             <AccountsHeader
               firstName={firstName}
@@ -139,8 +165,13 @@ function AccountPage({ isLoggedIn }) {
             </LeftContainer>
 
             <RightContainer>
-              <AccountTransferForm getAccountInfo={getAccountInfo} />
-              <TransactionForm getAccountInfo={getAccountInfo} />
+              <AccountTransferForm fetchAccountData={fetchAccountData} />
+              <TransactionForm
+                fetchAccountData={fetchAccountData}
+                confirm={confirm}
+                setModalData={setModalData}
+                setShowModal={setShowModal}
+              />
               <Messages messages={messages} />
             </RightContainer>
           </Grid>

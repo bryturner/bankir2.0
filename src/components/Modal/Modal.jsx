@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ModalMessage } from "../../constants/helpers";
 import ModalButton from "../Button/ModalButton";
 
 const Container = styled.div`
@@ -6,9 +7,8 @@ const Container = styled.div`
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.4);
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: block;
-  /* display: ${(props) => (props.display === "hidden" ? "block" : "none")}; */
 `;
 
 const Box = styled.div`
@@ -18,32 +18,78 @@ const Box = styled.div`
   align-items: center;
   background-color: white;
   position: absolute;
-  top: 50%;
+  top: 50vh;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 12rem;
-  padding: 3rem;
-
-  > button {
-    display: inline-block;
-    width: 50%;
-  }
+  min-width: 40rem;
+  padding: 5rem;
 `;
 
 const Text = styled.p`
   text-align: center;
 `;
 
-function Modal() {
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  > button {
+  }
+`;
+
+function Modal({ modalData, showModal, setShowModal, setConfirm }) {
+  const cancel = () => {
+    setShowModal(false);
+    setConfirm(false);
+  };
+
+  const confirm = () => {
+    setShowModal(false);
+    setConfirm(true);
+  };
+
+  //   const modalClick = (e) => {
+  //     setConfirm(e.target.value);
+  //     setShowModal(false);
+  //   };
+
+  const handleClick = (e) => {
+    setShowModal(false);
+  };
+
+  const message = new ModalMessage(modalData);
+  const { type, transfer, withdrawal, deposit, deleteAccount, error } = message;
   return (
-    <Container>
-      <Box>
-        <Text>
-          You are transfering $40 from Standard Account to Premium Account
-        </Text>
-        <ModalButton />
-      </Box>
-    </Container>
+    <>
+      {showModal ? (
+        <Container>
+          <Box>
+            <Text>
+              {type === "transfer"
+                ? transfer
+                : type === "withdrawal"
+                ? withdrawal
+                : type === "deposit"
+                ? deposit
+                : type === "delete"
+                ? deleteAccount
+                : error}
+              <span>?</span>
+            </Text>
+            <ButtonsContainer>
+              <ModalButton
+                text="Confirm"
+                onClick={handleClick}
+                value="confirm"
+              />
+              <ModalButton text="Cancel" onClick={handleClick} value="cancel" />
+            </ButtonsContainer>
+          </Box>
+        </Container>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 

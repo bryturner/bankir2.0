@@ -16,7 +16,7 @@ const Flex = styled.div`
   gap: 2rem;
 `;
 
-function AccountTransferForm({ getAccountInfo }) {
+function AccountTransferForm({ fetchAccountData }) {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [transferFrom, setTransferFrom] = useState("standard");
@@ -70,7 +70,7 @@ function AccountTransferForm({ getAccountInfo }) {
 
     console.log(data);
     reset();
-    //  getAccountInfo()
+    //  fetchAccountData()
   };
 
   return (

@@ -11,6 +11,7 @@ function Input({
   max,
   min,
   maxLength,
+  required,
 }) {
   return (
     <input
@@ -26,6 +27,7 @@ function Input({
       min={min}
       maxLength={maxLength}
       defaultValue={defaultValue}
+      required={required}
     />
   );
 }

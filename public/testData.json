@@ -64,5 +64,10 @@
       "id": "prm1122"
     }
   ],
-  "isDefault": true
+  "isDefault": true,
+  "modal": {
+    "type": "deposit",
+    "amount": "20.00",
+    "account": "Savings"
+  }
 }
