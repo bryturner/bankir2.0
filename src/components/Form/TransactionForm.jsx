@@ -61,31 +61,31 @@ function TransactionForm({
     setAmount("");
   };
 
-  //   const submitTransaction = async (e) => {
-  //     e.preventDefault();
+  const submitTransaction = async (e) => {
+    e.preventDefault();
 
-  //     const updatedAmount = appendAmount(amount);
+    const updatedAmount = appendAmount(amount);
 
-  //     const {
-  //       transactionType,
-  //       transactionAccount,
-  //       transactionDesc,
-  //       transactionDate,
-  //     } = state;
+    const {
+      transactionType,
+      transactionAccount,
+      transactionDesc,
+      transactionDate,
+    } = state;
 
-  //     const data = {
-  //       amount: updatedAmount,
-  //       date: transactionDate,
-  //       type: transactionType,
-  //       description: transactionDesc,
-  //       account: transactionAccount,
-  //     };
+    const data = {
+      amount: updatedAmount,
+      date: transactionDate,
+      type: transactionType,
+      description: transactionDesc,
+      account: transactionAccount,
+    };
 
-  //     await axios.put("http://localhost:5002/account/transaction", { data });
+    await axios.put("http://localhost:5002/account/transaction", { data });
 
-  //     reset();
-  //     fetchAccountData();
-  //   };
+    reset();
+    fetchAccountData();
+  };
 
   const test = (e) => {
     e.preventDefault();
@@ -126,6 +126,7 @@ function TransactionForm({
 
   return (
     <TransferForm onSubmit={test} id="transactionForm">
+      {/* <TransferForm onSubmit={submitTransaction} id="transactionForm"> */}
       <DetailsBox header="Record a Transaction">
         <SelectOption
           formName="transactionForm"

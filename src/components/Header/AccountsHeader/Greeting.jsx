@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div``;
@@ -24,4 +25,4 @@ function Greeting({ firstName }) {
   );
 }
 
-export default Greeting;
+export default React.memo(Greeting);

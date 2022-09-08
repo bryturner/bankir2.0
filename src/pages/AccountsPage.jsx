@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Account from "../components/Account/Account";
 import AccountsHeader from "../components/Header/AccountsHeader/AccountsHeader";
@@ -63,11 +63,6 @@ function AccountPage({ isLoggedIn }) {
   });
   const [showModal, setShowModal] = useState(false);
   const [confirm, setConfirm] = useState(false);
-
-  const show = (e) => {
-    setShowModal(true);
-    console.log(e.target.value);
-  };
 
   async function fetchAccountData() {
     //  setIsLoading(true);
@@ -133,9 +128,6 @@ function AccountPage({ isLoggedIn }) {
         <div>Loading</div>
       ) : (
         <Container>
-          <button onClick={show} value="show">
-            show
-          </button>
           <HeaderContainer>
             <AccountsHeader
               firstName={firstName}
@@ -148,7 +140,6 @@ function AccountPage({ isLoggedIn }) {
             <LeftContainer>
               <Account
                 title="Standard Savings"
-                //  acctType="standard"
                 balance={standardBalance}
                 earnings={standardEarnings}
                 apy={standardAPY}
@@ -156,7 +147,6 @@ function AccountPage({ isLoggedIn }) {
               />
               <Account
                 title="Premium Savings"
-                //  acctType="premium"
                 balance={premiumBalance}
                 earnings={premiumEarnings}
                 apy={premiumAPY}

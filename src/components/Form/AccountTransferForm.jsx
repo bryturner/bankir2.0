@@ -10,6 +10,7 @@ import Option from "../SelectOption/Option";
 import DescriptionInput from "../Input/DescriptionInput";
 import OtherUserInput from "../Input/OtherUserInput";
 import { appendAmount } from "../../constants/helpers";
+import axios from "axios";
 
 const Flex = styled.div`
   display: flex;
@@ -45,7 +46,7 @@ function AccountTransferForm({ fetchAccountData }) {
     }
   };
 
-  const test = (e) => {
+  const submitTransfer = async (e) => {
     e.preventDefault();
 
     const transferToValue =
@@ -62,19 +63,21 @@ function AccountTransferForm({ fetchAccountData }) {
       transferTo: transferToValue,
     };
 
-    if (transferTo === "otherUser") {
-      //  transferOther endpoint
-    } else {
-      // transferSame endpoint
-    }
-
     console.log(data);
+    //  if (transferTo === "otherUser") {
+    //    await axios.put("http://localhost:5002/account/transferToOther", {
+    //      data,
+    //    });
+    //  } else {
+    //    await axios.put("http://localhost:5002/account/transferToSame", { data });
+    //  }
+
     reset();
-    //  fetchAccountData()
+    //  fetchAccountData();
   };
 
   return (
-    <TransferForm onSubmit={test} id="transferForm">
+    <TransferForm onSubmit={submitTransfer} id="transferForm">
       <DetailsBox header="Transfer Money">
         <SelectOption
           formName="transferForm"

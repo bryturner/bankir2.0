@@ -8,6 +8,7 @@ const Container = styled.div`
 
 const Summary = styled.summary`
   font-size: 1.8rem;
+  cursor: pointer;
 `;
 
 const ContentContainer = styled.div`

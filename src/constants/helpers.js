@@ -11,7 +11,7 @@ export const appendAmount = (amount) => {
 };
 
 class Message {
-  #types = ["deposit", "withdrawal", "transfer", "delete", "error"];
+  #types = ["deposit", "withdrawal", "transfer", "delete", "error", "welcome"];
   constructor(data) {
     const { type, amount, account, transferTo, transferFrom } = data;
     this.type = type;

@@ -3,7 +3,7 @@ import { ModalMessage } from "../../constants/helpers";
 import ModalButton from "../Button/ModalButton";
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.4);
   width: 100%;
@@ -38,15 +38,15 @@ const ButtonsContainer = styled.div`
 `;
 
 function Modal({ modalData, showModal, setShowModal, setConfirm }) {
-  const cancel = () => {
-    setShowModal(false);
-    setConfirm(false);
-  };
+  //   const cancel = () => {
+  //     setShowModal(false);
+  //     setConfirm(false);
+  //   };
 
-  const confirm = () => {
-    setShowModal(false);
-    setConfirm(true);
-  };
+  //   const confirm = () => {
+  //     setShowModal(false);
+  //     setConfirm(true);
+  //   };
 
   //   const modalClick = (e) => {
   //     setConfirm(e.target.value);

@@ -41,7 +41,11 @@ function Router() {
         {/* <Route
           path={PATH.ACCOUNT}
           element={
-            isLoggedIn ? <AccountPage isLoggedIn={isLoggedIn}/> : <Navigate replace to={PATH.LOGIN} />
+            isLoggedIn ? (
+              <AccountPage isLoggedIn={isLoggedIn} />
+            ) : (
+              <Navigate replace to={PATH.LOGIN} />
+            )
           }
         /> */}
       </Routes>
