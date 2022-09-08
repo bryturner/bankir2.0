@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { AccountMessage } from "../../../constants/helpers";
+import { AccountMessage, firstToUpperCase } from "../../../constants/helpers";
 
 const Container = styled.div`
   padding: 1rem 0;
@@ -17,19 +17,37 @@ const MsgDate = styled.p`
   color: ${({ theme }) => theme.color.primaryMid}; ;
 `;
 
-const upperCase = (str) => {
-  return str && str.charAt(0).toUpperCase() + str.slice(1);
+const createTransferMsg = (amount, transferTo, transferFrom) => {
+  if (transferFrom !== "standard" || transferFrom !== "premium") {
+    return `Transfer`;
+  }
 };
 
-function Message({ message }) {
+function Message({ firstName, message }) {
   const curDate = new Date(message.date).toLocaleString("en-US", {
     month: "short",
     day: "2-digit",
     year: "numeric",
   });
 
-  const acctMessage = new AccountMessage(message);
-  const { type, transfer, withdrawal, deposit, welcome } = acctMessage;
+  const { type, amount, account, transferTo, transferFrom } = message;
+
+  const welcome = `Congrats ${firstName}, you have opened a new account!`;
+
+  //   const transferOther = createTransferMsg(amount, transferTo, transferFrom);
+
+  //   outgoing/incoming transfer message for seperate users
+
+  // -> Transfer $100 from user1 to Standard Savings
+  // -> Transfer $100 from Standard Savings to user1
+
+  const transfer = `Transfer $${amount} from ${transferFrom} to ${transferTo}`;
+
+  const deposit = `Deposit $${amount} to ${firstToUpperCase(account)} Savings`;
+
+  const withdrawal = `Withdrew $${amount} from ${firstToUpperCase(
+    account
+  )} Savings`;
 
   return (
     <Container>

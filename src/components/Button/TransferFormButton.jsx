@@ -1,7 +1,7 @@
 import Button from "./Button";
 
-function TransferFormButton({ text }) {
-  return <Button type="submit" text={text} />;
+function TransferFormButton({ onClick }) {
+  return <Button type="button" text="Submit Transfer" onClick={onClick} />;
 }
 
 export default TransferFormButton;
