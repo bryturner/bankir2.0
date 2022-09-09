@@ -30,7 +30,7 @@ const ButtonContainer = styled.div`
 
 function TransferForm({ fetchAccountData }) {
   const [amount, setAmount] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [transferFrom, setTransferFrom] = useState("standard");
   const [transferTo, setTransferTo] = useState("premium");
   const [transferDesc, setTransferDesc] = useState("");
@@ -91,18 +91,24 @@ function TransferForm({ fetchAccountData }) {
         transferTo: transferToValue,
       };
 
-      console.log(data);
-      //  if (transferTo === "otherUser") {
-      //    await axios.put("http://localhost:5002/account/transferToOther", {
-      //      data,
-      //    });
-      //  } else {
-      //    await axios.put("http://localhost:5002/account/transferToSame", { data });
-      //  }
+      // console.log(data);
 
+      let res;
+      if (transferToValue === "otherUser") {
+        res = await axios.put(
+          "http://localhost:5002/account/transferToOther",
+          data
+        );
+      } else {
+        res = await axios.put(
+          "http://localhost:5002/account/transferToSame",
+          data
+        );
+      }
+      console.log(res.data);
       reset();
       setError("");
-      //  fetchAccountData();
+      fetchAccountData();
     } catch (err) {
       console.error(err);
       setError(err.response.data.errorMessage);
@@ -141,10 +147,7 @@ function TransferForm({ fetchAccountData }) {
             {transferFrom === "standard" ? (
               <>
                 <Option value="premium" title="Premium Account" />
-                <Option
-                  value="otherUser"
-                  title="Another user (Standard Account)"
-                />
+                <Option value="otherUser" title="Another User" />
               </>
             ) : (
               <>

@@ -50,7 +50,9 @@ function Message({ message }) {
   // -> Transfer $100 from user1 to Standard Savings
   // -> Transfer $100 from Standard Savings to user1
 
-  const transfer = `Transfer $${amount} from ${transferFrom} to ${transferTo}`;
+  const transfer = `Transfer $${amount} from ${firstToUpperCase(
+    transferFrom
+  )} to ${firstToUpperCase(transferTo)}`;
 
   const deposit = `Deposit $${amount} to ${firstToUpperCase(account)} Savings`;
 

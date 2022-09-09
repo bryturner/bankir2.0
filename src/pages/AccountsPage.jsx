@@ -110,6 +110,16 @@ function AccountPage({ isLoggedIn }) {
       });
   };
 
+  //   FOR DEV PURPOSES ONLY
+  const resetAccount = async () => {
+    try {
+      await axios.put("http://localhost:5002/account/reset", {});
+      fetchAccountData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     fetchAccountData();
     //  fetchAccountInfo();
@@ -160,6 +170,7 @@ function AccountPage({ isLoggedIn }) {
                 premiumAPY={premiumAPY}
               />
             </RightContainer>
+            <button onClick={resetAccount}>reset</button>
           </Grid>
         </Container>
       )}

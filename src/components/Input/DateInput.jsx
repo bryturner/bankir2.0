@@ -8,8 +8,6 @@ const Container = styled.div`
 
   > input {
     padding: 6px 12px;
-    border: 1px solid ${({ theme }) => theme.color.lightGray};
-    border-radius: 3px;
   }
 `;
 
