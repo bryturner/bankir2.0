@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { AccountMessage, firstToUpperCase } from "../../../constants/helpers";
+import { firstToUpperCase } from "../../../constants/helpers";
 
 const Container = styled.div`
   padding: 1rem 0;
@@ -23,14 +23,23 @@ const createTransferMsg = (amount, transferTo, transferFrom) => {
   }
 };
 
-function Message({ firstName, message }) {
+function Message({ message }) {
   const curDate = new Date(message.date).toLocaleString("en-US", {
     month: "short",
     day: "2-digit",
     year: "numeric",
   });
 
-  const { type, amount, account, transferTo, transferFrom } = message;
+  const {
+    firstName,
+    type,
+    amount,
+    account,
+    transferTo,
+    transferFrom,
+    premium,
+    standard,
+  } = message;
 
   const welcome = `Congrats ${firstName}, you have opened a new account!`;
 
@@ -49,6 +58,8 @@ function Message({ firstName, message }) {
     account
   )} Savings`;
 
+  const interest = `Interest paid: $${standard} in Standard and $${premium} in Premium`;
+
   return (
     <Container>
       <Text>
@@ -60,6 +71,8 @@ function Message({ firstName, message }) {
           ? deposit
           : type === "transfer"
           ? transfer
+          : type === "interest"
+          ? interest
           : ""}
       </Text>
       <MsgDate>{curDate}</MsgDate>

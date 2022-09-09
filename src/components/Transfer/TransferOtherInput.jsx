@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Input from "./Input";
+import Input from "../Input/Input";
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const Label = styled.label`
   }
 `;
 
-function OtherUserInput({ formName, id, value, onChange, placeholder }) {
+function TransferOtherInput({ formName, id, value, onChange, placeholder }) {
   return (
     <Container>
       <Label htmlFor={id}>
@@ -36,4 +36,4 @@ function OtherUserInput({ formName, id, value, onChange, placeholder }) {
   );
 }
 
-export default OtherUserInput;
+export default TransferOtherInput;

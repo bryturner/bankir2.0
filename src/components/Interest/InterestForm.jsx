@@ -1,11 +1,12 @@
-import { useState } from "react";
 import styled from "styled-components";
-import InterestFormButton from "../Button/InterestFormButton";
+import { useState } from "react";
+
+import InterestFormButton from "./InterestFormButton";
 import DetailsBox from "../DetailsBox/DetailsBox";
-import InterestInput from "../Input/InterestInput";
+import InterestInput from "./InterestInput";
+import InterestModal from "./InterestModal";
 import Option from "../SelectOption/Option";
 import SelectOption from "../SelectOption/SelectOption";
-import DetailsBoxForm from "./DetailsBoxForm";
 
 const Container = styled.div`
   align-self: center;
@@ -13,6 +14,10 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
+
+  /* > div {
+    width: 50%;
+  } */
 `;
 
 const Text = styled.p`
@@ -29,6 +34,7 @@ const Wrapper = styled.div`
     color: inherit;
   }
 `;
+
 const Label = styled.label`
   font-size: 1.4rem;
 `;
@@ -55,20 +61,27 @@ function InterestForm({
   const [compounded, setCompounded] = useState(12);
   const [standardEarned, setStandardEarned] = useState("");
   const [premiumEarned, setPremiumEarned] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState({});
+
+  const reset = () => {
+    setYears(1);
+    setCompounded(12);
+  };
 
   const handleConfirmEarnings = () => {
     const calculatedStandard = calculateEarnings(
       years,
       compounded,
-      premiumBalance,
-      premiumAPY
+      standardBalance,
+      standardAPY
     );
 
     const calculatedPremium = calculateEarnings(
       years,
       compounded,
-      standardBalance,
-      standardAPY
+      premiumBalance,
+      premiumAPY
     );
 
     setStandardEarned(calculatedStandard);
@@ -77,22 +90,34 @@ function InterestForm({
     const modData = {
       standardEarned: standardEarned,
       premiumEarned: premiumEarned,
+      years: years,
     };
 
-    console.log(modData);
+    setModalData(modData);
+    setShowModal(true);
+    console.log(modalData);
   };
 
   const submitInterest = (e) => {
     e.preventDefault();
 
     const data = {
-      years: years,
+      standardEarned: standardEarned,
+      premiumEarned: premiumEarned,
     };
 
+    setShowModal(false);
+    reset();
     console.log(data);
   };
   return (
-    <DetailsBoxForm onSubmit={submitInterest} id="interestForm">
+    <form onSubmit={submitInterest} id="interestForm">
+      <InterestModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        modalData={modalData}
+        handleConfirmClick={submitInterest}
+      />
       <DetailsBox header="Earn Interest">
         <Container>
           <Text>Over what period has your interest been earned?</Text>
@@ -110,24 +135,22 @@ function InterestForm({
         </Container>
         <Container>
           <Text>How often was your interest compounded?</Text>
-          <Wrapper>
-            <SelectOption
-              formName="interestForm"
-              id="compoundSelect"
-              defaultValue={compounded}
-              onChange={(e) => {
-                setCompounded(e.target.value);
-              }}
-            >
-              <Option value={12} title="Monthly" />
-              <Option value={4} title="Quarterly" />
-              <Option value={1} title="Yearly" />
-            </SelectOption>
-          </Wrapper>
+          <SelectOption
+            formName="interestForm"
+            id="compoundSelect"
+            defaultValue={compounded}
+            onChange={(e) => {
+              setCompounded(e.target.value);
+            }}
+          >
+            <Option value={12} title="Monthly" />
+            <Option value={4} title="Quarterly" />
+            <Option value={1} title="Yearly" />
+          </SelectOption>
         </Container>
         <InterestFormButton onClick={handleConfirmEarnings} />
       </DetailsBox>
-    </DetailsBoxForm>
+    </form>
   );
 }
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ModalButton from "../Button/ModalButton";
+import ModalButton from "./ModalButton";
 
 const Container = styled.div`
   position: fixed;
@@ -46,13 +46,18 @@ function FormModal({
       {showModal ? (
         <Container>
           <Box>
-            <Text>
-              {confirmText}
-              <span>?</span>
-            </Text>
+            <Text>{confirmText}</Text>
             <ButtonsContainer>
-              <ModalButton text="Confirm" onClick={handleConfirmClick} />
-              <ModalButton text="Cancel" onClick={handleCancelClick} />
+              <ModalButton
+                type="submit"
+                text="Confirm"
+                onClick={handleConfirmClick}
+              />
+              <ModalButton
+                type="button"
+                text="Cancel"
+                onClick={handleCancelClick}
+              />
             </ButtonsContainer>
           </Box>
         </Container>

@@ -12,14 +12,7 @@ const Summary = styled.summary`
 `;
 
 const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
   margin-top: 2rem;
-
-  > button {
-    margin-top: 1rem;
-  }
 `;
 
 function DetailsBox({ children, header }) {

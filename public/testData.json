@@ -32,6 +32,13 @@
       "transferTo": "Standard",
       "transferFrom": "Premium",
       "id": "3"
+    },
+    {
+      "type": "interest",
+      "premium": "405.29",
+      "standard": "200.23",
+      "date": "2022-09-09T00:35:56.570Z",
+      "id": "msg09-09T00:35:56.570"
     }
   ],
   "accountTotal": 23000.0,

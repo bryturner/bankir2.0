@@ -1,12 +1,12 @@
 import { firstToUpperCase } from "../../constants/helpers";
-import FormModal from "./FormModal";
+import FormModal from "../Modal/FormModal";
 
 const getText = (type, amount, account) => {
   if (type === "withdrawal") {
-    return `Withdraw $${amount} from ${firstToUpperCase(account)} Savings`;
+    return `Withdraw $${amount} from ${firstToUpperCase(account)} Savings?`;
   }
   if (type === "deposit") {
-    return `Deposit $${amount} to ${firstToUpperCase(account)} Savings`;
+    return `Deposit $${amount} to ${firstToUpperCase(account)} Savings?`;
   }
   return "ERROR";
 };

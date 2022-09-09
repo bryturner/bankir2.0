@@ -24,7 +24,7 @@ const formatDate = (year) => {
   return new Date(dateRange).toISOString().split("T")[0];
 };
 
-function DateInput({ formName, id, value, onChange }) {
+function DateInput({ formName, id, defaultValue, onChange }) {
   const maxDate = formatDate(1);
   const minDate = formatDate(-1);
 
@@ -37,7 +37,7 @@ function DateInput({ formName, id, value, onChange }) {
         id={id}
         max={maxDate}
         min={minDate}
-        value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
       />
     </Container>

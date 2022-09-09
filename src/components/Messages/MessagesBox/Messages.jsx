@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import DetailsBox from "../DetailsBox";
+import DetailsBox from "../../DetailsBox/DetailsBox";
+
 import Message from "./Message";
 
 const Container = styled.div`

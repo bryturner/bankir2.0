@@ -1,16 +1,16 @@
 import styled from "styled-components";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import TransferFormButton from "../Button/TransferFormButton";
-import DetailsBox from "../DetailsBox/DetailsBox";
+
 import AmountInput from "../Input/AmountInput";
 import DateInput from "../Input/DateInput";
-import SelectOption from "../SelectOption/SelectOption";
-import DetailsBoxForm from "./DetailsBoxForm";
-import Option from "../SelectOption/Option";
 import DescriptionInput from "../Input/DescriptionInput";
-import OtherUserInput from "../Input/OtherUserInput";
-import axios from "axios";
-import TransferFormModal from "../Modal/TransferFormModal";
+import SelectOption from "../SelectOption/SelectOption";
+import DetailsBox from "../DetailsBox/DetailsBox";
+import Option from "../SelectOption/Option";
+import TransferOtherInput from "./TransferOtherInput";
+import TransferFormModal from "./TransferFormModal";
+import TransferFormButton from "./TransferFormButton";
 
 const Flex = styled.div`
   display: flex;
@@ -101,7 +101,7 @@ function TransferForm({ fetchAccountData }) {
   //   }, [submitTransfer]);
 
   return (
-    <DetailsBoxForm onSubmit={submitTransfer} id="transferForm">
+    <form onSubmit={submitTransfer} id="transferForm">
       <TransferFormModal
         modalData={modalData}
         showModal={showModal}
@@ -147,7 +147,7 @@ function TransferForm({ fetchAccountData }) {
         </SelectOption>
 
         {transferTo === "otherUser" ? (
-          <OtherUserInput
+          <TransferOtherInput
             formName="transferForm"
             id="otherUser"
             placeholder="Enter username"
@@ -183,7 +183,7 @@ function TransferForm({ fetchAccountData }) {
 
         <TransferFormButton onClick={handleInitialSubmit} />
       </DetailsBox>
-    </DetailsBoxForm>
+    </form>
   );
 }
 

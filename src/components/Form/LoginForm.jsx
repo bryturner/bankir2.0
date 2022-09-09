@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { PATH } from "../../constants/paths";
 import AuthContext from "../../contexts/AuthContext";
 import LoginButton from "../Button/LoginButton";
+import ErrorMessage from "../Messages/ErrorMessage";
 import Form from "./Form";
 
 const InputContainer = styled.div`
@@ -31,15 +32,6 @@ const ButtonContainer = styled.div`
     display: block;
     margin-bottom: 1rem;
   }
-`;
-
-const ErrorMessage = styled.p`
-  padding-left: 6px;
-  margin-bottom: 4px;
-  font-size: 1.4rem;
-  color: ${({ theme }) => theme.color.error};
-  visibility: ${(props) => (props.isError !== "" ? "visible" : "hidden")};
-  /* visibility: hidden; */
 `;
 
 const TextWrapper = styled.div`
@@ -121,7 +113,7 @@ function LoginForm() {
       </InputContainer>
 
       <ButtonContainer>
-        <ErrorMessage isError={error}>*{error}</ErrorMessage>
+        <ErrorMessage error={error} />
         <LoginButton />
         <TextWrapper>
           <Text>Don't have an account yet?</Text>

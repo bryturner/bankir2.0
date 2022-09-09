@@ -1,5 +1,5 @@
 import { firstToUpperCase } from "../../constants/helpers";
-import FormModal from "./FormModal";
+import FormModal from "../Modal/FormModal";
 
 const formatTransferTo = (transferTo) => {
   if (transferTo !== "premium" || transferTo !== "standard") {
@@ -20,7 +20,7 @@ function TransferFormModal({
 
   const text = `Transfer $${amount} from ${firstToUpperCase(
     transferFrom
-  )} to ${formattedTransferTo}`;
+  )} to ${formattedTransferTo}?`;
 
   return (
     <FormModal

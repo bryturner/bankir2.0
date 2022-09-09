@@ -10,7 +10,7 @@ export const theme = {
     secondary: "#248e38",
     secondaryMid: "",
     lightGray: "#777",
-    error: "#ff9494",
+    error: "#ff2a2a",
   },
   heading: {
     primary: "5.4rem",

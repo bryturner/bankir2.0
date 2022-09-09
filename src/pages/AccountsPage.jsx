@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Account from "../components/Account/Account";
 import AccountsHeader from "../components/Header/AccountsHeader/AccountsHeader";
-import Messages from "../components/DetailsBox/MessagesBox/Messages";
-import TransferForm from "../components/Form/TransferForm";
-import TransactionForm from "../components/Form/TransactionForm";
+
+import TransferForm from "../components/Transfer/TransferForm";
+import TransactionForm from "../components/Transaction/TransactionForm";
 import DeleteModal from "../components/Modal/DeleteModal";
-import InterestForm from "../components/Form/InterestForm";
+import InterestForm from "../components/Interest/InterestForm";
+import Messages from "../components/Messages/MessagesBox/Messages";
 
 const Container = styled.div`
   position: relative;
@@ -69,7 +70,7 @@ function AccountPage({ isLoggedIn }) {
       const response = await axios.get("http://localhost:5002/account/");
       const { data } = response;
 
-      console.log(data);
+      // console.log(data);
       setFirstName(data.firstName);
       setAccountTotal(data.accountTotal);
       setEarningsTotal(data.earningsTotal);
@@ -110,8 +111,8 @@ function AccountPage({ isLoggedIn }) {
   };
 
   useEffect(() => {
-    //  fetchAccountData();
-    fetchAccountInfo();
+    fetchAccountData();
+    //  fetchAccountInfo();
   }, []);
 
   return (
