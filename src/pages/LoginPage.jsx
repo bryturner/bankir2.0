@@ -21,23 +21,20 @@ const Subheading = styled.p`
   margin-bottom: 3.6rem;
 `;
 
-function LoginPage({ isLoggedIn }) {
+function LoginPage() {
   return (
-    <>
-      <Header isLoggedIn={isLoggedIn} />
-      <LandingLayout>
-        <Wrapper>
-          <Heading>
-            Make <span>investing</span> in your <span>future</span> count
-          </Heading>
-          <Subheading>
-            Consistently high interest rates and excellent customer service will
-            keep your mind at ease and make retiring early a breeze.
-          </Subheading>
-        </Wrapper>
-        <LoginForm />
-      </LandingLayout>
-    </>
+    <LandingLayout>
+      <Wrapper>
+        <Heading>
+          Make <span>investing</span> in your <span>future</span> count
+        </Heading>
+        <Subheading>
+          Consistently high interest rates and excellent customer service will
+          keep your mind at ease and make retiring early a breeze.
+        </Subheading>
+      </Wrapper>
+      <LoginForm />
+    </LandingLayout>
   );
 }
 

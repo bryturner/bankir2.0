@@ -7,12 +7,14 @@ import RegisterPage from "../pages/RegisterPage";
 import AuthContext from "../contexts/AuthContext";
 import { PATH } from "../constants/paths";
 import GlobalStyles from "../constants/GlobalStyles";
+import Header from "../components/Header/Header";
 
 function Router() {
   const { isLoggedIn } = useContext(AuthContext);
   return (
     <Theme>
       <GlobalStyles />
+      <Header isLoggedIn={isLoggedIn} />
       <Routes>
         <Route
           path={PATH.REGISTER}
@@ -20,29 +22,22 @@ function Router() {
             isLoggedIn ? (
               <Navigate replace to={PATH.ACCOUNT} />
             ) : (
-              <RegisterPage isLoggedIn={isLoggedIn} />
+              <RegisterPage />
             )
           }
         />
         <Route
           path={PATH.LOGIN}
           element={
-            isLoggedIn ? (
-              <Navigate replace to={PATH.ACCOUNT} />
-            ) : (
-              <LoginPage isLoggedIn={isLoggedIn} />
-            )
+            isLoggedIn ? <Navigate replace to={PATH.ACCOUNT} /> : <LoginPage />
           }
         />
-        <Route
-          path={PATH.ACCOUNT}
-          element={<AccountPage isLoggedIn={isLoggedIn} />}
-        />
+        <Route path={PATH.ACCOUNT} element={<AccountPage />} />
         {/* <Route
           path={PATH.ACCOUNT}
           element={
             isLoggedIn ? (
-              <AccountPage isLoggedIn={isLoggedIn} />
+              <AccountPage  />
             ) : (
               <Navigate replace to={PATH.LOGIN} />
             )

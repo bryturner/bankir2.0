@@ -4,10 +4,10 @@ import styled from "styled-components";
 import Account from "../components/Account/Account";
 import AccountsHeader from "../components/Header/AccountsHeader/AccountsHeader";
 import Messages from "../components/DetailsBox/MessagesBox/Messages";
-import AccountTransferForm from "../components/Form/AccountTransferForm";
+import TransferForm from "../components/Form/TransferForm";
 import TransactionForm from "../components/Form/TransactionForm";
-import Header from "../components/Header/Header";
-import Modal from "../components/Modal/Modal";
+import DeleteModal from "../components/Modal/DeleteModal";
+import InterestForm from "../components/Form/InterestForm";
 
 const Container = styled.div`
   position: relative;
@@ -36,6 +36,10 @@ const RightContainer = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.utilGap};
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+`;
+
 function AccountPage({ isLoggedIn }) {
   const [firstName, setFirstName] = useState("");
   const [accountTotal, setAccountTotal] = useState(0);
@@ -56,14 +60,9 @@ function AccountPage({ isLoggedIn }) {
   const [premiumAPY, setPremiumAPY] = useState(0);
 
   // Modal State
-  const [modalData, setModalData] = useState({
-    type: "deposit",
-    amount: "20.00",
-    account: "Savings",
-  });
   const [showModal, setShowModal] = useState(false);
-  const [confirm, setConfirm] = useState(false);
 
+  //   const fetchAccountData = useCallback(async () => {
   async function fetchAccountData() {
     //  setIsLoading(true);
     try {
@@ -117,17 +116,11 @@ function AccountPage({ isLoggedIn }) {
 
   return (
     <>
-      <Modal
-        modalData={modalData}
-        showModal={showModal}
-        setShowModal={setShowModal}
-        setConfirm={setConfirm}
-      />
-      <Header isLoggedIn={isLoggedIn} />
       {isLoading ? (
         <div>Loading</div>
       ) : (
         <Container>
+          <DeleteModal showModal={showModal} setShowModal={setShowModal} />
           <HeaderContainer>
             <AccountsHeader
               firstName={firstName}
@@ -155,14 +148,16 @@ function AccountPage({ isLoggedIn }) {
             </LeftContainer>
 
             <RightContainer>
-              <AccountTransferForm fetchAccountData={fetchAccountData} />
-              <TransactionForm
-                fetchAccountData={fetchAccountData}
-                confirm={confirm}
-                setModalData={setModalData}
-                setShowModal={setShowModal}
-              />
               <Messages messages={messages} />
+              <TransferForm fetchAccountData={fetchAccountData} />
+              <TransactionForm fetchAccountData={fetchAccountData} />
+              <InterestForm
+                fetchAccountData={fetchAccountData}
+                standardBalance={standardBalance}
+                standardAPY={standardAPY}
+                premiumBalance={premiumBalance}
+                premiumAPY={premiumAPY}
+              />
             </RightContainer>
           </Grid>
         </Container>
