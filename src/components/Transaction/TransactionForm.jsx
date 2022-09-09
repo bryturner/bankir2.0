@@ -164,6 +164,7 @@ function TransactionForm({ fetchAccountData }) {
               id="transactionDate"
               defaultValue={state.transactionDate}
               onChange={inputAction}
+              max={new Date().toISOString().slice(0, 10)}
             />
             <AmountInput
               formName="transactionForm"

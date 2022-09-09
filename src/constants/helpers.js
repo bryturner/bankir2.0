@@ -17,5 +17,5 @@ export const firstToUpperCase = (str) => {
 export const formatDate = (year) => {
   const dtToday = new Date();
   const dateRange = dtToday.setFullYear(dtToday.getFullYear() + year);
-  return new Date(dateRange).toISOString().split("T")[0];
+  return new Date(dateRange).toISOString().slice(0, 10);
 };

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { formatDate } from "../../constants/helpers";
 import Input from "./Input";
 
 const Container = styled.div`
@@ -10,7 +11,6 @@ const Container = styled.div`
     padding: 6px 12px;
     border: 1px solid ${({ theme }) => theme.color.lightGray};
     border-radius: 3px;
-    color: ${({ theme }) => theme.color.lightGray};
   }
 `;
 
@@ -18,14 +18,7 @@ const Label = styled.label`
   font-size: 1.4rem;
 `;
 
-const formatDate = (year) => {
-  const dtToday = new Date();
-  const dateRange = dtToday.setFullYear(dtToday.getFullYear() + year);
-  return new Date(dateRange).toISOString().split("T")[0];
-};
-
-function DateInput({ formName, id, defaultValue, onChange }) {
-  const maxDate = formatDate(1);
+function DateInput({ formName, id, defaultValue, onChange, max }) {
   const minDate = formatDate(-1);
 
   return (
@@ -35,7 +28,7 @@ function DateInput({ formName, id, defaultValue, onChange }) {
         type="date"
         name={formName}
         id={id}
-        max={maxDate}
+        max={max}
         min={minDate}
         defaultValue={defaultValue}
         onChange={onChange}
