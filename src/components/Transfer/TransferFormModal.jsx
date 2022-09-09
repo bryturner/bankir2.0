@@ -8,12 +8,7 @@ const formatTransferTo = (transferTo) => {
   return firstToUpperCase(transferTo);
 };
 
-function TransferFormModal({
-  showModal,
-  modalData,
-  setShowModal,
-  handleConfirmClick,
-}) {
+function TransferFormModal({ showModal, modalData, setShowModal }) {
   const { amount, transferFrom, transferTo } = modalData;
 
   const formattedTransferTo = formatTransferTo(transferTo);
@@ -26,7 +21,6 @@ function TransferFormModal({
     <FormModal
       showModal={showModal}
       setShowModal={setShowModal}
-      handleConfirmClick={handleConfirmClick}
       confirmText={text}
     />
   );

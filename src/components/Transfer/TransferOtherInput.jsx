@@ -6,10 +6,6 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.p`
-  font-size: 1.4rem;
-`;
-
 const Label = styled.label`
   > input {
     width: 100%;

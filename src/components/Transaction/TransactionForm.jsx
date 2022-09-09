@@ -24,6 +24,7 @@ const Flex = styled.div`
 
 const ButtonContainer = styled.div`
   margin-top: 6px;
+
   > button {
     width: 100%;
   }
@@ -112,7 +113,6 @@ function TransactionForm({ fetchAccountData }) {
     } catch (err) {
       console.error(err);
       setError(err.response.data.errorMessage);
-      console.log(err.response.data.errorMessage);
     } finally {
       setShowModal(false);
     }
@@ -164,7 +164,6 @@ function TransactionForm({ fetchAccountData }) {
               id="transactionDate"
               defaultValue={state.transactionDate}
               onChange={inputAction}
-              max={new Date().toISOString().slice(0, 10)}
             />
             <AmountInput
               formName="transactionForm"

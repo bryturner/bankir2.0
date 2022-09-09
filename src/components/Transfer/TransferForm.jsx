@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import AmountInput from "../Input/AmountInput";
 import DateInput from "../Input/DateInput";
@@ -11,10 +11,21 @@ import Option from "../SelectOption/Option";
 import TransferOtherInput from "./TransferOtherInput";
 import TransferFormModal from "./TransferFormModal";
 import TransferFormButton from "./TransferFormButton";
+import StyledFormInputs from "../StyledComponents/StyledFormInputs";
+import ErrorMessage from "../Messages/ErrorMessage";
+import { appendAmount } from "../../constants/helpers";
 
 const Flex = styled.div`
   display: flex;
   gap: 2rem;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 6px;
+
+  > button {
+    width: 100%;
+  }
 `;
 
 function TransferForm({ fetchAccountData }) {
@@ -24,17 +35,13 @@ function TransferForm({ fetchAccountData }) {
   const [transferTo, setTransferTo] = useState("premium");
   const [transferDesc, setTransferDesc] = useState("");
   const [transferToOther, setTransferToOther] = useState("");
-
+  const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState({
-    type: "deposit",
-    amount: "20.00",
-    account: "Savings",
-  });
+  const [modalData, setModalData] = useState({});
 
   const reset = () => {
     setAmount("");
-    setDate("");
+    setDate(new Date().toISOString().slice(0, 10));
     setTransferFrom("standard");
     setTransferTo("premium");
     setTransferDesc("");
@@ -57,8 +64,9 @@ function TransferForm({ fetchAccountData }) {
     const transferToValue =
       transferTo === "otherUser" ? transferToOther : transferTo;
 
+    const updatedAmount = appendAmount(amount);
     const modData = {
-      amount: parseFloat(amount).toFixed(2),
+      amount: updatedAmount,
       transferFrom: transferFrom,
       transferTo: transferToValue,
     };
@@ -70,35 +78,38 @@ function TransferForm({ fetchAccountData }) {
   const submitTransfer = async (e) => {
     e.preventDefault();
 
-    const transferToValue =
-      transferTo === "otherUser" ? transferToOther : transferTo;
+    try {
+      const transferToValue =
+        transferTo === "otherUser" ? transferToOther : transferTo;
 
-    const data = {
-      amount: parseFloat(amount).toFixed(2),
-      date: date,
-      description: transferDesc,
-      type: "transfer",
-      transferFrom: transferFrom,
-      transferTo: transferToValue,
-    };
+      const data = {
+        amount: amount,
+        date: date,
+        description: transferDesc,
+        type: "transfer",
+        transferFrom: transferFrom,
+        transferTo: transferToValue,
+      };
 
-    console.log(data);
-    //  if (transferTo === "otherUser") {
-    //    await axios.put("http://localhost:5002/account/transferToOther", {
-    //      data,
-    //    });
-    //  } else {
-    //    await axios.put("http://localhost:5002/account/transferToSame", { data });
-    //  }
+      console.log(data);
+      //  if (transferTo === "otherUser") {
+      //    await axios.put("http://localhost:5002/account/transferToOther", {
+      //      data,
+      //    });
+      //  } else {
+      //    await axios.put("http://localhost:5002/account/transferToSame", { data });
+      //  }
 
-    reset();
-    setShowModal(false);
-    //  fetchAccountData();
+      reset();
+      setError("");
+      //  fetchAccountData();
+    } catch (err) {
+      console.error(err);
+      setError(err.response.data.errorMessage);
+    } finally {
+      setShowModal(false);
+    }
   };
-
-  //   useEffect(() => {
-  //     fetchAccountData();
-  //   }, [submitTransfer]);
 
   return (
     <form onSubmit={submitTransfer} id="transferForm">
@@ -106,82 +117,86 @@ function TransferForm({ fetchAccountData }) {
         modalData={modalData}
         showModal={showModal}
         setShowModal={setShowModal}
-        handleConfirmClick={submitTransfer}
       />
       <DetailsBox header="Transfer Money">
-        <SelectOption
-          formName="transferForm"
-          id="transferFrom"
-          labelText="Transfer from:"
-          defaultValue={transferFrom}
-          onChange={(e) => updateTransferValues(e.target.value)}
-        >
-          <Option value="standard" title="Standard Account" />
-          <Option value="premium" title="Premium Account" />
-        </SelectOption>
+        <StyledFormInputs>
+          <SelectOption
+            formName="transferForm"
+            id="transferFrom"
+            labelText="Transfer from:"
+            defaultValue={transferFrom}
+            onChange={(e) => updateTransferValues(e.target.value)}
+          >
+            <Option value="standard" title="Standard Account" />
+            <Option value="premium" title="Premium Account" />
+          </SelectOption>
 
-        <SelectOption
-          formName="transferForm"
-          id="transferTo"
-          labelText="Transfer to:"
-          defaultValue={transferTo}
-          onChange={(e) => setTransferTo(e.target.value)}
-        >
-          {transferFrom === "standard" ? (
-            <>
-              <Option value="premium" title="Premium Account" />
-              <Option
-                value="otherUser"
-                title="Another user (Standard Account)"
-              />
-            </>
+          <SelectOption
+            formName="transferForm"
+            id="transferTo"
+            labelText="Transfer to:"
+            defaultValue={transferTo}
+            onChange={(e) => setTransferTo(e.target.value)}
+          >
+            {transferFrom === "standard" ? (
+              <>
+                <Option value="premium" title="Premium Account" />
+                <Option
+                  value="otherUser"
+                  title="Another user (Standard Account)"
+                />
+              </>
+            ) : (
+              <>
+                <Option value="standard" title="Standard Account" />
+                <Option
+                  value="otherUser"
+                  title="Another user (Standard Account)"
+                />
+              </>
+            )}
+          </SelectOption>
+
+          {transferTo === "otherUser" ? (
+            <TransferOtherInput
+              formName="transferForm"
+              id="otherUser"
+              placeholder="Enter username"
+              value={transferToOther}
+              onChange={(e) => setTransferToOther(e.target.value)}
+            />
           ) : (
-            <>
-              <Option value="standard" title="Standard Account" />
-              <Option
-                value="otherUser"
-                title="Another user (Standard Account)"
-              />
-            </>
+            <></>
           )}
-        </SelectOption>
 
-        {transferTo === "otherUser" ? (
-          <TransferOtherInput
+          <DescriptionInput
             formName="transferForm"
-            id="otherUser"
-            placeholder="Enter username"
-            value={transferToOther}
-            onChange={(e) => setTransferToOther(e.target.value)}
+            id="transferDesc"
+            placeholder="ex. monthly savings"
+            value={transferDesc}
+            onChange={(e) => setTransferDesc(e.target.value)}
           />
-        ) : (
-          <></>
-        )}
 
-        <DescriptionInput
-          formName="transferForm"
-          id="transferDesc"
-          placeholder="ex. monthly savings"
-          value={transferDesc}
-          onChange={(e) => setTransferDesc(e.target.value)}
-        />
+          <Flex>
+            <DateInput
+              formName="transferForm"
+              id="transferDate"
+              defaultValue={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+            <AmountInput
+              formName="transferForm"
+              id="transferAmount"
+              value={amount}
+              setAmount={setAmount}
+            />
+          </Flex>
+        </StyledFormInputs>
 
-        <Flex>
-          <DateInput
-            formName="transferForm"
-            id="transferDate"
-            defaultValue={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-          <AmountInput
-            formName="transferForm"
-            id="transferAmount"
-            value={amount}
-            setAmount={setAmount}
-          />
-        </Flex>
-
-        <TransferFormButton onClick={handleInitialSubmit} />
+        <ButtonContainer>
+          <ErrorMessage error={error} />
+          <TransferFormButton onClick={handleInitialSubmit} />
+        </ButtonContainer>
       </DetailsBox>
     </form>
   );

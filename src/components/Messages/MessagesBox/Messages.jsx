@@ -6,6 +6,12 @@ import Message from "./Message";
 const Container = styled.div`
   margin-top: -1rem;
   border-top: 2px solid black;
+  max-height: 38rem;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 // transfer -> type, amount, date, from acct, to acct

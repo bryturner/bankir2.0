@@ -13,9 +13,3 @@ export const appendAmount = (amount) => {
 export const firstToUpperCase = (str) => {
   return str && str.charAt(0).toUpperCase() + str.slice(1);
 };
-
-export const formatDate = (year) => {
-  const dtToday = new Date();
-  const dateRange = dtToday.setFullYear(dtToday.getFullYear() + year);
-  return new Date(dateRange).toISOString().slice(0, 10);
-};
