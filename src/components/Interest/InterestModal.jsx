@@ -1,21 +1,13 @@
 import FormModal from "../Modal/FormModal";
+import InterestText from "./InterestText";
 
-function InterestModal({
-  showModal,
-  modalData,
-  setShowModal,
-  handleConfirmClick,
-}) {
-  const { years, standardEarned, premiumEarned } = modalData;
-
-  const text = `In a ${years} year period you will have earned $${standardEarned} in your Standard account and $${premiumEarned} in your Premium account. Would you like to add these earnings to your accounts?`;
-
+function InterestModal({ showModal, modalData, setShowModal }) {
   return (
     <FormModal
       showModal={showModal}
       setShowModal={setShowModal}
-      handleConfirmClick={handleConfirmClick}
-      confirmText={text}
+      confirmText={<InterestText modalData={modalData} />}
+      confirmButtonText="Add to Accounts"
     />
   );
 }

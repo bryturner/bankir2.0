@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { useState } from "react";
+import axios from "axios";
 
+import InterestInput from "./InterestInput";
 import InterestFormButton from "./InterestFormButton";
 import DetailsBox from "../DetailsBox/DetailsBox";
-import InterestInput from "./InterestInput";
 import InterestModal from "./InterestModal";
 import Option from "../SelectOption/Option";
 import SelectOption from "../SelectOption/SelectOption";
+import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 
 const Container = styled.div`
   align-self: center;
@@ -14,15 +16,9 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
-
-  /* > div {
-    width: 50%;
-  } */
 `;
 
-const Text = styled.p`
-  font-size: 1.4rem;
-`;
+const Text = styled.p``;
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,13 +26,18 @@ const Wrapper = styled.div`
   align-items: center;
 
   > input {
-    font-size: 1.4rem;
     color: inherit;
   }
 `;
 
-const Label = styled.label`
-  font-size: 1.4rem;
+const Label = styled.label``;
+
+const ButtonWrapper = styled.div`
+  margin-top: 2.8rem;
+
+  > button {
+    width: 100%;
+  }
 `;
 
 const calculateEarnings = (years, compounded, balance, apy) => {
@@ -62,11 +63,12 @@ function InterestForm({
   const [standardEarned, setStandardEarned] = useState("");
   const [premiumEarned, setPremiumEarned] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState({});
+  const [modalData, setModalData] = useState({ years, compounded });
 
   const reset = () => {
     setYears(1);
     setCompounded(12);
+    setModalData({ years, compounded });
   };
 
   const handleConfirmEarnings = () => {
@@ -88,27 +90,36 @@ function InterestForm({
     setPremiumEarned(calculatedPremium);
 
     const modData = {
-      standardEarned: standardEarned,
-      premiumEarned: premiumEarned,
-      years: years,
+      years,
+      compounded,
+      standardEarned,
+      premiumEarned,
     };
 
     setModalData(modData);
     setShowModal(true);
-    console.log(modalData);
+    //  console.log(modalData);
   };
 
-  const submitInterest = (e) => {
+  const submitInterest = async (e) => {
     e.preventDefault();
 
-    const data = {
-      standardEarned: standardEarned,
-      premiumEarned: premiumEarned,
-    };
+    try {
+      const data = {
+        standardEarned,
+        premiumEarned,
+      };
 
-    setShowModal(false);
-    reset();
-    console.log(data);
+      await axios.put("http://localhost:5002/account/interest", data);
+
+      reset();
+      fetchAccountData();
+      // console.log(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setShowModal(false);
+    }
   };
   return (
     <form onSubmit={submitInterest} id="interestForm">
@@ -116,39 +127,45 @@ function InterestForm({
         showModal={showModal}
         setShowModal={setShowModal}
         modalData={modalData}
-        handleConfirmClick={submitInterest}
       />
+
       <DetailsBox header="Earn Interest">
-        <Container>
-          <Text>Over what period has your interest been earned?</Text>
-          <Wrapper>
-            <InterestInput
+        <StyledFormInputs>
+          <Container>
+            <p>Over what period has your interest been earned?</p>
+            <Wrapper>
+              <InterestInput
+                formName="interestForm"
+                id="interestInput"
+                value={years}
+                onChange={(e) => {
+                  setYears(e.target.value);
+                }}
+              />
+              <label htmlFor="interestInput">year period</label>
+            </Wrapper>
+          </Container>
+
+          <Container>
+            <p>How often was your interest compounded?</p>
+            <SelectOption
               formName="interestForm"
-              id="interestInput"
-              value={years}
+              id="compoundSelect"
+              defaultValue={compounded}
               onChange={(e) => {
-                setYears(e.target.value);
+                setCompounded(e.target.value);
               }}
-            />
-            <Label htmlFor="interestInput">year period</Label>
-          </Wrapper>
-        </Container>
-        <Container>
-          <Text>How often was your interest compounded?</Text>
-          <SelectOption
-            formName="interestForm"
-            id="compoundSelect"
-            defaultValue={compounded}
-            onChange={(e) => {
-              setCompounded(e.target.value);
-            }}
-          >
-            <Option value={12} title="Monthly" />
-            <Option value={4} title="Quarterly" />
-            <Option value={1} title="Yearly" />
-          </SelectOption>
-        </Container>
-        <InterestFormButton onClick={handleConfirmEarnings} />
+            >
+              <Option value={12} title="Monthly" />
+              <Option value={4} title="Quarterly" />
+              <Option value={1} title="Yearly" />
+            </SelectOption>
+          </Container>
+        </StyledFormInputs>
+
+        <ButtonWrapper>
+          <InterestFormButton onClick={handleConfirmEarnings} />
+        </ButtonWrapper>
       </DetailsBox>
     </form>
   );
