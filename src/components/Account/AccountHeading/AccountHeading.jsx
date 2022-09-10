@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Total from "../../Total/Total";
+
+import TotalCurrency from "../../Total/TotalCurrency";
 import Greeting from "./Greeting";
 
 const Container = styled.div`
@@ -26,8 +27,8 @@ function AccountsHeader({ firstName, accountTotal, earningsTotal }) {
     <Container data-testid="accounts-header">
       <Greeting firstName={firstName} />
       <Totals>
-        <Total type="Account Total" val={accountTotal} />
-        <Total type="Earnings Total" val={earningsTotal} />
+        <TotalCurrency text="Account Total" amount={accountTotal} />
+        <TotalCurrency text="Earnings Total" amount={earningsTotal} />
       </Totals>
     </Container>
   );

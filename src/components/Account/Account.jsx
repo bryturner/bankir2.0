@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Total from "../Total/Total";
+
 import TotalAPY from "../Total/TotalAPY";
 import TotalCurrency from "../Total/TotalCurrency";
 import Transaction from "./Transaction";

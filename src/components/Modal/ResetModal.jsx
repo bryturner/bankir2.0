@@ -1,8 +1,8 @@
 import FormModal from "./FormModal";
 
-function DeleteModal({ showModal, setShowModal, handleConfirmClick }) {
+function ResetModal({ showModal, setShowModal, handleConfirmClick }) {
   const text =
-    "Deleting your account will delete your information from the database. Are you sure you would like to do this?";
+    "Resetting your account will reset all the values. Are you sure you would like to do this?";
 
   return (
     <FormModal
@@ -15,4 +15,4 @@ function DeleteModal({ showModal, setShowModal, handleConfirmClick }) {
   );
 }
 
-export default DeleteModal;
+export default ResetModal;

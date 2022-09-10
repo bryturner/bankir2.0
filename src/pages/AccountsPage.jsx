@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Account from "../components/Account/Account";
-import AccountsHeader from "../components/Header/AccountsHeader/AccountsHeader";
 
+import Account from "../components/Account/Account";
+import AccountHeading from "../components/Account/AccountHeading/AccountHeading";
 import TransferForm from "../components/Transfer/TransferForm";
 import TransactionForm from "../components/Transaction/TransactionForm";
 import DeleteModal from "../components/Modal/DeleteModal";
 import InterestForm from "../components/Interest/InterestForm";
 import Messages from "../components/Messages/MessagesBox/Messages";
+import ResetButton from "../components/Button/ResetButton";
+import DeleteButton from "../components/Button/DeleteButton";
 
 const Container = styled.div`
   padding: 0 1.4rem;
@@ -39,6 +41,20 @@ const RightContainer = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
+  align-items: center;
+
+  > div > button {
+    width: fit-content;
+    background-image: none;
+    color: ${({ theme }) => theme.color.secondaryDark};
+    padding: 0;
+
+    &:hover {
+      background-image: none;
+      text-decoration: underline;
+      color: ${({ theme }) => theme.color.secondary};
+    }
+  }
 `;
 
 function AccountPage({ isLoggedIn }) {
@@ -110,16 +126,6 @@ function AccountPage({ isLoggedIn }) {
       });
   };
 
-  //   FOR DEV PURPOSES ONLY
-  const resetAccount = async () => {
-    try {
-      await axios.put("http://localhost:5002/account/reset", {});
-      fetchAccountData();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
     fetchAccountData();
     //  fetchAccountInfo();
@@ -131,9 +137,8 @@ function AccountPage({ isLoggedIn }) {
         <div>Loading</div>
       ) : (
         <Container>
-          <DeleteModal showModal={showModal} setShowModal={setShowModal} />
           <HeaderContainer>
-            <AccountsHeader
+            <AccountHeading
               firstName={firstName}
               accountTotal={accountTotal}
               earningsTotal={earningsTotal}
@@ -160,8 +165,11 @@ function AccountPage({ isLoggedIn }) {
 
             <RightContainer>
               <Messages messages={messages} />
+
               <TransferForm fetchAccountData={fetchAccountData} />
+
               <TransactionForm fetchAccountData={fetchAccountData} />
+
               <InterestForm
                 fetchAccountData={fetchAccountData}
                 standardBalance={standardBalance}
@@ -169,8 +177,15 @@ function AccountPage({ isLoggedIn }) {
                 premiumBalance={premiumBalance}
                 premiumAPY={premiumAPY}
               />
+
+              <ButtonContainer>
+                <ResetButton
+                  fetchAccountData={fetchAccountData}
+                  firstName={firstName}
+                />
+                <DeleteButton />
+              </ButtonContainer>
             </RightContainer>
-            <button onClick={resetAccount}>reset</button>
           </Grid>
         </Container>
       )}

@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-
+// "#7cbb88" "#bdddc3" "#e9f4eb"
 export const theme = {
   color: {
     primary: "#172d61",
@@ -8,7 +8,9 @@ export const theme = {
     primaryLight: "#e8eaef",
     primaryLightest: "#eff0f4",
     secondary: "#248e38",
-    secondaryMid: "",
+    secondaryMid: "#7cbb88",
+    secondaryLight: "#bdddc3",
+    secondaryDark: "#196327",
     lightGray: "#777",
     error: "#ff2a2a",
   },

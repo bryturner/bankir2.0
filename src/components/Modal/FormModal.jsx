@@ -57,6 +57,7 @@ function FormModal({
   setShowModal,
   confirmText,
   confirmButtonText,
+  handleConfirmClick,
 }) {
   const handleCancelClick = () => {
     setShowModal(false);
@@ -69,7 +70,11 @@ function FormModal({
           <Box>
             <Text>{confirmText}</Text>
             <ButtonsContainer>
-              <ModalButton type="submit" text={confirmButtonText} />
+              <ModalButton
+                type="submit"
+                text={confirmButtonText}
+                onClick={handleConfirmClick}
+              />
               <ModalButton
                 type="button"
                 text="Cancel"
