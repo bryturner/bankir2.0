@@ -105,7 +105,7 @@ function TransactionForm({ fetchAccountData }) {
         description: transactionDesc,
       };
 
-      await axios.put("http://localhost:5002/account/transaction", data);
+      // await axios.put("http://localhost:5002/account/transaction", data);
 
       reset();
       setError("");

@@ -11,14 +11,11 @@ import SelectOption from "../SelectOption/SelectOption";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 
 const Container = styled.div`
-  align-self: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.8rem;
 `;
-
-const Text = styled.p``;
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,10 +24,9 @@ const Wrapper = styled.div`
 
   > input {
     color: inherit;
+    text-align: center;
   }
 `;
-
-const Label = styled.label``;
 
 const ButtonWrapper = styled.div`
   margin-top: 2.8rem;
@@ -110,7 +106,7 @@ function InterestForm({
         premiumEarned,
       };
 
-      await axios.put("http://localhost:5002/account/interest", data);
+      // await axios.put("http://localhost:5002/account/interest", data);
 
       reset();
       fetchAccountData();
@@ -132,7 +128,7 @@ function InterestForm({
       <DetailsBox header="Earn Interest">
         <StyledFormInputs>
           <Container>
-            <p>Over what period has your interest been earned?</p>
+            <p>Over what period will you earn interest?</p>
             <Wrapper>
               <InterestInput
                 formName="interestForm"
@@ -147,7 +143,7 @@ function InterestForm({
           </Container>
 
           <Container>
-            <p>How often was your interest compounded?</p>
+            <p>How often will it be compounded?</p>
             <SelectOption
               formName="interestForm"
               id="compoundSelect"

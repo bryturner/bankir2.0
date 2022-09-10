@@ -6,7 +6,6 @@ import Account from "../components/Account/Account";
 import AccountHeading from "../components/Account/AccountHeading/AccountHeading";
 import TransferForm from "../components/Transfer/TransferForm";
 import TransactionForm from "../components/Transaction/TransactionForm";
-import DeleteModal from "../components/Modal/DeleteModal";
 import InterestForm from "../components/Interest/InterestForm";
 import Messages from "../components/Messages/MessagesBox/Messages";
 import ResetButton from "../components/Button/ResetButton";
@@ -40,24 +39,34 @@ const RightContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
+  background-color: #fff;
+  padding: 1.6rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
+  gap: 3rem;
   align-items: center;
+  justify-content: center;
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
 
   > div > button {
     width: fit-content;
     background-image: none;
-    color: ${({ theme }) => theme.color.secondaryDark};
+    color: ${({ theme }) => theme.color.primaryMid};
     padding: 0;
 
     &:hover {
       background-image: none;
       text-decoration: underline;
-      color: ${({ theme }) => theme.color.secondary};
+      color: ${({ theme }) => theme.color.primary};
     }
   }
 `;
 
-function AccountPage({ isLoggedIn }) {
+function AccountPage() {
   const [firstName, setFirstName] = useState("");
   const [accountTotal, setAccountTotal] = useState(0);
   const [earningsTotal, setEarningsTotal] = useState(0);
@@ -76,37 +85,35 @@ function AccountPage({ isLoggedIn }) {
   const [premiumTransactions, setPremiumTransactions] = useState([]);
   const [premiumAPY, setPremiumAPY] = useState(0);
 
-  // Modal State
-  const [showModal, setShowModal] = useState(false);
-
   //   const fetchAccountData = useCallback(async () => {
-  async function fetchAccountData() {
-    //  setIsLoading(true);
-    try {
-      const response = await axios.get("http://localhost:5002/account/");
-      const { data } = response;
+  //   const fetchAccountData =() => {
+  //     //  setIsLoading(true);
+  //     try {
+  //       const response = await axios.get("http://localhost:5002/account/");
+  //       const { data } = response;
 
-      // console.log(data);
-      setFirstName(data.firstName);
-      setAccountTotal(data.accountTotal);
-      setEarningsTotal(data.earningsTotal);
-      setStandardBalance(data.standard.balance);
-      setStandardEarnings(data.standard.earnings);
-      setStandardTransactions(data.stdTransactions);
-      setStandardAPY(data.standard.apy);
-      setPremiumBalance(data.premium.balance);
-      setPremiumEarnings(data.premium.earnings);
-      setPremiumTransactions(data.prmTransactions);
-      setPremiumAPY(data.premium.apy);
-      setMessages(data.messages);
-      setIsDefault(data.isDefault);
-      //   setIsLoading(false);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  //       // console.log(data);
+  //       setFirstName(data.firstName);
+  //       setAccountTotal(data.accountTotal);
+  //       setEarningsTotal(data.earningsTotal);
+  //       setStandardBalance(data.standard.balance);
+  //       setStandardEarnings(data.standard.earnings);
+  //       setStandardTransactions(data.stdTransactions);
+  //       setStandardAPY(data.standard.apy);
+  //       setPremiumBalance(data.premium.balance);
+  //       setPremiumEarnings(data.premium.earnings);
+  //       setPremiumTransactions(data.prmTransactions);
+  //       setPremiumAPY(data.premium.apy);
+  //       setMessages(data.messages);
+  //       setIsDefault(data.isDefault);
+  //       //   setIsLoading(false);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   }
 
-  const fetchAccountInfo = () => {
+  //   Mock
+  const fetchAccountData = () => {
     fetch("testData.json")
       .then((response) => response.json())
       .then((data) => {
@@ -128,7 +135,6 @@ function AccountPage({ isLoggedIn }) {
 
   useEffect(() => {
     fetchAccountData();
-    //  fetchAccountInfo();
   }, []);
 
   return (
@@ -183,7 +189,7 @@ function AccountPage({ isLoggedIn }) {
                   fetchAccountData={fetchAccountData}
                   firstName={firstName}
                 />
-                <DeleteButton />
+                {isDefault ? <></> : <DeleteButton />}
               </ButtonContainer>
             </RightContainer>
           </Grid>

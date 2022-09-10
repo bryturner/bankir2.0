@@ -19,8 +19,24 @@ const Nav = styled.nav`
   margin: 0 auto;
   padding: 2.4rem 3.2rem 1.2rem 3.2rem;
 
-  > a {
+  > a,
+  button {
     text-decoration: none;
+    color: ${({ theme }) => theme.color.primaryMid};
+    transition: all 0.1s linear;
+    font-size: 1.6rem;
+
+    &:hover {
+      text-decoration: underline;
+      color: ${({ theme }) => theme.color.primary};
+    }
+  }
+
+  > button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
   }
 `;
 
@@ -35,10 +51,14 @@ function Header({ isLoggedIn }) {
   const { getIsLoggedIn } = useContext(AuthContext);
 
   const logout = async () => {
-    await axios.get("http://localhost:5002/auth/logout");
+    try {
+      await axios.get("http://localhost:5002/auth/logout");
 
-    await getIsLoggedIn();
-    navigate(PATH.LOGIN);
+      await getIsLoggedIn();
+      navigate(PATH.LOGIN);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

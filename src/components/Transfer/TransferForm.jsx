@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import AmountInput from "../Input/AmountInput";
 import DateInput from "../Input/DateInput";
@@ -13,7 +13,7 @@ import TransferFormModal from "./TransferFormModal";
 import TransferFormButton from "./TransferFormButton";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import ErrorMessage from "../Messages/ErrorMessage";
-import { appendAmount, checkValidAmount } from "../../constants/helpers";
+import { appendAmount } from "../../constants/helpers";
 
 const Flex = styled.div`
   display: flex;
@@ -39,7 +39,10 @@ function TransferForm({ fetchAccountData }) {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
 
+  const formRef = useRef();
+
   const reset = () => {
+    formRef.current.reset();
     setAmount("");
     setDate(new Date().toISOString().slice(0, 10));
     setTransferFrom("standard");
@@ -72,6 +75,7 @@ function TransferForm({ fetchAccountData }) {
       transferTo: transferToValue,
     };
 
+    console.log(modData);
     setModalData(modData);
     setShowModal(true);
   };
@@ -92,20 +96,20 @@ function TransferForm({ fetchAccountData }) {
         transferTo: transferToValue,
       };
 
-      console.log(data);
+      // console.log(data);
 
-      let res;
-      if (transferToValue === "otherUser") {
-        res = await axios.put(
-          "http://localhost:5002/account/transferToOther",
-          data
-        );
-      } else {
-        res = await axios.put(
-          "http://localhost:5002/account/transferToSame",
-          data
-        );
-      }
+      // let res;
+      // if (transferTo === "otherUser") {
+      //   res = await axios.put(
+      //     "http://localhost:5002/account/transferToOther",
+      //     data
+      //   );
+      // } else {
+      //   res = await axios.put(
+      //     "http://localhost:5002/account/transferToSame",
+      //     data
+      //   );
+      // }
       // console.log(res.data);
       reset();
       setError("");
@@ -119,7 +123,7 @@ function TransferForm({ fetchAccountData }) {
   };
 
   return (
-    <form onSubmit={submitTransfer} id="transferForm">
+    <form onSubmit={submitTransfer} id="transferForm" ref={formRef}>
       <TransferFormModal
         modalData={modalData}
         showModal={showModal}

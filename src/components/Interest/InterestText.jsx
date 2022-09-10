@@ -3,6 +3,7 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.6rem;
 `;
 
 const AccountText = styled.span`
@@ -24,7 +25,7 @@ function InterestText({ modalData }) {
       </span>
       <AccountText>Standard: ${standardEarned}</AccountText>
       <AccountText>Premium: ${premiumEarned}</AccountText>
-      <span>Add it to your accounts?</span>
+      <span>Add interest earned to your accounts?</span>
     </Container>
   );
 }

@@ -22,11 +22,13 @@ const Box = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: 40rem;
+  max-width: 50rem;
   padding: 5rem;
 `;
 
-const Text = styled.p`
+const Text = styled.div`
   text-align: center;
+  font-size: 1.6rem;
 `;
 
 const ButtonsContainer = styled.div`

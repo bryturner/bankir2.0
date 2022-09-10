@@ -12,7 +12,7 @@ function ResetButton({ fetchAccountData, firstName }) {
 
   const handleConfirmClick = async () => {
     try {
-      const data = { firstName };
+      const data = { firstName: firstName };
 
       await axios.put("http://localhost:5002/account/reset", data);
 
