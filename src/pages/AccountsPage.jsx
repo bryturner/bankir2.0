@@ -11,7 +11,7 @@ import InterestForm from "../components/Interest/InterestForm";
 import Messages from "../components/Messages/MessagesBox/Messages";
 
 const Container = styled.div`
-  position: relative;
+  padding: 0 1.4rem;
 `;
 
 const HeaderContainer = styled.div`

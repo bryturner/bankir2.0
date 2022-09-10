@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const Container = styled.li`
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   padding: 1rem;
@@ -18,10 +18,12 @@ const TransDate = styled.p`
 
 const Desc = styled.p`
   text-align: center;
+  font-size: 1.6rem;
 `;
 
 const Amount = styled.p`
   text-align: right;
+  font-size: 1.6rem;
   color: ${(props) => (props.type === "negative" ? "#ff0000" : "#376805")};
 `;
 

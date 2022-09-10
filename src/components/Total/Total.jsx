@@ -6,17 +6,20 @@ const Container = styled.div`
   align-items: baseline;
 `;
 
-const Title = styled.p``;
+const Text = styled.p`
+  color: ${({ theme }) => theme.color.primaryMid};
+  font-size: 1.6rem;
+`;
 
-const TotalAmount = styled.span``;
+const TotalAmount = styled.span`
+  font-size: 1.8rem;
+`;
 
-function Total({ type, val }) {
-  const formattedVal = val.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
+function Total({ text, children }) {
   return (
     <Container>
-      <Title>{type}</Title>
-      <TotalAmount>${formattedVal}</TotalAmount>
+      <Text>{text}</Text>
+      <TotalAmount>{children}</TotalAmount>
     </Container>
   );
 }

@@ -13,7 +13,7 @@ import TransferFormModal from "./TransferFormModal";
 import TransferFormButton from "./TransferFormButton";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import ErrorMessage from "../Messages/ErrorMessage";
-import { appendAmount } from "../../constants/helpers";
+import { appendAmount, checkValidAmount } from "../../constants/helpers";
 
 const Flex = styled.div`
   display: flex;
@@ -65,6 +65,7 @@ function TransferForm({ fetchAccountData }) {
       transferTo === "otherUser" ? transferToOther : transferTo;
 
     const updatedAmount = appendAmount(amount);
+
     const modData = {
       amount: updatedAmount,
       transferFrom: transferFrom,
@@ -91,7 +92,7 @@ function TransferForm({ fetchAccountData }) {
         transferTo: transferToValue,
       };
 
-      // console.log(data);
+      console.log(data);
 
       let res;
       if (transferToValue === "otherUser") {
@@ -105,7 +106,7 @@ function TransferForm({ fetchAccountData }) {
           data
         );
       }
-      console.log(res.data);
+      // console.log(res.data);
       reset();
       setError("");
       fetchAccountData();
@@ -152,10 +153,7 @@ function TransferForm({ fetchAccountData }) {
             ) : (
               <>
                 <Option value="standard" title="Standard Account" />
-                <Option
-                  value="otherUser"
-                  title="Another user (Standard Account)"
-                />
+                <Option value="otherUser" title="Another User" />
               </>
             )}
           </SelectOption>

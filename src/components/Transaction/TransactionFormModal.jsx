@@ -1,5 +1,6 @@
 import { firstToUpperCase } from "../../constants/helpers";
 import FormModal from "../Modal/FormModal";
+import TransactionText from "./TransactionText";
 
 const getText = (type, amount, account) => {
   if (type === "withdrawal") {
@@ -11,12 +12,7 @@ const getText = (type, amount, account) => {
   return "ERROR";
 };
 
-function TransactionFormModal({
-  showModal,
-  modalData,
-  setShowModal,
-  handleConfirmClick,
-}) {
+function TransactionFormModal({ showModal, modalData, setShowModal }) {
   const { type, amount, account } = modalData;
 
   const text = getText(type, amount, account);
@@ -25,8 +21,8 @@ function TransactionFormModal({
     <FormModal
       showModal={showModal}
       setShowModal={setShowModal}
-      handleConfirmClick={handleConfirmClick}
-      confirmText={text}
+      confirmText={<TransactionText modalData={modalData} />}
+      confirmButtonText="Confirm"
     />
   );
 }

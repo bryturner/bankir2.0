@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { PATH } from "../../constants/paths";
 import AuthContext from "../../contexts/AuthContext";
 import RegisterButton from "../Button/RegisterButton";
+import ErrorMessage from "../Messages/ErrorMessage";
 import Form from "./Form";
 
 const RequiredText = styled.p`
@@ -32,13 +33,13 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const ErrorMessage = styled.p`
-  padding-left: 6px;
-  margin-bottom: 4px;
-  font-size: 1.4rem;
-  color: ${({ theme }) => theme.color.error};
-  visibility: ${(props) => (props.isError !== "" ? "visible" : "hidden")};
-`;
+// const ErrorMessage = styled.p`
+//   padding-left: 6px;
+//   margin-bottom: 4px;
+//   font-size: 1.4rem;
+//   color: ${({ theme }) => theme.color.error};
+//   visibility: ${(props) => (props.isError !== "" ? "visible" : "hidden")};
+// `;
 
 const TextWrapper = styled.div`
   display: flex;
@@ -154,7 +155,7 @@ function RegisterForm() {
           type="password"
           id="password"
           placeholder="Password*"
-          pattern="\S"
+          pattern="\S*"
           title="White space is not allowed in the password"
           value={state.password}
           onChange={inputAction}
@@ -164,7 +165,7 @@ function RegisterForm() {
           type="password"
           id="passwordVerify"
           placeholder="Re-enter password*"
-          pattern="\S"
+          pattern="\S*"
           title="White space is not allowed in the password"
           value={state.passwordVerify}
           onChange={inputAction}
@@ -172,7 +173,7 @@ function RegisterForm() {
       </InputContainer>
 
       <ButtonContainer>
-        <ErrorMessage isError={error}>*{error}</ErrorMessage>
+        <ErrorMessage error={error} />
         <RegisterButton />
         <TextWrapper>
           <Text>Already have an account?</Text>

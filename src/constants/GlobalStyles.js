@@ -15,7 +15,7 @@ html {
 
 body {
 	font-family: "Rubik", sans-serif;
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 	line-height: 1.6;
 	color: #0e1b3a; 
 	background-color: ${({ theme }) => theme.color.primaryLight};

@@ -14,9 +14,9 @@ const LoginDate = styled.p`
   padding-left: 4px;
 `;
 
-function Greeting({ firstName }) {
-  const dt = new Date().toString().replace(/g.+/i, "");
+const dt = new Date().toString().slice(0, 21);
 
+function Greeting({ firstName }) {
   return (
     <Container data-testid="greeting">
       <Header data-testid="first-name">Welcome {firstName},</Header>

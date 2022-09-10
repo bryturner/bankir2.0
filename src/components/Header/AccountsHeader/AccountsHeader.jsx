@@ -8,7 +8,7 @@ const Container = styled.div`
   align-items: center;
   max-width: 120rem;
   margin: ${({ theme }) => theme.spacing.utilGap} auto;
-  padding: 2rem 0;
+  padding: 2rem;
 `;
 
 const Totals = styled.div`

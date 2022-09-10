@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Total from "../Total/Total";
+import TotalAPY from "../Total/TotalAPY";
+import TotalCurrency from "../Total/TotalCurrency";
 import Transaction from "./Transaction";
 
 const Container = styled.div`
@@ -12,7 +14,7 @@ const Container = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 60fr 40fr;
   margin-bottom: 30px;
   padding: 0 0.6rem;
 `;
@@ -21,36 +23,15 @@ const Title = styled.h3`
   font-size: ${({ theme }) => theme.heading.tertiary};
 `;
 
-const TotalsContainer = styled.div`
-  > div > p {
-    color: ${({ theme }) => theme.color.primaryMid};
-  }
-
-  > div > span {
-    font-size: 1.8rem;
-  }
-`;
-
-const APYWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-`;
-
-const APYTitle = styled.p``;
-
-const APYText = styled.span``;
-
-const TransactionsContainer = styled.div`
+const HeadingsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   padding: 0 1.2rem;
   border-bottom: 3px solid ${({ theme }) => theme.color.primaryLight};
 `;
 
-const TransactionHeader = styled.p`
+const Heading = styled.p`
   font-weight: 400;
-  font-size: 1.4rem;
   color: ${({ theme }) => theme.color.primaryMid};
 
   &:nth-child(2) {
@@ -60,6 +41,10 @@ const TransactionHeader = styled.p`
   &:last-child {
     text-align: right;
   }
+`;
+
+const TransactionsContainer = styled.ul`
+  list-style: none;
 `;
 
 const DefaultText = styled.p`
@@ -74,33 +59,33 @@ function Account({ title, balance, earnings, apy, transactions }) {
     <Container>
       <Grid>
         <Title>{title}</Title>
-        <TotalsContainer>
-          <Total type="Account Balance" val={balance} />
-          <Total type="Interest Earned" val={earnings} />
-          <APYWrapper>
-            <APYTitle>APY</APYTitle>
-            <APYText>{apy.toFixed(1)}%</APYText>
-          </APYWrapper>
-        </TotalsContainer>
+        <div>
+          <TotalCurrency text="Account Balance" amount={balance} />
+          <TotalCurrency text="Interest Earned" amount={earnings} />
+          <TotalAPY text="Annual Yield" value={apy} />
+        </div>
       </Grid>
-      <TransactionsContainer>
-        <TransactionHeader>Date</TransactionHeader>
-        <TransactionHeader>Description</TransactionHeader>
-        <TransactionHeader>Amount</TransactionHeader>
-      </TransactionsContainer>
 
-      {transactions.length === 0 ? (
-        <DefaultText>No transactions or transfers recorded</DefaultText>
-      ) : (
-        transactions.map((transaction) => (
-          <Transaction
-            transDate={transaction.date}
-            description={transaction.description}
-            amount={transaction.amount}
-            key={transaction.id}
-          />
-        ))
-      )}
+      <HeadingsContainer>
+        <Heading>Date</Heading>
+        <Heading>Description</Heading>
+        <Heading>Amount</Heading>
+      </HeadingsContainer>
+
+      <TransactionsContainer>
+        {transactions.length === 0 ? (
+          <DefaultText>No transactions or transfers recorded</DefaultText>
+        ) : (
+          transactions.map((transaction) => (
+            <Transaction
+              transDate={transaction.date}
+              description={transaction.description}
+              amount={transaction.amount}
+              key={transaction.id}
+            />
+          ))
+        )}
+      </TransactionsContainer>
     </Container>
   );
 }

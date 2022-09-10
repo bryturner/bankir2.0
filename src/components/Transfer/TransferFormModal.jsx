@@ -20,6 +20,7 @@ function TransferFormModal({ showModal, modalData, setShowModal }) {
       showModal={showModal}
       setShowModal={setShowModal}
       confirmText={text}
+      confirmButtonText="Confirm"
     />
   );
 }

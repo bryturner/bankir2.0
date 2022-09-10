@@ -29,13 +29,34 @@ const Text = styled.p`
   text-align: center;
 `;
 
-const ButtonsContainer = styled.div``;
+const ButtonsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  > button {
+    flex: 1;
+  }
+
+  > button:last-child {
+    align-self: center;
+    width: fit-content;
+    background-image: none;
+    color: ${({ theme }) => theme.color.secondary};
+    padding: 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
 
 function FormModal({
   showModal,
   setShowModal,
-  handleConfirmClick,
   confirmText,
+  confirmButtonText,
 }) {
   const handleCancelClick = () => {
     setShowModal(false);
@@ -48,11 +69,7 @@ function FormModal({
           <Box>
             <Text>{confirmText}</Text>
             <ButtonsContainer>
-              <ModalButton
-                type="submit"
-                text="Confirm"
-                onClick={handleConfirmClick}
-              />
+              <ModalButton type="submit" text={confirmButtonText} />
               <ModalButton
                 type="button"
                 text="Cancel"
