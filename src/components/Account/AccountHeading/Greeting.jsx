@@ -20,7 +20,7 @@ function Greeting({ firstName }) {
   return (
     <Container data-testid="greeting">
       <Header data-testid="first-name">Welcome {firstName},</Header>
-      <LoginDate data-testid="logged-time">Logged in {dt}</LoginDate>
+      <LoginDate data-testid="update">Latest update {dt}</LoginDate>
     </Container>
   );
 }

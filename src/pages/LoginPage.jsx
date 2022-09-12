@@ -1,14 +1,40 @@
 import styled from "styled-components";
 import LoginForm from "../components/Login/LoginForm";
 import { LandingLayout } from "../constants/styles";
+import { Link, useNavigate } from "react-router-dom";
+import { PATH } from "../constants/paths";
 
-const Wrapper = styled.div``;
+const Container = styled.div`
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  > a {
+    margin-top: 2rem;
+    margin-left: 1rem;
+
+    font-size: 1.8rem;
+    text-decoration: none;
+    color: white;
+    background-color: ${({ theme }) => theme.color.secondary};
+    border: 2px solid ${({ theme }) => theme.color.secondary};
+    border-radius: 3px;
+    padding: 1rem 6rem;
+    transition: all 0.1s linear;
+    width: fit-content;
+
+    &:hover {
+      background-color: white;
+      color: ${({ theme }) => theme.color.secondary};
+    }
+  }
+`;
 
 const Heading = styled.h1`
   font-size: ${({ theme }) => theme.heading.primary};
   letter-spacing: -1px;
   line-height: 1.05;
-  margin-bottom: 3rem;
 
   > span {
     color: ${({ theme }) => theme.color.secondary};
@@ -17,21 +43,21 @@ const Heading = styled.h1`
 
 const Subheading = styled.p`
   font-size: ${({ theme }) => theme.heading.sub};
-  margin-bottom: 3.6rem;
 `;
 
 function LoginPage() {
   return (
     <LandingLayout>
-      <Wrapper>
+      <Container>
         <Heading>
           Make <span>investing</span> in your <span>future</span> count
         </Heading>
         <Subheading>
-          Consistently high interest rates and excellent customer service will
-          keep your mind at ease and make retiring early a breeze.
+          High interest rates, a user-friendly online platform and excellent
+          customer service make choosing BankIR an easy decision.
         </Subheading>
-      </Wrapper>
+        <Link to={PATH.REGISTER}>Sign Up Today</Link>
+      </Container>
       <LoginForm />
     </LandingLayout>
   );

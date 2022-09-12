@@ -11,9 +11,7 @@ const Container = styled.div`
   }
 `;
 
-const Label = styled.label`
-  font-size: 1.4rem;
-`;
+const Label = styled.label``;
 
 const formatDate = (year) => {
   const dtToday = new Date();

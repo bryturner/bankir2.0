@@ -10,6 +10,8 @@ import InterestForm from "../components/Interest/InterestForm";
 import Messages from "../components/Messages/MessagesBox/Messages";
 import ResetButton from "../components/Button/ResetButton";
 import DeleteButton from "../components/Button/DeleteButton";
+import Footer from "../components/Footer/Footer";
+import { PageContainer } from "../constants/styles";
 
 const Container = styled.div`
   padding: 0 1.4rem;

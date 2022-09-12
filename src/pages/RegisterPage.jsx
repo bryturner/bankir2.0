@@ -1,12 +1,19 @@
 import styled from "styled-components";
+import RegisterAPY from "../components/Register/RegisterAPY";
 import RegisterForm from "../components/Register/RegisterForm";
 import { LandingLayout } from "../constants/styles";
+
+const Container = styled.div`
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+`;
 
 const Heading = styled.h1`
   font-size: ${({ theme }) => theme.heading.primary};
   letter-spacing: -1px;
   line-height: 1.05;
-  margin-bottom: 3rem;
 
   > span {
     color: ${({ theme }) => theme.color.secondary};
@@ -15,21 +22,47 @@ const Heading = styled.h1`
 
 const Subheading = styled.p`
   font-size: ${({ theme }) => theme.heading.sub};
-  margin-bottom: 3.6rem;
+`;
+
+const APYContainer = styled.div`
+  margin-top: 2rem;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+`;
+
+const APYTextContainer = styled.div`
+  display: flex;
+  gap: 6.4rem;
+  width: fit-content;
+  justify-content: center;
+`;
+
+const Title = styled.p`
+  text-align: center;
+  font-size: 2.6rem;
 `;
 
 function RegisterPage() {
   return (
     <LandingLayout>
-      <div>
+      <Container>
         <Heading>
           Make <span>investing</span> in your <span>future</span> count
         </Heading>
         <Subheading>
-          Consistently high interest rates and excellent customer service will
-          keep your mind at ease and make retiring early a breeze.
+          With consistently high interest rates you can keep your mind at ease,
+          making early retirement an absolute breeze.
         </Subheading>
-      </div>
+        <APYContainer>
+          <Title>Introductory Interest Rates:</Title>
+          <APYTextContainer>
+            <RegisterAPY account="Standard Savings" apy="4.5" />
+            <RegisterAPY account="Premium Savings" apy="8.5" />
+          </APYTextContainer>
+        </APYContainer>
+      </Container>
       <RegisterForm />
     </LandingLayout>
   );

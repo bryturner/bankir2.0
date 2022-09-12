@@ -11,7 +11,18 @@ import Form from "../Form/Form";
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.6rem;
+  gap: 2rem;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+const Label = styled.label`
+  margin-left: 4px;
+  font-size: 1.6rem;
 `;
 
 const Input = styled.input`
@@ -86,27 +97,31 @@ function LoginForm() {
   return (
     <Form onSubmit={login} header="Log in">
       <InputContainer>
-        <div>
-          <Input
-            type="text"
-            id="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <DefaultInfo>Trial users: user1 or user2</DefaultInfo>
-        </div>
+        <InputWrapper>
+          <Label htmlFor="username">Username</Label>
+          <div>
+            <Input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <DefaultInfo>Default users: user1 or user2</DefaultInfo>
+          </div>
+        </InputWrapper>
 
-        <div>
-          <Input
-            type="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <DefaultInfo>Password: password</DefaultInfo>
-        </div>
+        <InputWrapper>
+          <Label htmlFor="password">Password</Label>
+          <div>
+            <Input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <DefaultInfo>Default password: password</DefaultInfo>
+          </div>
+        </InputWrapper>
       </InputContainer>
 
       <ButtonContainer>

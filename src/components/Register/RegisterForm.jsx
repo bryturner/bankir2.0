@@ -9,14 +9,22 @@ import RegisterButton from "./RegisterButton";
 import ErrorMessage from "../Messages/ErrorMessage";
 import Form from "../Form/Form";
 
-const RequiredText = styled.p`
-  color: ${({ theme }) => theme.color.lightGray};
-`;
-
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.6rem;
+  margin-bottom: 8px;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+const Label = styled.label`
+  margin-left: 4px;
+  font-size: 1.6rem;
 `;
 
 const Input = styled.input`
@@ -31,14 +39,6 @@ const ButtonContainer = styled.div`
     margin-bottom: 1rem;
   }
 `;
-
-// const ErrorMessage = styled.p`
-//   padding-left: 6px;
-//   margin-bottom: 4px;
-//   font-size: 1.4rem;
-//   color: ${({ theme }) => theme.color.error};
-//   visibility: ${(props) => (props.isError !== "" ? "visible" : "hidden")};
-// `;
 
 const TextWrapper = styled.div`
   display: flex;
@@ -124,49 +124,56 @@ function RegisterForm() {
   }
   return (
     <Form onSubmit={register} header="Register">
-      <RequiredText>* Required</RequiredText>
       <InputContainer>
-        <Input
-          type="text"
-          id="firstName"
-          placeholder="First name*"
-          pattern="[a-zA-Z]*"
-          title="Use lower or upper case letters only"
-          maxLength={20}
-          value={state.firstName}
-          onChange={inputAction}
-        />
+        <InputWrapper>
+          <Label htmlFor="firstName">First name*</Label>
+          <Input
+            type="text"
+            id="firstName"
+            pattern="[a-zA-Z]*"
+            title="Use lower or upper case letters only"
+            maxLength={20}
+            value={state.firstName}
+            onChange={inputAction}
+          />
+        </InputWrapper>
 
-        <Input
-          type="text"
-          id="username"
-          placeholder="Username*"
-          pattern="[a-z]*\d*"
-          title="Use lower case letters or numbers only"
-          maxLength={10}
-          value={state.username}
-          onChange={inputAction}
-        />
+        <InputWrapper>
+          <Label htmlFor="username">Username*</Label>
+          <Input
+            type="text"
+            id="username"
+            pattern="[a-z]*\d*"
+            title="Use lower case letters or numbers only"
+            maxLength={10}
+            value={state.username}
+            onChange={inputAction}
+          />
+        </InputWrapper>
 
-        <Input
-          type="password"
-          id="password"
-          placeholder="Password*"
-          pattern="\S*"
-          title="White space is not allowed in the password"
-          value={state.password}
-          onChange={inputAction}
-        />
+        <InputWrapper>
+          <Label htmlFor="password">Password*</Label>
+          <Input
+            type="password"
+            id="password"
+            pattern="\S*"
+            title="White space is not allowed in the password"
+            value={state.password}
+            onChange={inputAction}
+          />
+        </InputWrapper>
 
-        <Input
-          type="password"
-          id="passwordVerify"
-          placeholder="Re-enter password*"
-          pattern="\S*"
-          title="White space is not allowed in the password"
-          value={state.passwordVerify}
-          onChange={inputAction}
-        />
+        <InputWrapper>
+          <Label htmlFor="passwordVerify">Verify password*</Label>
+          <Input
+            type="password"
+            id="passwordVerify"
+            pattern="\S*"
+            title="White space is not allowed in the password"
+            value={state.passwordVerify}
+            onChange={inputAction}
+          />
+        </InputWrapper>
       </InputContainer>
 
       <ButtonContainer>

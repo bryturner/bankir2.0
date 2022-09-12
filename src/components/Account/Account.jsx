@@ -45,6 +45,12 @@ const Heading = styled.p`
 
 const TransactionsContainer = styled.ul`
   list-style: none;
+  max-height: 40rem;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const DefaultText = styled.p`
