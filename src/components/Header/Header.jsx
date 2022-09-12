@@ -1,10 +1,13 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import logo from "../../assets/bankName_Logo.png";
 import { PATH } from "../../constants/paths";
 import AuthContext from "../../contexts/AuthContext";
+import { Info } from "phosphor-react";
+import HeaderModal from "./HeaderModal";
 
 const Container = styled.div`
   border-bottom: 10px solid ${({ theme }) => theme.color.primary};
@@ -44,11 +47,52 @@ const NavIcon = styled.img`
   max-width: 18rem;
 `;
 
+const Button = styled.button`
+  text-decoration: none;
+  color: ${({ theme }) => theme.color.primaryMid};
+  transition: all 0.1s linear;
+  font-size: 1.6rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+`;
+
+const InfoButton = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  opacity: 0.7;
+  height: 28px;
+
+  > svg {
+    fill: ${({ theme }) => theme.color.primary};
+    > circle {
+      stroke: ${({ theme }) => theme.color.primary};
+    }
+    > polyline {
+      stroke: ${({ theme }) => theme.color.primary};
+    }
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 2.6rem;
+  align-items: center;
+`;
+
 function Header({ isLoggedIn }) {
+  const [showModal, setShowModal] = useState(false);
+  const { getIsLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const currentPage = pathname.split("/")[1];
-  const navigate = useNavigate();
-  const { getIsLoggedIn } = useContext(AuthContext);
 
   const logout = async () => {
     try {
@@ -61,18 +105,28 @@ function Header({ isLoggedIn }) {
     }
   };
 
+  const handleInfoClick = () => {
+    setShowModal(true);
+  };
+
   return (
     <Container>
       <Nav>
         <NavIcon src={logo} alt="Bankir logo" />
-        {isLoggedIn === true && <button onClick={logout}>Log out</button>}
-        {isLoggedIn === false && currentPage === "login" ? (
-          <Link to={PATH.REGISTER}>Register</Link>
-        ) : isLoggedIn === false && currentPage === "register" ? (
-          <Link to={PATH.LOGIN}>Log in</Link>
-        ) : (
-          <></>
-        )}
+        <ButtonContainer>
+          <HeaderModal showModal={showModal} setShowModal={setShowModal} />
+          <InfoButton onClick={handleInfoClick}>
+            <Info size={28} color="#080808" />
+          </InfoButton>
+          {isLoggedIn === true && <button onClick={logout}>Log out</button>}
+          {isLoggedIn === false && currentPage === "login" ? (
+            <Link to={PATH.REGISTER}>Register</Link>
+          ) : isLoggedIn === false && currentPage === "register" ? (
+            <Link to={PATH.LOGIN}>Log in</Link>
+          ) : (
+            <Button onClick={logout}>Log out</Button>
+          )}
+        </ButtonContainer>
       </Nav>
     </Container>
   );
