@@ -9,7 +9,11 @@ const Text = styled.p`
 `;
 
 function ErrorMessage({ error }) {
-  return <Text isError={error}>*{error}</Text>;
+  return (
+    <Text data-testid="errorMsg" isError={error}>
+      *{error}
+    </Text>
+  );
 }
 
 export default ErrorMessage;

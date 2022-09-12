@@ -5,12 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PATH } from "../../constants/paths";
 import AuthContext from "../../contexts/AuthContext";
-import RegisterButton from "../Button/RegisterButton";
+import RegisterButton from "./RegisterButton";
 import ErrorMessage from "../Messages/ErrorMessage";
-import Form from "./Form";
+import Form from "../Form/Form";
 
 const RequiredText = styled.p`
-  font-size: 1.4rem;
   color: ${({ theme }) => theme.color.lightGray};
 `;
 
@@ -47,7 +46,6 @@ const TextWrapper = styled.div`
   justify-content: center;
 
   > a {
-    font-size: 1.4rem;
     text-align: center;
     text-decoration: none;
   }
@@ -63,7 +61,6 @@ const TextWrapper = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 1.4rem;
   text-align: center;
 `;
 

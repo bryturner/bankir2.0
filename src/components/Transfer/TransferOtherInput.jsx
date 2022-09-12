@@ -17,6 +17,7 @@ function TransferOtherInput({ formName, id, value, onChange, placeholder }) {
     <Container>
       <Label htmlFor={id}>
         <Input
+          dataTestId="otherInput"
           type="text"
           name={formName}
           id={id}

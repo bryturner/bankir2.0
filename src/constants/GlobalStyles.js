@@ -44,6 +44,10 @@ input:invalid {
     border-color: ${({ theme }) => theme.color.error};
     box-shadow: 0 0 0 1px ${({ theme }) => theme.color.error};
   }
+
+button {
+	cursor: pointer;
+}
 `;
 
 export default GlobalStyles;

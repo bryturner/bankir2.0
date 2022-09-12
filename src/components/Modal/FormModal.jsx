@@ -1,29 +1,13 @@
 import styled from "styled-components";
+import Modal from "./Modal";
 import ModalButton from "./ModalButton";
 
 const Container = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-  background-color: rgba(0, 0, 0, 0.4);
-`;
-
-const Box = styled.div`
+  padding: 5rem;
   display: flex;
   flex-direction: column;
   gap: 2.6rem;
   align-items: center;
-  background-color: white;
-  position: absolute;
-  top: 50vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 40rem;
-  max-width: 50rem;
-  padding: 5rem;
 `;
 
 const Text = styled.div`
@@ -66,29 +50,23 @@ function FormModal({
   };
 
   return (
-    <>
-      {showModal ? (
-        <Container>
-          <Box>
-            <Text>{confirmText}</Text>
-            <ButtonsContainer>
-              <ModalButton
-                type="submit"
-                text={confirmButtonText}
-                onClick={handleConfirmClick}
-              />
-              <ModalButton
-                type="button"
-                text="Cancel"
-                onClick={handleCancelClick}
-              />
-            </ButtonsContainer>
-          </Box>
-        </Container>
-      ) : (
-        <></>
-      )}
-    </>
+    <Modal showModal={showModal}>
+      <Container>
+        <Text data-testid="modal-text">{confirmText}</Text>
+        <ButtonsContainer>
+          <ModalButton
+            type="submit"
+            text={confirmButtonText}
+            onClick={handleConfirmClick}
+          />
+          <ModalButton
+            type="button"
+            text="Cancel"
+            onClick={handleCancelClick}
+          />
+        </ButtonsContainer>
+      </Container>
+    </Modal>
   );
 }
 

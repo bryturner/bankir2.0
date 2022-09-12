@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PATH } from "../../constants/paths";
 import AuthContext from "../../contexts/AuthContext";
-import LoginButton from "../Button/LoginButton";
+import LoginButton from "./LoginButton";
 import ErrorMessage from "../Messages/ErrorMessage";
-import Form from "./Form";
+import Form from "../Form/Form";
 
 const InputContainer = styled.div`
   display: flex;
@@ -21,7 +21,6 @@ const Input = styled.input`
 `;
 
 const DefaultInfo = styled.p`
-  font-size: 1.4rem;
   padding-left: 6px;
   color: ${({ theme }) => theme.color.primaryMid};
 `;
@@ -40,7 +39,6 @@ const TextWrapper = styled.div`
   justify-content: center;
 
   > a {
-    font-size: 1.4rem;
     text-align: center;
     text-decoration: none;
   }
@@ -56,7 +54,6 @@ const TextWrapper = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 1.4rem;
   text-align: center;
 `;
 

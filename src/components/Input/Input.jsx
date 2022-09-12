@@ -12,6 +12,7 @@ function Input({
   min,
   maxLength,
   required,
+  dataTestId,
 }) {
   return (
     <input
@@ -28,6 +29,7 @@ function Input({
       maxLength={maxLength}
       defaultValue={defaultValue}
       required={required}
+      data-testid={dataTestId}
     />
   );
 }

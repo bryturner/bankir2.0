@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import LoginForm from "../components/Form/LoginForm";
-import Header from "../components/Header/Header";
+import LoginForm from "../components/Login/LoginForm";
 import { LandingLayout } from "../constants/styles";
 
 const Wrapper = styled.div``;

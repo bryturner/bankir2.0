@@ -14,6 +14,7 @@ import DetailsBox from "../DetailsBox/DetailsBox";
 import ErrorMessage from "../Messages/ErrorMessage";
 import TransactionFormButton from "./TransactionFormButton";
 import TransactionFormModal from "./TransactionFormModal";
+import TestAmount from "../Input/TestAmount";
 
 const Form = styled.form``;
 
@@ -172,6 +173,7 @@ function TransactionForm({ fetchAccountData }) {
               setAmount={setAmount}
             />
           </Flex>
+          {/* <TestAmount /> */}
         </StyledFormInputs>
 
         <ButtonContainer>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Input from "./Input";
 
@@ -35,18 +36,26 @@ const InputWrapper = styled.div`
 
 // \d -> number
 // \.(?=\d{2}) -> decimal before 2 numbers
-function AmountInput({ formName, id, value, setAmount }) {
+function TestAmount({ formName, id }) {
+  const [val, setVal] = useState("0.00");
+
   function formatAmount(e) {
     const amount = e.target.value;
 
-    const formattedAmount = amount
+    let formattedAmount = amount
       // .replace(/^0+/, "") // removes starting 0
       .replace(/(?!\.)\D/g, "") // removes letters
-      // .replace(/\B(?=(\d{3})+(?!\d))/g, ",") // adds comma
-      // .replace(/(?<=\..*)\./g, "") // replaces '.' if more than one
-      .replace(/(?<=\.\d{2}).*/g, ""); // limits to 2 places after decimal
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") // adds comma
+      .replace(/(?<=\..*)\./g, "") // replaces '.' if more than one
+      .replace(/(?<=\.\d{2}).*/g, "");
 
-    setAmount(formattedAmount);
+    console.log(formattedAmount.split("."));
+
+    if (formattedAmount.split(".")[1][0] === "0") {
+    }
+
+    setVal(formattedAmount);
+    //  console.log(formattedAmount);
   }
 
   return (
@@ -60,7 +69,7 @@ function AmountInput({ formName, id, value, setAmount }) {
           id={id}
           placeholder="0.00"
           maxLength={8}
-          value={value}
+          value={val}
           onChange={formatAmount}
         />
       </InputWrapper>
@@ -68,4 +77,4 @@ function AmountInput({ formName, id, value, setAmount }) {
   );
 }
 
-export default AmountInput;
+export default TestAmount;

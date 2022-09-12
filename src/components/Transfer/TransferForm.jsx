@@ -138,8 +138,16 @@ function TransferForm({ fetchAccountData }) {
             defaultValue={transferFrom}
             onChange={(e) => updateTransferValues(e.target.value)}
           >
-            <Option value="standard" title="Standard Account" />
-            <Option value="premium" title="Premium Account" />
+            <Option
+              dataTestId="transfer-from-standard"
+              value="standard"
+              title="Standard Account"
+            />
+            <Option
+              dataTestId="transfer-from-premium"
+              value="premium"
+              title="Premium Account"
+            />
           </SelectOption>
 
           <SelectOption
@@ -151,12 +159,20 @@ function TransferForm({ fetchAccountData }) {
           >
             {transferFrom === "standard" ? (
               <>
-                <Option value="premium" title="Premium Account" />
+                <Option
+                  dataTestId="transfer-to-premium"
+                  value="premium"
+                  title="Premium Account"
+                />
                 <Option value="otherUser" title="Another User" />
               </>
             ) : (
               <>
-                <Option value="standard" title="Standard Account" />
+                <Option
+                  dataTestId="transfer-to-standard"
+                  value="standard"
+                  title="Standard Account"
+                />
                 <Option value="otherUser" title="Another User" />
               </>
             )}
@@ -177,7 +193,7 @@ function TransferForm({ fetchAccountData }) {
           <DescriptionInput
             formName="transferForm"
             id="transferDesc"
-            placeholder="ex. monthly savings"
+            placeholder="ex. monthly savings deposit"
             value={transferDesc}
             onChange={(e) => setTransferDesc(e.target.value)}
           />
