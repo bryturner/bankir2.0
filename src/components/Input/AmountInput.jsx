@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { formatAmount } from "../../constants/helpers";
 
 const Container = styled.div`
   display: flex;
@@ -32,10 +33,12 @@ const AmtInput = styled.input`
 
   &:focus {
     border-color: ${(props) =>
-      props.isValid ? props.theme.color.secondary : props.theme.color.error};
+      props.amountIsValid
+        ? props.theme.color.secondary
+        : props.theme.color.error};
 
     box-shadow: ${(props) =>
-      props.isValid
+      props.amountIsValid
         ? props.theme.boxShadow.focus
         : props.theme.boxShadow.error};
   }
@@ -43,30 +46,29 @@ const AmtInput = styled.input`
 
 // \d -> number
 // \.(?=\d{2}) -> decimal before 2 numbers
-function AmountInput({ formName, id, value, setAmount, setError }) {
-  const [isValid, setIsValid] = useState(true);
-
+function AmountInput({
+  formName,
+  id,
+  value,
+  setAmount,
+  amountIsValid,
+  setAmountIsValid,
+  setError,
+}) {
   const handleChange = (e) => {
-    const amount = e.target.value;
+    const amount = formatAmount(e.target.value);
+    setAmount(amount);
 
-    const formattedAmount = amount
-      .replace(/^0+/, "") // removes starting 0
-      .replace(/(?!\.)\D/g, "") // removes letters
-      .replace(/(?<=\..*)\./g, "") // replaces '.' if more than one
-      .replace(/(?<=\.\d{2}).*/g, ""); // limits to 2 places after decimal
-
-    if (parseFloat(formattedAmount) > 2000) {
-      setError("Maximum amount is $2,000");
-      setIsValid(false);
-    } else if (parseFloat(formattedAmount) < 1) {
-      setError("Minimum amount is $1.00");
-      setIsValid(false);
+    if (parseFloat(amount) > 2000) {
+      setError("Maximum amount is $2000");
+      setAmountIsValid(false);
+    } else if (amount.startsWith(".")) {
+      setError("Minimum amount is $1");
+      setAmountIsValid(false);
     } else {
       setError("");
-      setIsValid(true);
+      setAmountIsValid(true);
     }
-
-    setAmount(formattedAmount);
   };
 
   return (
@@ -74,7 +76,7 @@ function AmountInput({ formName, id, value, setAmount, setError }) {
       <Label htmlFor={id}>Amount:</Label>
       <InputWrapper>
         <AmtInput
-          isValid={isValid}
+          amountIsValid={amountIsValid}
           type="text"
           inputMode="decimal"
           name={formName}
