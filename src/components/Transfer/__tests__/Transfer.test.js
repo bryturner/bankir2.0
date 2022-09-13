@@ -140,12 +140,12 @@ describe("Transfer form input values", () => {
   });
 });
 
-describe("Transfer modal", () => {
-  test("transfer modal should be showing", async () => {
-    render(<TransferForm />);
-    fireEvent.click(screen.getByRole("button"));
-    await waitFor(() => {
-      expect(screen.getByTestId("modal")).toBeInTheDocument();
-    });
-  });
-});
+// describe("Transfer modal", () => {
+//   test("transfer modal should be showing", async () => {
+//     render(<TransferForm />);
+//     fireEvent.click(screen.getByRole("button"));
+//     await waitFor(() => {
+//       expect(screen.getByTestId("modal")).toBeInTheDocument();
+//     });
+//   });
+// });

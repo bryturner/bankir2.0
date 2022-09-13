@@ -15,18 +15,10 @@ export const firstToUpperCase = (str) => {
   return str && str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-export const checkValidAmount = (amount) => {
-  if (amount === ".00") {
-    return "Please enter an amount";
-  }
-
-  if (parseFloat(amount) < 1) {
-    return "Amount must be more than $1.00";
-  }
-
-  if (parseFloat(amount) > 2000) {
-    return "Maximum amount is $2000.00";
-  }
-
-  return "";
+export const formatAmount = (amount) => {
+  return amount
+    .replace(/^0+/, "") // removes starting 0
+    .replace(/(?!\.)\D/g, "") // removes letters
+    .replace(/(?<=\..*)\./g, "") // replaces '.' if more than one
+    .replace(/(?<=\.\d{2}).*/g, ""); // limits to 2 places after decimal
 };

@@ -13,7 +13,7 @@ import TransferFormModal from "./TransferFormModal";
 import TransferFormButton from "./TransferFormButton";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import ErrorMessage from "../Messages/ErrorMessage";
-import { createModalAmount } from "../../constants/helpers";
+import { createModalAmount, formatAmount } from "../../constants/helpers";
 
 const Flex = styled.div`
   display: flex;
@@ -33,13 +33,17 @@ function TransferForm({ fetchAccountData }) {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [transferFrom, setTransferFrom] = useState("standard");
   const [transferTo, setTransferTo] = useState("premium");
+  const [toValue, setToValue] = useState("premium");
   const [transferDesc, setTransferDesc] = useState("");
-  const [transferToOther, setTransferToOther] = useState("");
+
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
+  const [showOther, setShowOther] = useState(false);
 
   const [error, setError] = useState("");
   const [amountIsValid, setAmountIsValid] = useState(true);
+  const [otherIsValid, setOtherIsValid] = useState(true);
+  const [descIsValid, setDescIsValid] = useState(true);
 
   const formRef = useRef();
 
@@ -49,11 +53,12 @@ function TransferForm({ fetchAccountData }) {
     setDate(new Date().toISOString().slice(0, 10));
     setTransferFrom("standard");
     setTransferTo("premium");
+    setToValue("premium");
     setTransferDesc("");
-    setTransferToOther("");
   };
 
-  const updateTransferValues = (value) => {
+  const handleTransferFromChange = (e) => {
+    const value = e.target.value;
     setTransferFrom(value);
     if (transferTo === "otherUser") return;
     if (value === "premium") {
@@ -63,16 +68,68 @@ function TransferForm({ fetchAccountData }) {
     }
   };
 
-  const checkIfValid = (transferTo) => {
+  const handleTransferToChange = (e) => {
+    const value = e.target.value;
+    if (value === "otherUser") {
+      setShowOther(true);
+      setToValue("");
+    } else {
+      setShowOther(false);
+      setToValue(value);
+    }
+  };
+
+  const handleOtherChange = (e) => {
+    const value = e.target.value;
+    if (e.target.validity.patternMismatch) {
+      setError("Username contains lower case or numbers only");
+      setOtherIsValid(false);
+    } else {
+      setError("");
+      setOtherIsValid(true);
+    }
+    setToValue(value);
+  };
+
+  const handleDescChange = (e) => {
+    const value = e.target.value;
+    if (value.length > 0) {
+      setError("");
+      setDescIsValid(true);
+    }
+    setTransferDesc(value);
+  };
+
+  const handleAmountChange = (e) => {
+    const formattedAmount = formatAmount(e.target.value);
+
+    if (parseFloat(formattedAmount) > 2000) {
+      setError("Maximum transfer amount is $2,000");
+      setAmountIsValid(false);
+    } else if (parseFloat(formattedAmount) < 1) {
+      setError("Minimum transfer amount is $1.00");
+      setAmountIsValid(false);
+    } else {
+      setError("");
+      setAmountIsValid(true);
+    }
+
+    setAmount(formattedAmount);
+  };
+
+  const checkIfValid = () => {
     return new Promise((resolve, reject) => {
       if (amount.length === 0) {
         setError("Please fill in an amount");
+        setAmountIsValid(false);
         return;
-      } else if (transferTo === "otherUser" && transferToOther.length === 0) {
+      } else if (toValue.length === 0) {
         setError("Please enter a username");
+        setOtherIsValid(false);
         return;
       } else if (transferDesc.length === 0) {
         setError("Please enter a description");
+        setDescIsValid(false);
         return;
       } else {
         setError("");
@@ -81,12 +138,7 @@ function TransferForm({ fetchAccountData }) {
     });
   };
 
-  const handleInitialSubmit = async () => {
-    const transferToValue =
-      transferTo === "otherUser" ? transferToOther : transferTo;
-
-    await checkIfValid(transferTo);
-
+  const modal = () => {
     if (error.length > 0) return;
 
     const modalAmount = createModalAmount(amount);
@@ -94,28 +146,28 @@ function TransferForm({ fetchAccountData }) {
     const modData = {
       amount: modalAmount,
       transferFrom: transferFrom,
-      transferTo: transferToValue,
+      transferTo: toValue,
     };
 
-    console.log(modData);
     setModalData(modData);
     setShowModal(true);
+  };
+
+  const handleInitSubmit = () => {
+    checkIfValid().then(() => modal());
   };
 
   const submitTransfer = async (e) => {
     e.preventDefault();
 
     try {
-      const transferToValue =
-        transferTo === "otherUser" ? transferToOther : transferTo;
-
       const data = {
         amount: amount,
         date: date,
         description: transferDesc,
         type: "transfer",
         transferFrom: transferFrom,
-        transferTo: transferToValue,
+        transferTo: toValue,
       };
 
       // console.log(data);
@@ -158,7 +210,7 @@ function TransferForm({ fetchAccountData }) {
             id="transferFrom"
             labelText="Transfer from:"
             defaultValue={transferFrom}
-            onChange={(e) => updateTransferValues(e.target.value)}
+            onChange={handleTransferFromChange}
           >
             <Option
               dataTestId="transfer-from-standard"
@@ -177,7 +229,7 @@ function TransferForm({ fetchAccountData }) {
             id="transferTo"
             labelText="Transfer to:"
             defaultValue={transferTo}
-            onChange={(e) => setTransferTo(e.target.value)}
+            onChange={handleTransferToChange}
           >
             {transferFrom === "standard" ? (
               <>
@@ -200,14 +252,15 @@ function TransferForm({ fetchAccountData }) {
             )}
           </SelectOption>
 
-          {transferTo === "otherUser" ? (
+          {showOther ? (
             <TransferOtherInput
               formName="transferForm"
               id="otherUser"
               placeholder="Enter username"
-              value={transferToOther}
-              setTransferToOther={setTransferToOther}
+              value={toValue}
+              onChange={handleOtherChange}
               setError={setError}
+              otherIsValid={otherIsValid}
             />
           ) : (
             <></>
@@ -218,7 +271,8 @@ function TransferForm({ fetchAccountData }) {
             id="transferDesc"
             placeholder="ex. monthly savings deposit"
             value={transferDesc}
-            onChange={(e) => setTransferDesc(e.target.value)}
+            onChange={handleDescChange}
+            descIsValid={descIsValid}
           />
 
           <Flex>
@@ -232,8 +286,7 @@ function TransferForm({ fetchAccountData }) {
               formName="transferForm"
               id="transferAmount"
               value={amount}
-              setAmount={setAmount}
-              setError={setError}
+              onChange={handleAmountChange}
               amountIsValid={amountIsValid}
             />
           </Flex>
@@ -241,7 +294,7 @@ function TransferForm({ fetchAccountData }) {
 
         <ButtonContainer>
           <ErrorMessage error={error} />
-          <TransferFormButton onClick={handleInitialSubmit} />
+          <TransferFormButton onClick={handleInitSubmit} />
         </ButtonContainer>
       </DetailsBox>
     </form>

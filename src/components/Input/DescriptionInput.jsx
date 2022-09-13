@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Input from "./Input";
 
 const Container = styled.div`
   display: flex;
@@ -10,18 +9,31 @@ const Title = styled.p`
   font-size: 1.4rem;
 `;
 
-const Label = styled.label`
-  > input {
-    width: 100%;
-  }
+const Label = styled.label``;
+
+const Input = styled.input`
+  width: 100%;
+  border-color: ${(props) =>
+    props.descIsValid ? props.theme.color.lightGray : props.theme.color.error};
+
+  box-shadow: ${(props) =>
+    props.descIsValid ? "none" : props.theme.boxShadow.error};
 `;
 
-function DescriptionInput({ formName, id, value, onChange, placeholder }) {
+function DescriptionInput({
+  formName,
+  id,
+  value,
+  onChange,
+  placeholder,
+  descIsValid,
+}) {
   return (
     <Container>
       <Title>Description:</Title>
       <Label htmlFor={id}>
         <Input
+          descIsValid={descIsValid}
           type="text"
           name={formName}
           id={id}

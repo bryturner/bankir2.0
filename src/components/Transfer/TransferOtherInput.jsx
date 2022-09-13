@@ -1,6 +1,4 @@
-import { useRef, useState } from "react";
 import styled from "styled-components";
-import Input from "../Input/Input";
 
 const Container = styled.div`
   display: flex;
@@ -12,10 +10,10 @@ const Label = styled.label``;
 const OtherInput = styled.input`
   width: 100%;
   border-color: ${(props) =>
-    props.isValid ? props.theme.color.lightGray : props.theme.color.error};
+    props.otherIsValid ? props.theme.color.lightGray : props.theme.color.error};
 
   box-shadow: ${(props) =>
-    props.isValid ? "none" : props.theme.boxShadow.error};
+    props.otherIsValid ? "none" : props.theme.boxShadow.error};
 `;
 
 function TransferOtherInput({
@@ -23,35 +21,14 @@ function TransferOtherInput({
   id,
   value,
   placeholder,
-  setTransferToOther,
-  setError,
+  onChange,
+  otherIsValid,
 }) {
-  const [isValid, setIsValid] = useState(true);
-
-  const handleToOtherChange = (e) => {
-    setTransferToOther(e.target.value);
-    if (e.target.validity.patternMismatch) {
-      setError("Username contains lower case or numbers only");
-    } else {
-      setError("");
-    }
-  };
-
-  //   const handleBlur = (e) => {
-  //     if (e.target.value.length === 0) {
-  //       setError("Please enter a username");
-  //       setIsValid(false);
-  //     } else {
-  //       setError("");
-  //       setIsValid(true);
-  //     }
-  //   };
-
   return (
     <Container>
       <Label htmlFor={id}>
         <OtherInput
-          isValid={isValid}
+          otherIsValid={otherIsValid}
           dataTestId="otherInput"
           type="text"
           name={formName}
@@ -61,7 +38,7 @@ function TransferOtherInput({
           maxLength={10}
           placeholder={placeholder}
           value={value}
-          onChange={handleToOtherChange}
+          onChange={onChange}
         />
       </Label>
     </Container>
