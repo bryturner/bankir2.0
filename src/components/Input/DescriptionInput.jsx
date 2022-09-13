@@ -26,8 +26,6 @@ function DescriptionInput({ formName, id, value, onChange, placeholder }) {
           name={formName}
           id={id}
           maxLength={35}
-          pattern="\w*"
-          title="Use letters or numbers only"
           placeholder={placeholder}
           value={value}
           onChange={onChange}

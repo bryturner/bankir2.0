@@ -2,8 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useReducer, useState } from "react";
 
-import { appendAmount } from "../../constants/helpers";
-
+import { formatAmount } from "../../constants/helpers";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import DescriptionInput from "../Input/DescriptionInput";
 import DateInput from "../Input/DateInput";
@@ -74,12 +73,14 @@ function TransactionForm({ fetchAccountData }) {
   };
 
   const handleInitialSubmit = () => {
+    if (error.length > 0) return;
+
     const { transactionType, transactionAccount } = state;
 
-    const updatedAmount = appendAmount(amount);
+    const formattedAmount = formatAmount(amount);
     const modData = {
       type: transactionType,
-      amount: updatedAmount,
+      amount: formattedAmount,
       account: transactionAccount,
     };
 
@@ -171,6 +172,7 @@ function TransactionForm({ fetchAccountData }) {
               id="transactionAmount"
               value={amount}
               setAmount={setAmount}
+              setError={setError}
             />
           </Flex>
           {/* <TestAmount /> */}

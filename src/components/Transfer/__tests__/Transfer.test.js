@@ -69,9 +69,9 @@ describe("Transfer form input values", () => {
   test("amount input should change", () => {
     render(<TransferForm />);
     const amountInput = screen.getByLabelText(/amount/i);
-    const amountValue = "20.00";
+    const amountValue = "200";
     fireEvent.change(amountInput, { target: { value: amountValue } });
-    expect(amountInput.value).toBe("20.00");
+    expect(amountInput.value).toBe("200");
   });
 
   test("description input should change", () => {

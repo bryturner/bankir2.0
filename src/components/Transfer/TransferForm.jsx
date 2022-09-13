@@ -13,7 +13,7 @@ import TransferFormModal from "./TransferFormModal";
 import TransferFormButton from "./TransferFormButton";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import ErrorMessage from "../Messages/ErrorMessage";
-import { appendAmount } from "../../constants/helpers";
+import { formatAmount } from "../../constants/helpers";
 
 const Flex = styled.div`
   display: flex;
@@ -35,9 +35,11 @@ function TransferForm({ fetchAccountData }) {
   const [transferTo, setTransferTo] = useState("premium");
   const [transferDesc, setTransferDesc] = useState("");
   const [transferToOther, setTransferToOther] = useState("");
-  const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
+
+  const [error, setError] = useState("");
+  const [amountIsValid, setAmountIsValid] = useState(true);
 
   const formRef = useRef();
 
@@ -53,9 +55,7 @@ function TransferForm({ fetchAccountData }) {
 
   const updateTransferValues = (value) => {
     setTransferFrom(value);
-
     if (transferTo === "otherUser") return;
-
     if (value === "premium") {
       setTransferTo("standard");
     } else {
@@ -63,14 +63,36 @@ function TransferForm({ fetchAccountData }) {
     }
   };
 
-  const handleInitialSubmit = () => {
+  const checkIfValid = (transferTo) => {
+    return new Promise((resolve, reject) => {
+      if (amount.length === 0) {
+        setError("Please fill in an amount");
+        return;
+      } else if (transferTo === "otherUser" && transferToOther.length === 0) {
+        setError("Please enter a username");
+        return;
+      } else if (transferDesc.length === 0) {
+        setError("Please enter a description");
+        return;
+      } else {
+        setError("");
+      }
+      resolve();
+    });
+  };
+
+  const handleInitialSubmit = async () => {
     const transferToValue =
       transferTo === "otherUser" ? transferToOther : transferTo;
 
-    const updatedAmount = appendAmount(amount);
+    await checkIfValid(transferTo);
+
+    if (error.length > 0) return;
+
+    const formattedAmount = formatAmount(amount);
 
     const modData = {
-      amount: updatedAmount,
+      amount: formattedAmount,
       transferFrom: transferFrom,
       transferTo: transferToValue,
     };
@@ -184,7 +206,8 @@ function TransferForm({ fetchAccountData }) {
               id="otherUser"
               placeholder="Enter username"
               value={transferToOther}
-              onChange={(e) => setTransferToOther(e.target.value)}
+              setTransferToOther={setTransferToOther}
+              setError={setError}
             />
           ) : (
             <></>
@@ -210,6 +233,8 @@ function TransferForm({ fetchAccountData }) {
               id="transferAmount"
               value={amount}
               setAmount={setAmount}
+              setError={setError}
+              amountIsValid={amountIsValid}
             />
           </Flex>
         </StyledFormInputs>

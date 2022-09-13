@@ -23,6 +23,10 @@ export const theme = {
   spacing: {
     utilGap: "12px",
   },
+  boxShadow: {
+    focus: "0 0 0 1px #248e38",
+    error: "0 0 0 1px #ff2a2a",
+  },
 };
 
 const Theme = ({ children }) => {

@@ -30,21 +30,24 @@ body {
   }
 }  
 
-input:focus, select:focus {
-	outline: none;
-   border-color: ${({ theme }) => theme.color.secondary};
-   box-shadow: 0 0 0 1px ${({ theme }) => theme.color.secondary};
-}
-
-input {
+input, select {
+	height: 3rem;
 	padding: 0.6rem;
    border: 1px solid #777;
    border-radius: 3px;
+   background-color: #f7f8fa;;
+}
+
+input:focus, select:focus {
+	background-color: white;
+	outline: none;
+   border-color: ${({ theme }) => theme.color.secondary};
+   box-shadow: ${({ theme }) => theme.boxShadow.focus};
 }
 
 input:invalid {
     border-color: ${({ theme }) => theme.color.error};
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.color.error};
+    box-shadow: ${({ theme }) => theme.boxShadow.error};
   }
 
 button {

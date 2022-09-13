@@ -10,6 +10,19 @@ export const appendAmount = (amount) => {
   }
 };
 
+export const formatAmount = (amount) => {
+  const amntComma = amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  if (!amntComma.includes(".")) {
+    return amntComma + ".00";
+  } else if (amntComma.indexOf(".") === amntComma.length - 1) {
+    return amntComma + "00";
+  } else if (amntComma.indexOf(".") === amntComma.length - 2) {
+    return amntComma + "0";
+  } else {
+    return amntComma;
+  }
+};
+
 export const firstToUpperCase = (str) => {
   return str && str.charAt(0).toUpperCase() + str.slice(1);
 };

@@ -3,6 +3,7 @@ function Input({
   value,
   defaultValue,
   onChange,
+  onBlur,
   formName,
   id,
   placeholder,
@@ -19,6 +20,7 @@ function Input({
       type={type}
       value={value}
       onChange={onChange}
+      onBlur={onBlur}
       name={formName}
       id={id}
       inputMode={inputMode}
