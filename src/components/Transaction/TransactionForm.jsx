@@ -2,7 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useReducer, useState } from "react";
 
-import { formatAmount } from "../../constants/helpers";
+import { createModalAmount } from "../../constants/helpers";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import DescriptionInput from "../Input/DescriptionInput";
 import DateInput from "../Input/DateInput";
@@ -77,10 +77,10 @@ function TransactionForm({ fetchAccountData }) {
 
     const { transactionType, transactionAccount } = state;
 
-    const formattedAmount = formatAmount(amount);
+    const modalAmount = createModalAmount(amount);
     const modData = {
       type: transactionType,
-      amount: formattedAmount,
+      amount: modalAmount,
       account: transactionAccount,
     };
 

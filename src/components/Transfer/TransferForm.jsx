@@ -13,7 +13,7 @@ import TransferFormModal from "./TransferFormModal";
 import TransferFormButton from "./TransferFormButton";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import ErrorMessage from "../Messages/ErrorMessage";
-import { formatAmount } from "../../constants/helpers";
+import { createModalAmount } from "../../constants/helpers";
 
 const Flex = styled.div`
   display: flex;
@@ -89,10 +89,10 @@ function TransferForm({ fetchAccountData }) {
 
     if (error.length > 0) return;
 
-    const formattedAmount = formatAmount(amount);
+    const modalAmount = createModalAmount(amount);
 
     const modData = {
-      amount: formattedAmount,
+      amount: modalAmount,
       transferFrom: transferFrom,
       transferTo: transferToValue,
     };
