@@ -110,21 +110,21 @@ describe("Transaction input values", () => {
   });
 });
 
-describe("Transaction modal", () => {
-  test("transaction modal should be showing", async () => {
-    render(<TransactionForm />);
-    fireEvent.click(screen.getByRole("button"));
-    await waitFor(() => {
-      expect(screen.getByTestId("modal")).toBeInTheDocument();
-    });
-  });
+// describe("Transaction modal", () => {
+//   test("transaction modal should be showing", async () => {
+//     render(<TransactionForm />);
+//     fireEvent.click(screen.getByRole("button"));
+//     await waitFor(() => {
+//       expect(screen.getByTestId("modal")).toBeInTheDocument();
+//     });
+//   });
 
-  test("transaction modal should be showing", async () => {
-    render(<TransactionForm />);
+//   test("transaction modal should be showing", async () => {
+//     render(<TransactionForm />);
 
-    fireEvent.click(screen.getByRole("button"));
-    await waitFor(() => {
-      expect(screen.getByTestId("modal")).toBeInTheDocument();
-    });
-  });
-});
+//     fireEvent.click(screen.getByRole("button"));
+//     await waitFor(() => {
+//       expect(screen.getByTestId("modal")).toBeInTheDocument();
+//     });
+//   });
+// });

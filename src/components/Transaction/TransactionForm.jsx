@@ -2,7 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useReducer, useState } from "react";
 
-import { createModalAmount } from "../../constants/helpers";
+import { createModalAmount, formatAmount } from "../../constants/helpers";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import DescriptionInput from "../Input/DescriptionInput";
 import DateInput from "../Input/DateInput";
@@ -54,9 +54,13 @@ const reducer = (state, action) => {
 function TransactionForm({ fetchAccountData }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
+
   const [error, setError] = useState("");
+  const [amountIsValid, setAmountIsValid] = useState(true);
+  const [descIsValid, setDescIsValid] = useState(true);
 
   const inputAction = (e) => {
     dispatch({
@@ -70,41 +74,81 @@ function TransactionForm({ fetchAccountData }) {
       type: "reset",
     });
     setAmount("");
+    setDescription("");
   };
 
-  const handleInitialSubmit = () => {
+  const handleAmountChange = (e) => {
+    const formattedAmount = formatAmount(e.target.value);
+    if (parseFloat(formattedAmount) > 2000) {
+      setError("Maximum transfer amount is $2,000");
+      setAmountIsValid(false);
+    } else if (parseFloat(formattedAmount) < 1) {
+      setError("Minimum transfer amount is $1.00");
+      setAmountIsValid(false);
+    } else {
+      setError("");
+      setAmountIsValid(true);
+    }
+    setAmount(formattedAmount);
+  };
+
+  const handleDescChange = (e) => {
+    const value = e.target.value;
+    if (value.length > 0) {
+      setError("");
+      setDescIsValid(true);
+    }
+    setDescription(value);
+  };
+
+  const checkIfValid = () => {
+    return new Promise((resolve, reject) => {
+      if (amount.length === 0) {
+        setError("Please fill in an amount");
+        setAmountIsValid(false);
+        return;
+      } else if (description.length === 0) {
+        setError("Please enter a description");
+        setDescIsValid(false);
+        return;
+      } else {
+        setError("");
+      }
+      resolve();
+    });
+  };
+
+  const modal = () => {
     if (error.length > 0) return;
 
+    const modalAmount = createModalAmount(amount);
     const { transactionType, transactionAccount } = state;
 
-    const modalAmount = createModalAmount(amount);
     const modData = {
-      type: transactionType,
       amount: modalAmount,
+      type: transactionType,
       account: transactionAccount,
     };
-
     setModalData(modData);
     setShowModal(true);
+  };
+
+  const handleInitSubmit = () => {
+    checkIfValid().then(() => modal());
   };
 
   const submitTransaction = async (e) => {
     e.preventDefault();
 
     try {
-      const {
-        transactionType,
-        transactionAccount,
-        transactionDesc,
-        transactionDate,
-      } = state;
+      const { transactionType, transactionAccount, transactionDate } = state;
 
       const data = {
         amount: amount,
         date: transactionDate,
         type: transactionType,
         account: transactionAccount,
-        description: transactionDesc,
+        description: description,
       };
 
       // await axios.put("http://localhost:5002/account/transaction", data);
@@ -155,8 +199,9 @@ function TransactionForm({ fetchAccountData }) {
           <DescriptionInput
             formName="transactionForm"
             id="transactionDesc"
-            value={state.transactionDesc}
-            onChange={inputAction}
+            value={description}
+            onChange={handleDescChange}
+            descIsValid={descIsValid}
             placeholder="ex. received paycheck"
           />
 
@@ -171,8 +216,8 @@ function TransactionForm({ fetchAccountData }) {
               formName="transactionForm"
               id="transactionAmount"
               value={amount}
-              setAmount={setAmount}
-              setError={setError}
+              onChange={handleAmountChange}
+              amountIsValid={amountIsValid}
             />
           </Flex>
           {/* <TestAmount /> */}
@@ -180,7 +225,7 @@ function TransactionForm({ fetchAccountData }) {
 
         <ButtonContainer>
           <ErrorMessage error={error} />
-          <TransactionFormButton onClick={handleInitialSubmit} />
+          <TransactionFormButton onClick={handleInitSubmit} />
         </ButtonContainer>
       </DetailsBox>
     </Form>

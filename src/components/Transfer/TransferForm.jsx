@@ -34,7 +34,7 @@ function TransferForm({ fetchAccountData }) {
   const [transferFrom, setTransferFrom] = useState("standard");
   const [transferTo, setTransferTo] = useState("premium");
   const [toValue, setToValue] = useState("premium");
-  const [transferDesc, setTransferDesc] = useState("");
+  const [description, setDescription] = useState("");
 
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -54,7 +54,7 @@ function TransferForm({ fetchAccountData }) {
     setTransferFrom("standard");
     setTransferTo("premium");
     setToValue("premium");
-    setTransferDesc("");
+    setDescription("");
   };
 
   const handleTransferFromChange = (e) => {
@@ -97,12 +97,11 @@ function TransferForm({ fetchAccountData }) {
       setError("");
       setDescIsValid(true);
     }
-    setTransferDesc(value);
+    setDescription(value);
   };
 
   const handleAmountChange = (e) => {
     const formattedAmount = formatAmount(e.target.value);
-
     if (parseFloat(formattedAmount) > 2000) {
       setError("Maximum transfer amount is $2,000");
       setAmountIsValid(false);
@@ -113,7 +112,6 @@ function TransferForm({ fetchAccountData }) {
       setError("");
       setAmountIsValid(true);
     }
-
     setAmount(formattedAmount);
   };
 
@@ -127,7 +125,7 @@ function TransferForm({ fetchAccountData }) {
         setError("Please enter a username");
         setOtherIsValid(false);
         return;
-      } else if (transferDesc.length === 0) {
+      } else if (description.length === 0) {
         setError("Please enter a description");
         setDescIsValid(false);
         return;
@@ -164,7 +162,7 @@ function TransferForm({ fetchAccountData }) {
       const data = {
         amount: amount,
         date: date,
-        description: transferDesc,
+        description: description,
         type: "transfer",
         transferFrom: transferFrom,
         transferTo: toValue,
@@ -270,7 +268,7 @@ function TransferForm({ fetchAccountData }) {
             formName="transferForm"
             id="transferDesc"
             placeholder="ex. monthly savings deposit"
-            value={transferDesc}
+            value={description}
             onChange={handleDescChange}
             descIsValid={descIsValid}
           />
