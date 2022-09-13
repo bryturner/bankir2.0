@@ -55,20 +55,31 @@ function AmountInput({
   setAmountIsValid,
   setError,
 }) {
-  const handleChange = (e) => {
-    const amount = formatAmount(e.target.value);
-    setAmount(amount);
-
-    if (parseFloat(amount) > 2000) {
-      setError("Maximum amount is $2000");
-      setAmountIsValid(false);
-    } else if (amount.startsWith(".")) {
+  const checkValidAmount = (amount) => {
+    if (amount.startsWith(".")) {
       setError("Minimum amount is $1");
+      setAmountIsValid(false);
+    } else if (parseFloat(amount) > 2000) {
+      setError("Maximum amount is $2000");
       setAmountIsValid(false);
     } else {
       setError("");
       setAmountIsValid(true);
     }
+  };
+
+  const handleBlur = (e) => {
+    if (e.target.value.length === 0) {
+      setError("Please enter an amount");
+      setAmountIsValid(false);
+    }
+    checkValidAmount(e.target.value);
+  };
+
+  const handleChange = (e) => {
+    const amount = formatAmount(e.target.value);
+    setAmount(amount);
+    checkValidAmount(amount);
   };
 
   return (
@@ -85,6 +96,7 @@ function AmountInput({
           maxLength={8}
           value={value}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
       </InputWrapper>
     </Container>
