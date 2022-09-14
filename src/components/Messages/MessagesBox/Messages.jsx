@@ -15,9 +15,6 @@ const List = styled.ul`
   }
 `;
 
-// transfer -> type, amount, date, from acct, to acct
-// transaction -> type (deposit, withdrawal), amount, date, to acct
-
 function Messages({ messages }) {
   return (
     <DetailsBox header="Messages">

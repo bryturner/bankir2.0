@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { firstToUpperCase } from "../../../constants/helpers";
+import { firstToUpperCase, formatTransfer } from "../../../constants/helpers";
 
 const ListItem = styled.li`
   padding: 1rem 0;
@@ -44,16 +44,17 @@ function Message({ message }) {
           </>
         ) : type === "deposit" ? (
           <>
-            Deposit ${amount} to {firstToUpperCase(account)} Savings
+            Deposited ${amount} to {firstToUpperCase(account)} Savings
           </>
         ) : type === "transfer" ? (
           <>
-            Transfer ${amount} from {firstToUpperCase(transferFrom)} to{" "}
-            {firstToUpperCase(transferTo)}
+            Transferred ${amount} from {formatTransfer(transferFrom)} to{" "}
+            {formatTransfer(transferTo)}
           </>
         ) : type === "interest" ? (
           <>
-            Interest paid: ${standard} to Standard and ${premium} to Premium
+            Interest paid: ${standard} to Standard Savings and ${premium} to
+            Premium Savings
           </>
         ) : (
           <>An error has occurred</>

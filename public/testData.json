@@ -15,23 +15,31 @@
       "type": "deposit",
       "amount": 50.44,
       "date": 1662154610849,
-      "account": "Standard",
+      "account": "standard",
       "id": "msg1"
     },
     {
       "type": "withdrawal",
       "amount": 50.44,
       "date": 1662154610849,
-      "account": "Standard",
+      "account": "standard",
       "id": "2"
     },
     {
       "type": "transfer",
       "amount": 50.44,
       "date": 1662154610849,
-      "transferTo": "Standard",
-      "transferFrom": "Premium",
+      "transferTo": "standard",
+      "transferFrom": "premium",
       "id": "3"
+    },
+    {
+      "type": "transfer",
+      "amount": 50.44,
+      "date": 1662154610849,
+      "transferTo": "user1",
+      "transferFrom": "premium",
+      "id": "4"
     },
     {
       "type": "interest",

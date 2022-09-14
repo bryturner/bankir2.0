@@ -22,3 +22,10 @@ export const formatAmount = (amount) => {
     .replace(/(?<=\..*)\./g, "") // replaces '.' if more than one
     .replace(/(?<=\.\d{2}).*/g, ""); // limits to 2 places after decimal
 };
+
+export const formatTransfer = (transfer) => {
+  if (transfer !== "premium" && transfer !== "standard") {
+    return transfer;
+  }
+  return `${firstToUpperCase(transfer)} Savings`;
+};
