@@ -4,9 +4,15 @@ import AccountHeading from "../AccountHeading";
 import Greeting from "../Greeting";
 
 describe("Account heading", () => {
-  test("greeting should render", () => {
-    render(<AccountHeading />);
-
-    expect();
+  const props = {
+    firstName: "Bryan",
+    accountTotal: 20000,
+    earningsTotal: 500,
+  };
+  test("heading text should render", () => {
+    const { getByText } = render(<AccountHeading {...props} />);
+    expect(getByText(/bryan/i)).toBeInTheDocument();
+    expect(getByText("$20,000.00")).toBeInTheDocument();
+    expect(getByText("$500.00")).toBeInTheDocument();
   });
 });

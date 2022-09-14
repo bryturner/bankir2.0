@@ -17,7 +17,7 @@ const TotalAmount = styled.span`
 
 function Total({ text, children }) {
   return (
-    <Container>
+    <Container data-testid="total">
       <Text>{text}</Text>
       <TotalAmount>{children}</TotalAmount>
     </Container>
