@@ -4,24 +4,14 @@ import { render, screen, fireEvent, waitFor } from "../../../testUtils";
 import TransactionForm from "../TransactionForm";
 
 describe("Transaction form inputs render", () => {
-  test("description input should render", () => {
+  test("form elements should render", () => {
     render(<TransactionForm />);
     expect(screen.getByPlaceholderText(/paycheck/i)).toBeInTheDocument();
-  });
-
-  test("amount input should render", () => {
-    render(<TransactionForm />);
     expect(screen.getByLabelText(/amount/i)).toBeInTheDocument();
-  });
-
-  test("date input should render", () => {
-    render(<TransactionForm />);
     expect(screen.getByLabelText(/date/i)).toBeInTheDocument();
-  });
-
-  test("transaction type select should render", () => {
-    render(<TransactionForm />);
     expect(screen.getByLabelText(/transaction type/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/choose an account/i)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
   test("transaction type select should have two options", () => {
@@ -29,29 +19,14 @@ describe("Transaction form inputs render", () => {
     expect(screen.getByLabelText(/transaction type/i).length).toBe(2);
   });
 
-  test("transaction account select should render", () => {
-    render(<TransactionForm />);
-    expect(screen.getByLabelText(/choose an account/i)).toBeInTheDocument();
-  });
-
   test("transaction account select should have two options", () => {
     render(<TransactionForm />);
     expect(screen.getByLabelText(/choose an account/i).length).toBe(2);
   });
 
-  test("date input should render", () => {
-    render(<TransactionForm />);
-    expect(screen.getByLabelText(/date/i)).toBeInTheDocument();
-  });
-
   test("error message should not be visible", () => {
     render(<TransactionForm />);
     expect(screen.getByTestId("errorMsg")).not.toBeVisible();
-  });
-
-  test("button should render", () => {
-    render(<TransactionForm />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
   test("button text should show 'submit transaction'", () => {
@@ -110,21 +85,132 @@ describe("Transaction input values", () => {
   });
 });
 
-// describe("Transaction modal", () => {
-//   test("transaction modal should be showing", async () => {
-//     render(<TransactionForm />);
-//     fireEvent.click(screen.getByRole("button"));
-//     await waitFor(() => {
-//       expect(screen.getByTestId("modal")).toBeInTheDocument();
-//     });
-//   });
+describe("Transaction modal", () => {
+  test("transaction modal should be visible", async () => {
+    render(<TransactionForm />);
+    fireEvent.change(screen.getByLabelText(/description/i), {
+      target: { value: "received paycheck" },
+    });
+    fireEvent.change(screen.getByLabelText(/amount/i), {
+      target: { value: "100" },
+    });
+    fireEvent.click(screen.getByRole("button"));
+    await waitFor(() => {
+      expect(screen.getByTestId("modal")).toBeInTheDocument();
+    });
+  });
 
-//   test("transaction modal should be showing", async () => {
-//     render(<TransactionForm />);
+  test("transaction modal should not be visible - missing description", async () => {
+    render(<TransactionForm />);
+    fireEvent.change(screen.getByLabelText(/amount/i), {
+      target: { value: "100" },
+    });
+    fireEvent.click(screen.getByRole("button"));
+    await waitFor(() => {
+      expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
+    });
+  });
 
-//     fireEvent.click(screen.getByRole("button"));
-//     await waitFor(() => {
-//       expect(screen.getByTestId("modal")).toBeInTheDocument();
-//     });
-//   });
-// });
+  test("transaction modal should not be visible - missing amount", async () => {
+    render(<TransactionForm />);
+    fireEvent.change(screen.getByLabelText(/description/i), {
+      target: { value: "received paycheck" },
+    });
+    fireEvent.click(screen.getByRole("button"));
+    await waitFor(() => {
+      expect(screen.queryByTestId("modal")).not.toBeInTheDocument();
+    });
+  });
+
+  test("transaction modal text should be 'deposit' '100' 'premium'", async () => {
+    render(<TransactionForm />);
+    userEvent.selectOptions(
+      screen.getByLabelText(/choose an account/i),
+      screen.getByText(/premium account/i)
+    );
+    userEvent.selectOptions(
+      screen.getByLabelText(/transaction type/i),
+      screen.getByText(/deposit/i)
+    );
+    fireEvent.change(screen.getByLabelText(/description/i), {
+      target: { value: "received paycheck" },
+    });
+    fireEvent.change(screen.getByLabelText(/amount/i), {
+      target: { value: "100" },
+    });
+    fireEvent.click(screen.getByRole("button"));
+    await waitFor(() => {
+      expect(screen.getByTestId("modal-text")).toHaveTextContent(
+        "Deposit $100.00 to Premium Savings"
+      );
+    });
+  });
+
+  test("transaction modal text should be 'withdrawal' '1000' 'standard'", async () => {
+    render(<TransactionForm />);
+    userEvent.selectOptions(
+      screen.getByLabelText(/choose an account/i),
+      screen.getByText(/standard account/i)
+    );
+    userEvent.selectOptions(
+      screen.getByLabelText(/transaction type/i),
+      screen.getByText(/withdrawal/i)
+    );
+    fireEvent.change(screen.getByLabelText(/description/i), {
+      target: { value: "received paycheck" },
+    });
+    fireEvent.change(screen.getByLabelText(/amount/i), {
+      target: { value: "1000" },
+    });
+    fireEvent.click(screen.getByRole("button"));
+    await waitFor(() => {
+      expect(screen.getByTestId("modal-text")).toHaveTextContent(
+        "Withdraw $1,000.00 from Standard Savings"
+      );
+    });
+  });
+});
+
+describe("Transaction form error messages", () => {
+  test("error for empty amount field should be visible", () => {
+    render(<TransactionForm />);
+    fireEvent.change(screen.getByLabelText(/description/i), {
+      target: { value: "received paycheck" },
+    });
+    fireEvent.click(screen.getByRole("button"));
+    expect(screen.queryByTestId("errorMsg")).toHaveTextContent(
+      "Please enter an amount"
+    );
+  });
+
+  test("error for empty description field should be visible", () => {
+    render(<TransactionForm />);
+    fireEvent.change(screen.getByLabelText(/amount/i), {
+      target: { value: "100" },
+    });
+    fireEvent.click(screen.getByRole("button"));
+    expect(screen.queryByTestId("errorMsg")).toHaveTextContent(
+      "Please enter a description"
+    );
+  });
+
+  test("error for maximum amount should be visible", () => {
+    render(<TransactionForm />);
+    fireEvent.change(screen.getByLabelText(/amount/i), {
+      target: { value: "10000" },
+    });
+    expect(screen.queryByTestId("errorMsg")).toHaveTextContent(
+      "Maximum amount is $2,000"
+    );
+  });
+
+  test("error for minimum amount should be visible", () => {
+    render(<TransactionForm />);
+    fireEvent.change(screen.getByLabelText(/amount/i), {
+      target: { value: ".3" },
+    });
+    expect(screen.queryByTestId("errorMsg")).toHaveTextContent(
+      "Minimum amount is $1"
+    );
+  });
+});

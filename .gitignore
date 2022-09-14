@@ -12,6 +12,7 @@
 /build
 
 # misc
+read.md
 notes.txt
 .DS_Store
 .env.local

@@ -3,23 +3,23 @@ import Modal from "./Modal";
 import ModalButton from "./ModalButton";
 
 const Container = styled.div`
-  padding: 5rem;
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: 2.6rem;
-  align-items: center;
+  padding: 5rem;
 `;
 
 const Text = styled.div`
-  text-align: center;
   font-size: 1.6rem;
+  text-align: center;
 `;
 
 const ButtonsContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  width: 100%;
 
   > button {
     flex: 1;
@@ -27,10 +27,10 @@ const ButtonsContainer = styled.div`
 
   > button:last-child {
     align-self: center;
-    width: fit-content;
     background-image: none;
     color: ${({ theme }) => theme.color.secondary};
     padding: 0;
+    width: fit-content;
 
     &:hover {
       text-decoration: underline;
@@ -56,13 +56,13 @@ function FormModal({
         <ButtonsContainer>
           <ModalButton
             type="submit"
-            text={confirmButtonText}
             onClick={handleConfirmClick}
+            text={confirmButtonText}
           />
           <ModalButton
             type="button"
-            text="Cancel"
             onClick={handleCancelClick}
+            text="Cancel"
           />
         </ButtonsContainer>
       </Container>

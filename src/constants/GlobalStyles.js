@@ -41,7 +41,7 @@ input, select {
 input:focus, select:focus {
 	background-color: white;
 	outline: none;
-   border-color: ${({ theme }) => theme.color.secondary};
+	border-color: ${({ theme }) => theme.color.secondary};
    box-shadow: ${({ theme }) => theme.boxShadow.focus};
 }
 

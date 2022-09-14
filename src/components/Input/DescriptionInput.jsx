@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -5,46 +6,44 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.p`
-  font-size: 1.4rem;
-`;
-
 const Label = styled.label``;
 
 const Input = styled.input`
   width: 100%;
-  border-color: ${(props) =>
-    props.descIsValid ? props.theme.color.lightGray : props.theme.color.error};
+  &:focus {
+    border-color: ${(props) =>
+      props.descIsValid
+        ? props.theme.color.secondary
+        : props.theme.color.error};
 
-  box-shadow: ${(props) =>
-    props.descIsValid ? "none" : props.theme.boxShadow.error};
+    box-shadow: ${(props) =>
+      props.descIsValid
+        ? props.theme.boxShadow.focus
+        : props.theme.boxShadow.error};
+  }
 `;
 
-function DescriptionInput({
-  formName,
-  id,
-  value,
-  onChange,
-  placeholder,
-  descIsValid,
-}) {
-  return (
-    <Container>
-      <Title>Description:</Title>
-      <Label htmlFor={id}>
-        <Input
-          descIsValid={descIsValid}
-          type="text"
-          name={formName}
-          id={id}
-          maxLength={35}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-        />
-      </Label>
-    </Container>
-  );
-}
+const DescriptionInput = forwardRef(
+  ({ formName, id, value, onChange, placeholder, descIsValid }, ref) => {
+    return (
+      <Container>
+        <Label htmlFor={id}>Description:</Label>
+        <div>
+          <Input
+            descIsValid={descIsValid}
+            type="text"
+            name={formName}
+            id={id}
+            maxLength={35}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            ref={ref}
+          />
+        </div>
+      </Container>
+    );
+  }
+);
 
 export default DescriptionInput;

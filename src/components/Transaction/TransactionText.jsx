@@ -3,7 +3,7 @@ import { firstToUpperCase } from "../../constants/helpers";
 function TransactionText({ modalData }) {
   const { type, amount, account } = modalData;
   return (
-    <>
+    <p>
       {type === "withdrawal" ? (
         <>
           Withdraw ${amount} from {firstToUpperCase(account)} Savings?
@@ -15,7 +15,7 @@ function TransactionText({ modalData }) {
       ) : (
         <>An error has occurred, please try again.</>
       )}
-    </>
+    </p>
   );
 }
 

@@ -5,11 +5,11 @@ import TotalCurrency from "../Total/TotalCurrency";
 import Transaction from "./Transaction";
 
 const Container = styled.div`
-  margin-right: ${({ theme }) => theme.spacing.utilGap};
-  margin-bottom: ${({ theme }) => theme.spacing.utilGap};
   background-color: #fff;
-  padding: 1.8rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: ${({ theme }) => theme.spacing.utilGap};
+  margin-right: ${({ theme }) => theme.spacing.utilGap};
+  padding: 1.8rem;
 `;
 
 const Grid = styled.div`
@@ -24,15 +24,15 @@ const Title = styled.h3`
 `;
 
 const HeadingsContainer = styled.div`
+  border-bottom: 3px solid ${({ theme }) => theme.color.primaryLight};
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   padding: 0 1.2rem;
-  border-bottom: 3px solid ${({ theme }) => theme.color.primaryLight};
 `;
 
 const Heading = styled.p`
-  font-weight: 400;
   color: ${({ theme }) => theme.color.primaryMid};
+  font-weight: 400;
 
   &:nth-child(2) {
     text-align: center;
@@ -54,10 +54,10 @@ const TransactionsContainer = styled.ul`
 `;
 
 const DefaultText = styled.p`
-  font-size: 1.5rem;
   color: ${({ theme }) => theme.color.primaryMidLight};
-  text-align: center;
+  font-size: 1.5rem;
   margin: 2rem 0 0.6rem 0;
+  text-align: center;
 `;
 
 function Account({ title, balance, earnings, apy, transactions }) {
@@ -84,10 +84,10 @@ function Account({ title, balance, earnings, apy, transactions }) {
         ) : (
           transactions.map((transaction) => (
             <Transaction
+              key={transaction.id}
               transDate={transaction.date}
               description={transaction.description}
               amount={transaction.amount}
-              key={transaction.id}
             />
           ))
         )}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useReducer, useState } from "react";
+import { useReducer, useRef, useState } from "react";
 
 import { createModalAmount, formatAmount } from "../../constants/helpers";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
@@ -14,6 +14,7 @@ import ErrorMessage from "../Messages/ErrorMessage";
 import TransactionFormButton from "./TransactionFormButton";
 import TransactionFormModal from "./TransactionFormModal";
 import TestAmount from "../Input/TestAmount";
+import { ERROR } from "../../constants/clientMessages";
 
 const Form = styled.form``;
 
@@ -62,6 +63,9 @@ function TransactionForm({ fetchAccountData }) {
   const [amountIsValid, setAmountIsValid] = useState(true);
   const [descIsValid, setDescIsValid] = useState(true);
 
+  const amountRef = useRef();
+  const descRef = useRef();
+
   const inputAction = (e) => {
     dispatch({
       type: "update",
@@ -80,10 +84,10 @@ function TransactionForm({ fetchAccountData }) {
   const handleAmountChange = (e) => {
     const formattedAmount = formatAmount(e.target.value);
     if (parseFloat(formattedAmount) > 2000) {
-      setError("Maximum transfer amount is $2,000");
+      setError(ERROR.MAX_AMOUNT);
       setAmountIsValid(false);
     } else if (parseFloat(formattedAmount) < 1) {
-      setError("Minimum transfer amount is $1.00");
+      setError(ERROR.MIN_AMOUNT);
       setAmountIsValid(false);
     } else {
       setError("");
@@ -104,12 +108,14 @@ function TransactionForm({ fetchAccountData }) {
   const checkIfValid = () => {
     return new Promise((resolve, reject) => {
       if (amount.length === 0) {
-        setError("Please fill in an amount");
+        setError(ERROR.AMOUNT);
         setAmountIsValid(false);
+        amountRef.current.focus();
         return;
       } else if (description.length === 0) {
-        setError("Please enter a description");
+        setError(ERROR.DESC);
         setDescIsValid(false);
+        descRef.current.focus();
         return;
       } else {
         setError("");
@@ -203,6 +209,7 @@ function TransactionForm({ fetchAccountData }) {
             onChange={handleDescChange}
             descIsValid={descIsValid}
             placeholder="ex. received paycheck"
+            ref={descRef}
           />
 
           <Flex>
@@ -218,6 +225,7 @@ function TransactionForm({ fetchAccountData }) {
               value={amount}
               onChange={handleAmountChange}
               amountIsValid={amountIsValid}
+              ref={amountRef}
             />
           </Flex>
           {/* <TestAmount /> */}

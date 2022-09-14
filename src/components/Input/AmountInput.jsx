@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -44,25 +45,28 @@ const Input = styled.input`
 
 // \d -> number
 // \.(?=\d{2}) -> decimal before 2 numbers
-function AmountInput({ formName, id, value, amountIsValid, onChange }) {
-  return (
-    <Container>
-      <Label htmlFor={id}>Amount:</Label>
-      <InputWrapper>
-        <Input
-          amountIsValid={amountIsValid}
-          type="text"
-          inputMode="decimal"
-          name={formName}
-          id={id}
-          placeholder="0.00"
-          maxLength={8}
-          value={value}
-          onChange={onChange}
-        />
-      </InputWrapper>
-    </Container>
-  );
-}
+const AmountInput = forwardRef(
+  ({ formName, id, value, amountIsValid, onChange }, ref) => {
+    return (
+      <Container>
+        <Label htmlFor={id}>Amount:</Label>
+        <InputWrapper>
+          <Input
+            amountIsValid={amountIsValid}
+            type="text"
+            inputMode="decimal"
+            name={formName}
+            id={id}
+            placeholder="0.00"
+            maxLength={8}
+            value={value}
+            onChange={onChange}
+            ref={ref}
+          />
+        </InputWrapper>
+      </Container>
+    );
+  }
+);
 
 export default AmountInput;

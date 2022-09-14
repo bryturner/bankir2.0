@@ -14,6 +14,7 @@ import TransferFormButton from "./TransferFormButton";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import ErrorMessage from "../Messages/ErrorMessage";
 import { createModalAmount, formatAmount } from "../../constants/helpers";
+import { ERROR } from "../../constants/clientMessages";
 
 const Flex = styled.div`
   display: flex;
@@ -46,6 +47,9 @@ function TransferForm({ fetchAccountData }) {
   const [descIsValid, setDescIsValid] = useState(true);
 
   const formRef = useRef();
+  const amountRef = useRef();
+  const descRef = useRef();
+  const otherUserRef = useRef();
 
   const reset = () => {
     formRef.current.reset();
@@ -82,7 +86,7 @@ function TransferForm({ fetchAccountData }) {
   const handleOtherChange = (e) => {
     const value = e.target.value;
     if (e.target.validity.patternMismatch) {
-      setError("Username contains lower case or numbers only");
+      setError("Use lower case letters and numbers only");
       setOtherIsValid(false);
     } else {
       setError("");
@@ -103,10 +107,10 @@ function TransferForm({ fetchAccountData }) {
   const handleAmountChange = (e) => {
     const formattedAmount = formatAmount(e.target.value);
     if (parseFloat(formattedAmount) > 2000) {
-      setError("Maximum transfer amount is $2,000");
+      setError(ERROR.MAX_AMOUNT);
       setAmountIsValid(false);
     } else if (parseFloat(formattedAmount) < 1) {
-      setError("Minimum transfer amount is $1.00");
+      setError(ERROR.MIN_AMOUNT);
       setAmountIsValid(false);
     } else {
       setError("");
@@ -118,16 +122,19 @@ function TransferForm({ fetchAccountData }) {
   const checkIfValid = () => {
     return new Promise((resolve, reject) => {
       if (amount.length === 0) {
-        setError("Please fill in an amount");
+        setError(ERROR.AMOUNT);
         setAmountIsValid(false);
+        amountRef.current.focus();
         return;
       } else if (toValue.length === 0) {
-        setError("Please enter a username");
+        setError(ERROR.USERNAME);
         setOtherIsValid(false);
+        otherUserRef.current.focus();
         return;
       } else if (description.length === 0) {
-        setError("Please enter a description");
+        setError(ERROR.DESC);
         setDescIsValid(false);
+        descRef.current.focus();
         return;
       } else {
         setError("");
@@ -206,9 +213,9 @@ function TransferForm({ fetchAccountData }) {
           <SelectOption
             formName="transferForm"
             id="transferFrom"
-            labelText="Transfer from:"
             defaultValue={transferFrom}
             onChange={handleTransferFromChange}
+            labelText="Transfer from:"
           >
             <Option
               dataTestId="transfer-from-standard"
@@ -225,9 +232,9 @@ function TransferForm({ fetchAccountData }) {
           <SelectOption
             formName="transferForm"
             id="transferTo"
-            labelText="Transfer to:"
             defaultValue={transferTo}
             onChange={handleTransferToChange}
+            labelText="Transfer to:"
           >
             {transferFrom === "standard" ? (
               <>
@@ -254,9 +261,10 @@ function TransferForm({ fetchAccountData }) {
             <TransferOtherInput
               formName="transferForm"
               id="otherUser"
-              placeholder="Enter username"
               value={toValue}
               onChange={handleOtherChange}
+              ref={otherUserRef}
+              placeholder="Enter username"
               setError={setError}
               otherIsValid={otherIsValid}
             />
@@ -267,9 +275,10 @@ function TransferForm({ fetchAccountData }) {
           <DescriptionInput
             formName="transferForm"
             id="transferDesc"
-            placeholder="ex. monthly savings deposit"
             value={description}
             onChange={handleDescChange}
+            ref={descRef}
+            placeholder="ex. monthly savings deposit"
             descIsValid={descIsValid}
           />
 
@@ -285,6 +294,7 @@ function TransferForm({ fetchAccountData }) {
               id="transferAmount"
               value={amount}
               onChange={handleAmountChange}
+              ref={amountRef}
               amountIsValid={amountIsValid}
             />
           </Flex>

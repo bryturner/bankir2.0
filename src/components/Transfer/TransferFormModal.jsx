@@ -8,12 +8,13 @@ function TransferFormModal({ showModal, modalData, setShowModal }) {
     if (transferTo !== "premium" && transferTo !== "standard") {
       return transferTo;
     }
-    return firstToUpperCase(transferTo);
+    //  const fullAccount =
+    return `${firstToUpperCase(transferTo)} Savings`;
   };
 
   const text = `Transfer $${amount} from ${firstToUpperCase(
     transferFrom
-  )} to ${formatTransferTo(transferTo)}?`;
+  )} Savings to ${formatTransferTo(transferTo)}?`;
 
   return (
     <FormModal
