@@ -25,23 +25,23 @@ const Subheading = styled.p`
 `;
 
 const APYContainer = styled.div`
-  margin-top: 2rem;
   align-self: center;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+  margin-top: 2rem;
 `;
 
 const APYTextContainer = styled.div`
   display: flex;
   gap: 6.4rem;
-  width: fit-content;
   justify-content: center;
+  width: fit-content;
 `;
 
 const Title = styled.p`
-  text-align: center;
   font-size: 2.6rem;
+  text-align: center;
 `;
 
 function RegisterPage() {
