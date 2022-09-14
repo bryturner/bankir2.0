@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { firstToUpperCase, formatTransfer } from "../../../constants/helpers";
 
 const ListItem = styled.li`
-  padding: 1rem 0;
   border-bottom: 0.75px solid ${({ theme }) => theme.color.primaryMid};
+  padding: 1rem 0;
 `;
 
 const Text = styled.p`
@@ -11,8 +11,8 @@ const Text = styled.p`
 `;
 
 const MsgDate = styled.p`
+  color: ${({ theme }) => theme.color.primaryMid};
   font-size: 1.2rem;
-  color: ${({ theme }) => theme.color.primaryMid}; ;
 `;
 
 function Message({ message }) {

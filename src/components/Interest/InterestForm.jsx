@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
 import InterestInput from "./InterestInput";
@@ -11,16 +11,20 @@ import SelectOption from "../SelectOption/SelectOption";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 
 const Container = styled.div`
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 0.8rem;
+
+  > div {
+    width: 100%;
+  }
 `;
 
 const Wrapper = styled.div`
+  align-items: center;
   display: flex;
   gap: 1rem;
-  align-items: center;
 
   > input {
     color: inherit;
@@ -36,15 +40,37 @@ const ButtonWrapper = styled.div`
   }
 `;
 
+const TotalsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2.4rem;
+`;
+
+const TotalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Account = styled.p``;
+
+const Total = styled.p`
+  font-size: 1.8rem;
+  text-align: center;
+`;
+
 const calculateEarnings = (years, compounded, balance, apy) => {
   const p = balance;
   const t = years;
-  const n = compounded;
+  const n = parseInt(compounded);
   const r = parseFloat(apy / 100);
 
   const total = p * Math.pow(1 + r / n, n * t);
   const interest = total - p;
-  return interest.toFixed(2);
+  return interest;
+};
+
+const formatAmount = (amount) => {
+  return amount?.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 function InterestForm({
@@ -55,19 +81,19 @@ function InterestForm({
   premiumAPY,
 }) {
   const [years, setYears] = useState(1);
-  const [compounded, setCompounded] = useState(12);
-  const [standardEarned, setStandardEarned] = useState("");
-  const [premiumEarned, setPremiumEarned] = useState("");
+  const [compounded, setCompounded] = useState("12");
+  const [standardEarned, setStandardEarned] = useState("0");
+  const [premiumEarned, setPremiumEarned] = useState("0");
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({ years, compounded });
 
   const reset = () => {
     setYears(1);
-    setCompounded(12);
+    setCompounded("12");
     setModalData({ years, compounded });
   };
 
-  const handleConfirmEarnings = () => {
+  const calculateInterest = useCallback(() => {
     const calculatedStandard = calculateEarnings(
       years,
       compounded,
@@ -82,9 +108,18 @@ function InterestForm({
       premiumAPY
     );
 
-    setStandardEarned(calculatedStandard);
-    setPremiumEarned(calculatedPremium);
+    setStandardEarned(formatAmount(calculatedStandard));
+    setPremiumEarned(formatAmount(calculatedPremium));
+  }, [
+    years,
+    compounded,
+    standardBalance,
+    standardAPY,
+    premiumBalance,
+    premiumAPY,
+  ]);
 
+  const handleInitSubmit = () => {
     const modData = {
       years,
       compounded,
@@ -94,7 +129,6 @@ function InterestForm({
 
     setModalData(modData);
     setShowModal(true);
-    //  console.log(modalData);
   };
 
   const submitInterest = async (e) => {
@@ -110,13 +144,16 @@ function InterestForm({
 
       reset();
       fetchAccountData();
-      // console.log(data);
     } catch (err) {
       console.error(err);
     } finally {
       setShowModal(false);
     }
   };
+
+  useEffect(() => {
+    calculateInterest();
+  }, [calculateInterest]);
   return (
     <form onSubmit={submitInterest} id="interestForm">
       <InterestModal
@@ -152,15 +189,27 @@ function InterestForm({
                 setCompounded(e.target.value);
               }}
             >
-              <Option value={12} title="Monthly" />
-              <Option value={4} title="Quarterly" />
-              <Option value={1} title="Yearly" />
+              <Option value="12" title="Monthly" />
+              <Option value="4" title="Quarterly" />
+              <Option value="1" title="Yearly" />
             </SelectOption>
           </Container>
         </StyledFormInputs>
 
+        <TotalsContainer>
+          <TotalWrapper>
+            <Account>Standard Savings</Account>
+            <Total>${standardEarned}</Total>
+          </TotalWrapper>
+
+          <TotalWrapper>
+            <Account>Premium Savings</Account>
+            <Total>${premiumEarned}</Total>
+          </TotalWrapper>
+        </TotalsContainer>
+
         <ButtonWrapper>
-          <InterestFormButton onClick={handleConfirmEarnings} />
+          <InterestFormButton onClick={handleInitSubmit} />
         </ButtonWrapper>
       </DetailsBox>
     </form>

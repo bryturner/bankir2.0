@@ -6,9 +6,9 @@
     "earnings": 900.0
   },
   "premium": {
-    "balance": 5000.24,
+    "balance": 5000.0,
     "apy": 8.5,
-    "earnings": 500.98
+    "earnings": 500.0
   },
   "messages": [
     {
@@ -49,8 +49,8 @@
       "id": "msg09-09T00:35:56.570"
     }
   ],
-  "accountTotal": 23000.0,
-  "earningsTotal": 900.24,
+  "accountTotal": 7000.0,
+  "earningsTotal": 1400.0,
   "stdTransactions": [
     {
       "date": "2/2/22",

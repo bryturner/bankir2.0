@@ -16,9 +16,9 @@ function InterestText({ modalData }) {
     <Container>
       <span>
         In a {years} year period compounded{" "}
-        {compounded === 12
+        {compounded === "12"
           ? "monthly"
-          : compounded === 4
+          : compounded === "4"
           ? "quarterly"
           : "yearly"}{" "}
         you will earn:
