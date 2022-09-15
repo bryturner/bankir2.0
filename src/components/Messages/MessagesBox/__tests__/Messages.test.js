@@ -9,33 +9,39 @@ describe("Messages", () => {
       {
         firstName: "Spock",
         type: "welcome",
+        id: "1",
       },
       {
         amount: "20.00",
         type: "withdrawal",
         account: "standard",
+        id: "2",
       },
       {
         amount: "1,000.00",
         type: "deposit",
         account: "premium",
+        id: "3",
       },
       {
         amount: "500.00",
         type: "transfer",
         transferFrom: "premium",
         transferTo: "standard",
+        id: "4",
       },
       {
         amount: "500.00",
         type: "transfer",
         transferFrom: "standard",
         transferTo: "user1",
+        id: "5",
       },
       {
         type: "interest",
         standard: "200.00",
         premium: "150.00",
+        id: "6",
       },
     ],
   };
@@ -43,7 +49,9 @@ describe("Messages", () => {
   test("should render welcome message", () => {
     const { getByText } = render(<Messages {...props} />);
     expect(
-      getByText("Congrats Spock, you have opened a new account!")
+      getByText(
+        "Congratulations Spock, you have opened a new account with BankIR!"
+      )
     ).toBeInTheDocument();
   });
 

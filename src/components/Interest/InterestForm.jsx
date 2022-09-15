@@ -66,11 +66,11 @@ const calculateEarnings = (years, compounded, balance, apy) => {
 
   const total = p * Math.pow(1 + r / n, n * t);
   const interest = total - p;
-  return interest;
+  return interest.toFixed(2);
 };
 
-const formatAmount = (amount) => {
-  return amount?.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const replaceComma = (amount) => {
+  return amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 function InterestForm({
@@ -108,8 +108,8 @@ function InterestForm({
       premiumAPY
     );
 
-    setStandardEarned(formatAmount(calculatedStandard));
-    setPremiumEarned(formatAmount(calculatedPremium));
+    setStandardEarned(calculatedStandard);
+    setPremiumEarned(calculatedPremium);
   }, [
     years,
     compounded,
@@ -123,8 +123,8 @@ function InterestForm({
     const modData = {
       years,
       compounded,
-      standardEarned,
-      premiumEarned,
+      standardEarned: replaceComma(standardEarned),
+      premiumEarned: replaceComma(premiumEarned),
     };
 
     setModalData(modData);
@@ -140,7 +140,7 @@ function InterestForm({
         premiumEarned,
       };
 
-      // await axios.put("http://localhost:5002/account/interest", data);
+      await axios.put("http://localhost:5002/account/interest", data);
 
       reset();
       fetchAccountData();
@@ -199,12 +199,12 @@ function InterestForm({
         <TotalsContainer>
           <TotalWrapper>
             <Account>Standard Savings</Account>
-            <Total>${standardEarned}</Total>
+            <Total>${replaceComma(standardEarned)}</Total>
           </TotalWrapper>
 
           <TotalWrapper>
             <Account>Premium Savings</Account>
-            <Total>${premiumEarned}</Total>
+            <Total>${replaceComma(premiumEarned)}</Total>
           </TotalWrapper>
         </TotalsContainer>
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import LoginForm from "../components/Login/LoginForm";
 import { LandingLayout } from "../constants/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PATH } from "../constants/paths";
 
 const Container = styled.div`
@@ -11,21 +11,20 @@ const Container = styled.div`
   gap: 3rem;
 
   > a {
-    margin-top: 2rem;
-    margin-left: 1rem;
-
-    font-size: 1.8rem;
-    text-decoration: none;
-    color: white;
     background-color: ${({ theme }) => theme.color.secondary};
     border: 2px solid ${({ theme }) => theme.color.secondary};
     border-radius: 3px;
+    color: white;
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
     padding: 1rem 6rem;
+    text-decoration: none;
     transition: all 0.1s linear;
     width: fit-content;
 
     &:hover {
-      background-color: white;
+      background-color: ${({ theme }) => theme.color.primaryLight};
       color: ${({ theme }) => theme.color.secondary};
     }
   }

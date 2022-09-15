@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useContext, useReducer } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PATH } from "../../constants/paths";

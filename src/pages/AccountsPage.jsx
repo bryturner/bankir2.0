@@ -10,8 +10,6 @@ import InterestForm from "../components/Interest/InterestForm";
 import Messages from "../components/Messages/MessagesBox/Messages";
 import ResetButton from "../components/Button/ResetButton";
 import DeleteButton from "../components/Button/DeleteButton";
-import Footer from "../components/Footer/Footer";
-import { PageContainer } from "../constants/styles";
 
 const Container = styled.div`
   padding: 0 1.4rem;
@@ -87,53 +85,53 @@ function AccountPage() {
   const [premiumTransactions, setPremiumTransactions] = useState([]);
   const [premiumAPY, setPremiumAPY] = useState(0);
 
-  //   const fetchAccountData = useCallback(async () => {
-  //   const fetchAccountData =() => {
-  //     //  setIsLoading(true);
-  //     try {
-  //       const response = await axios.get("http://localhost:5002/account/");
-  //       const { data } = response;
+  //  const fetchAccountData = useCallback(async () => {
+  const fetchAccountData = async () => {
+    //  setIsLoading(true);
+    try {
+      const response = await axios.get("http://localhost:5002/account/");
+      const { data } = response;
 
-  //       // console.log(data);
-  //       setFirstName(data.firstName);
-  //       setAccountTotal(data.accountTotal);
-  //       setEarningsTotal(data.earningsTotal);
-  //       setStandardBalance(data.standard.balance);
-  //       setStandardEarnings(data.standard.earnings);
-  //       setStandardTransactions(data.stdTransactions);
-  //       setStandardAPY(data.standard.apy);
-  //       setPremiumBalance(data.premium.balance);
-  //       setPremiumEarnings(data.premium.earnings);
-  //       setPremiumTransactions(data.prmTransactions);
-  //       setPremiumAPY(data.premium.apy);
-  //       setMessages(data.messages);
-  //       setIsDefault(data.isDefault);
-  //       //   setIsLoading(false);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   }
+      // console.log(data);
+      setFirstName(data.firstName);
+      setAccountTotal(data.accountTotal);
+      setEarningsTotal(data.earningsTotal);
+      setStandardBalance(data.standard.balance);
+      setStandardEarnings(data.standard.earnings);
+      setStandardTransactions(data.stdTransactions);
+      setStandardAPY(data.standard.apy);
+      setPremiumBalance(data.premium.balance);
+      setPremiumEarnings(data.premium.earnings);
+      setPremiumTransactions(data.prmTransactions);
+      setPremiumAPY(data.premium.apy);
+      setMessages(data.messages);
+      setIsDefault(data.isDefault);
+      //   setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   //   Mock
-  const fetchAccountData = () => {
-    fetch("testData.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setFirstName(data.firstName);
-        setAccountTotal(data.accountTotal);
-        setEarningsTotal(data.earningsTotal);
-        setStandardBalance(data.standard.balance);
-        setStandardEarnings(data.standard.earnings);
-        setStandardTransactions(data.stdTransactions);
-        setStandardAPY(data.standard.apy);
-        setPremiumBalance(data.premium.balance);
-        setPremiumEarnings(data.premium.earnings);
-        setPremiumTransactions(data.prmTransactions);
-        setPremiumAPY(data.premium.apy);
-        setMessages(data.messages);
-        setIsDefault(data.isDefault);
-      });
-  };
+  //   const fetchAccountData = () => {
+  //     fetch("testData.json")
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setFirstName(data.firstName);
+  //         setAccountTotal(data.accountTotal);
+  //         setEarningsTotal(data.earningsTotal);
+  //         setStandardBalance(data.standard.balance);
+  //         setStandardEarnings(data.standard.earnings);
+  //         setStandardTransactions(data.stdTransactions);
+  //         setStandardAPY(data.standard.apy);
+  //         setPremiumBalance(data.premium.balance);
+  //         setPremiumEarnings(data.premium.earnings);
+  //         setPremiumTransactions(data.prmTransactions);
+  //         setPremiumAPY(data.premium.apy);
+  //         setMessages(data.messages);
+  //         setIsDefault(data.isDefault);
+  //       });
+  //   };
 
   useEffect(() => {
     fetchAccountData();

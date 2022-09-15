@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { replaceComma } from "../../constants/helpers";
 
 const Container = styled.li`
   display: grid;
@@ -38,9 +39,11 @@ function Transaction({ transDate, description, amount }) {
       <TransDate>{dt}</TransDate>
       <Desc>{description}</Desc>
       {amount < 0 ? (
-        <Amount type="negative">-${amount.toFixed(2).slice(1)}</Amount>
+        <Amount type="negative">
+          -${replaceComma(amount?.toFixed(2).slice(1))}
+        </Amount>
       ) : (
-        <Amount type="positive">${amount.toFixed(2)}</Amount>
+        <Amount type="positive">${replaceComma(amount?.toFixed(2))}</Amount>
       )}
     </Container>
   );

@@ -15,30 +15,29 @@ const Container = styled.div`
 `;
 
 const Nav = styled.nav`
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   max-width: 120rem;
   margin: 0 auto;
   padding: 2.4rem 3.2rem 1.2rem 3.2rem;
 
-  > a,
-  button {
-    text-decoration: none;
+  > div > a {
     color: ${({ theme }) => theme.color.primaryMid};
-    transition: all 0.1s linear;
     font-size: 1.6rem;
+    text-decoration: none;
+    transition: all 0.1s linear;
 
     &:hover {
-      text-decoration: underline;
       color: ${({ theme }) => theme.color.primary};
+      text-decoration: underline;
     }
   }
 
   > button {
-    cursor: pointer;
     background: none;
     border: none;
+    cursor: pointer;
     padding: 0;
   }
 `;
@@ -48,23 +47,28 @@ const NavIcon = styled.img`
 `;
 
 const Button = styled.button`
-  text-decoration: none;
-  color: ${({ theme }) => theme.color.primaryMid};
-  transition: all 0.1s linear;
-  font-size: 1.6rem;
-  cursor: pointer;
   background: none;
   border: none;
+  color: ${({ theme }) => theme.color.primaryMid};
+  cursor: pointer;
+  font-size: 1.6rem;
   padding: 0;
+  text-decoration: none;
+  transition: all 0.1s linear;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.primary};
+    text-decoration: underline;
+  }
 `;
 
 const InfoButton = styled.button`
-  cursor: pointer;
   background: none;
   border: none;
-  padding: 0;
-  opacity: 0.7;
+  cursor: pointer;
   height: 28px;
+  opacity: 0.7;
+  padding: 0;
 
   > svg {
     fill: ${({ theme }) => theme.color.primary};
@@ -82,9 +86,9 @@ const InfoButton = styled.button`
 `;
 
 const ButtonContainer = styled.div`
+  align-items: center;
   display: flex;
   gap: 2.6rem;
-  align-items: center;
 `;
 
 function Header({ isLoggedIn }) {
@@ -118,7 +122,6 @@ function Header({ isLoggedIn }) {
           <InfoButton onClick={handleInfoClick}>
             <Info size={28} color="#080808" />
           </InfoButton>
-          {isLoggedIn === true && <button onClick={logout}>Log out</button>}
           {isLoggedIn === false && currentPage === "login" ? (
             <Link to={PATH.REGISTER}>Register</Link>
           ) : isLoggedIn === false && currentPage === "register" ? (

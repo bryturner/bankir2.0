@@ -13,7 +13,6 @@ import DetailsBox from "../DetailsBox/DetailsBox";
 import ErrorMessage from "../Messages/ErrorMessage";
 import TransactionFormButton from "./TransactionFormButton";
 import TransactionFormModal from "./TransactionFormModal";
-import TestAmount from "../Input/TestAmount";
 import { ERROR } from "../../constants/clientMessages";
 
 const Form = styled.form``;
@@ -157,7 +156,7 @@ function TransactionForm({ fetchAccountData }) {
         description: description,
       };
 
-      // await axios.put("http://localhost:5002/account/transaction", data);
+      await axios.put("http://localhost:5002/account/transaction", data);
 
       reset();
       setError("");
@@ -228,7 +227,6 @@ function TransactionForm({ fetchAccountData }) {
               ref={amountRef}
             />
           </Flex>
-          {/* <TestAmount /> */}
         </StyledFormInputs>
 
         <ButtonContainer>

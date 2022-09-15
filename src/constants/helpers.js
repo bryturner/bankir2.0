@@ -23,6 +23,10 @@ export const formatAmount = (amount) => {
     .replace(/(?<=\.\d{2}).*/g, ""); // limits to 2 places after decimal
 };
 
+export const replaceComma = (amount) => {
+  return amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 export const formatTransfer = (transfer) => {
   if (transfer !== "premium" && transfer !== "standard") {
     return transfer;

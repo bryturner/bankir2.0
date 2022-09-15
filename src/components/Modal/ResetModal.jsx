@@ -2,7 +2,7 @@ import FormModal from "./FormModal";
 
 function ResetModal({ showModal, setShowModal, handleConfirmClick }) {
   const text =
-    "Resetting your account will reset all the values. Are you sure you would like to do this?";
+    "Are you sure you would like to reset this account to the default values?";
 
   return (
     <FormModal

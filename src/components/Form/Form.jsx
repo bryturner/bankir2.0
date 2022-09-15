@@ -1,22 +1,23 @@
 import styled from "styled-components";
 const FormStyled = styled.form`
-  justify-self: center;
-  width: 100%;
-  padding: 2.4rem 3.6rem;
   background-color: #fff;
   box-shadow: 0 0.6rem 3rem rgba(0, 0, 0, 0.1);
+  height: fit-content;
+  justify-self: center;
+  padding: 2.4rem 3.6rem;
+  width: 100%;
 
   > button {
-    width: 100%;
     display: block;
+    width: 100%;
   }
 `;
 
 const Header = styled.h2`
   font-size: 3rem;
   font-weight: 500;
-  text-align: center;
   margin-bottom: 1.4rem;
+  text-align: center;
 `;
 
 function Form({ onSubmit, header, children }) {

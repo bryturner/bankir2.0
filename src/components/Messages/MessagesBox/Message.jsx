@@ -37,7 +37,10 @@ function Message({ message }) {
     <ListItem>
       <Text>
         {type === "welcome" ? (
-          <>Congrats {firstName}, you have opened a new account!</>
+          <>
+            Congratulations {firstName}, you have opened a new account with
+            BankIR!
+          </>
         ) : type === "withdrawal" ? (
           <>
             Withdrew ${amount} from {firstToUpperCase(account)} Savings

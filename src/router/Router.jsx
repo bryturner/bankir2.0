@@ -47,13 +47,17 @@ function Router() {
               )
             }
           />
-          <Route path={PATH.ACCOUNT} element={<AccountPage />} />
-          {/* <Route
-          path={PATH.ACCOUNT}
-          element={
-            isLoggedIn ? <AccountPage /> : <Navigate replace to={PATH.LOGIN} />
-          }
-        /> */}
+          {/* <Route path={PATH.ACCOUNT} element={<AccountPage />} /> */}
+          <Route
+            path={PATH.ACCOUNT}
+            element={
+              isLoggedIn ? (
+                <AccountPage />
+              ) : (
+                <Navigate replace to={PATH.LOGIN} />
+              )
+            }
+          />
         </Routes>
         <Footer />
       </PageContainer>

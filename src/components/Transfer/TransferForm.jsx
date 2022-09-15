@@ -86,7 +86,7 @@ function TransferForm({ fetchAccountData }) {
   const handleOtherChange = (e) => {
     const value = e.target.value;
     if (e.target.validity.patternMismatch) {
-      setError("Use lower case letters and numbers only");
+      setError(ERROR.REG_USERNAME);
       setOtherIsValid(false);
     } else {
       setError("");
@@ -177,19 +177,19 @@ function TransferForm({ fetchAccountData }) {
 
       // console.log(data);
 
-      // let res;
-      // if (transferTo === "otherUser") {
-      //   res = await axios.put(
-      //     "http://localhost:5002/account/transferToOther",
-      //     data
-      //   );
-      // } else {
-      //   res = await axios.put(
-      //     "http://localhost:5002/account/transferToSame",
-      //     data
-      //   );
-      // }
-      // console.log(res.data);
+      let res;
+      if (transferTo === "otherUser") {
+        res = await axios.put(
+          "http://localhost:5002/account/transferToOther",
+          data
+        );
+      } else {
+        res = await axios.put(
+          "http://localhost:5002/account/transferToSame",
+          data
+        );
+      }
+      console.log(res.data);
       reset();
       setError("");
       fetchAccountData();
