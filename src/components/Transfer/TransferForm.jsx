@@ -119,27 +119,48 @@ function TransferForm({ fetchAccountData }) {
     setAmount(formattedAmount);
   };
 
+  //   const checkIfValid = () => {
+  //     return new Promise((resolve, reject) => {
+  //       if (amount.length === 0) {
+  //         setError(ERROR.AMOUNT);
+  //         setAmountIsValid(false);
+  //         amountRef.current.focus();
+  //         return;
+  //       } else if (toValue.length === 0) {
+  //         setError(ERROR.USERNAME);
+  //         setOtherIsValid(false);
+  //         otherUserRef.current.focus();
+  //         return;
+  //       } else if (description.length === 0) {
+  //         setError(ERROR.DESC);
+  //         setDescIsValid(false);
+  //         descRef.current.focus();
+  //         return;
+  //       } else {
+  //         setError("");
+  //       }
+  //       resolve();
+  //     });
+  //   };
+
   const checkIfValid = () => {
     return new Promise((resolve, reject) => {
       if (amount.length === 0) {
-        setError(ERROR.AMOUNT);
         setAmountIsValid(false);
         amountRef.current.focus();
-        return;
+        reject(ERROR.AMOUNT);
       } else if (toValue.length === 0) {
-        setError(ERROR.USERNAME);
         setOtherIsValid(false);
         otherUserRef.current.focus();
-        return;
+        reject(ERROR.USERNAME);
       } else if (description.length === 0) {
-        setError(ERROR.DESC);
         setDescIsValid(false);
         descRef.current.focus();
-        return;
+        reject(ERROR.DESC);
       } else {
         setError("");
+        resolve();
       }
-      resolve();
     });
   };
 
@@ -159,7 +180,11 @@ function TransferForm({ fetchAccountData }) {
   };
 
   const handleInitSubmit = () => {
-    checkIfValid().then(() => modal());
+    checkIfValid()
+      .then(() => modal())
+      .catch((err) => {
+        setError(err);
+      });
   };
 
   const submitTransfer = async (e) => {

@@ -9,12 +9,12 @@ const Container = styled.div`
 const Button = styled.button`
   background: none;
   border: none;
+  height: 20px;
+  opacity: 0.6;
   position: absolute;
   right: 14px;
   top: 12px;
-  opacity: 0.6;
   transition: all 0.2s linear;
-  height: 20px;
 
   > svg {
     fill: ${({ theme }) => theme.color.primary};
@@ -32,10 +32,10 @@ const Button = styled.button`
 `;
 
 const Heading = styled.h3`
-  text-align: center;
-  margin-bottom: 1.6rem;
   font-size: 2rem;
   font-weight: 500;
+  margin-bottom: 1.6rem;
+  text-align: center;
 `;
 
 const ListsContainer = styled.div`
@@ -44,9 +44,7 @@ const ListsContainer = styled.div`
   gap: 2rem;
 `;
 
-const List = styled.ul`
-  list-style: circle;
-`;
+const List = styled.ul``;
 
 const ListItems = styled.div`
   display: flex;
@@ -70,8 +68,8 @@ const LinkContainer = styled.div`
 `;
 
 const Link = styled.a`
-  transition: all 0.2s linear;
   color: ${({ theme }) => theme.color.primary};
+  transition: all 0.2s linear;
 
   &:hover {
     color: ${({ theme }) => theme.color.primaryMid};
@@ -105,6 +103,9 @@ function HeaderModal({ showModal, setShowModal }) {
               </ListItem>
               <ListItem>
                 Choose to reset the account values at any time
+              </ListItem>
+              <ListItem>
+                When the account reaches $10,000,000 the values will be reset
               </ListItem>
               <ListItem>
                 Choose to delete your account from the database at any time
