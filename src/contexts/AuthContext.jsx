@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
+import { BASE_URL } from "../constants/paths";
 
 const AuthContext = createContext();
 
@@ -8,7 +9,7 @@ function AuthContextProvider(props) {
 
   // Checks token to see if user is logged in and authorized
   async function getIsLoggedIn() {
-    const response = await axios.get("http://localhost:5002/auth/isLoggedIn");
+    const response = await axios.get(`${BASE_URL}auth/isLoggedIn`);
 
     setIsLoggedIn(response.data);
   }

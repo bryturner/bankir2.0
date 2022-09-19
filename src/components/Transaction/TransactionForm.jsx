@@ -14,6 +14,7 @@ import ErrorMessage from "../Messages/ErrorMessage";
 import TransactionFormButton from "./TransactionFormButton";
 import TransactionFormModal from "./TransactionFormModal";
 import { ERROR } from "../../constants/clientMessages";
+import { BASE_URL } from "../../constants/paths";
 
 const Form = styled.form``;
 
@@ -156,7 +157,7 @@ function TransactionForm({ fetchAccountData }) {
         description: description,
       };
 
-      await axios.put("http://localhost:5002/account/transaction", data);
+      await axios.put(`${BASE_URL}/account/transaction`, data);
 
       reset();
       setError("");

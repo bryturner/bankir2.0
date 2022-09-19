@@ -15,6 +15,7 @@ import StyledFormInputs from "../StyledComponents/StyledFormInputs";
 import ErrorMessage from "../Messages/ErrorMessage";
 import { createModalAmount, formatAmount } from "../../constants/helpers";
 import { ERROR } from "../../constants/clientMessages";
+import { BASE_URL } from "../../constants/paths";
 
 const Flex = styled.div`
   display: flex;
@@ -204,15 +205,9 @@ function TransferForm({ fetchAccountData }) {
 
       let res;
       if (transferTo === "otherUser") {
-        res = await axios.put(
-          "http://localhost:5002/account/transferToOther",
-          data
-        );
+        res = await axios.put(`${BASE_URL}/account/transferToOther`, data);
       } else {
-        res = await axios.put(
-          "http://localhost:5002/account/transferToSame",
-          data
-        );
+        res = await axios.put(`${BASE_URL}/account/transferToSame`, data);
       }
       console.log(res.data);
       reset();

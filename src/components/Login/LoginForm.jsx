@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { PATH } from "../../constants/paths";
+import { BASE_URL, PATH } from "../../constants/paths";
 import AuthContext from "../../contexts/AuthContext";
 import LoginButton from "./LoginButton";
 import ErrorMessage from "../Messages/ErrorMessage";
@@ -84,7 +84,7 @@ function LoginForm() {
         password,
       };
 
-      await axios.post("http://localhost:5002/auth/login", data);
+      await axios.post(`${BASE_URL}auth/login`, data);
 
       await getIsLoggedIn();
 

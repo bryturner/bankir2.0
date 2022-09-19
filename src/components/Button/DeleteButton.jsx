@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { BASE_URL } from "../../constants/paths";
 import DeleteModal from "../Modal/DeleteModal";
 import Button from "./Button";
 
@@ -12,7 +13,7 @@ function DeleteButton() {
 
   const handleConfirmClick = async () => {
     try {
-      await axios.delete("http://localhost:5002/user/delete");
+      await axios.delete(`${BASE_URL}user/delete`);
     } catch (err) {
       console.error(err);
     } finally {

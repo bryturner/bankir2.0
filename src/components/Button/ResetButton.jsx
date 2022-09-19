@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { BASE_URL } from "../../constants/paths";
 import ResetModal from "../Modal/ResetModal";
 import Button from "./Button";
 
@@ -14,7 +15,7 @@ function ResetButton({ fetchAccountData, firstName }) {
     try {
       const data = { firstName: firstName };
 
-      await axios.put("http://localhost:5002/account/reset", data);
+      await axios.put(`${BASE_URL}account/reset`, data);
 
       fetchAccountData();
     } catch (err) {

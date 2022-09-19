@@ -10,6 +10,7 @@ import InterestForm from "../components/Interest/InterestForm";
 import Messages from "../components/Messages/MessagesBox/Messages";
 import ResetButton from "../components/Button/ResetButton";
 import DeleteButton from "../components/Button/DeleteButton";
+import { BASE_URL } from "../constants/paths";
 
 const Container = styled.div`
   padding: 0 1.4rem;
@@ -89,7 +90,7 @@ function AccountPage() {
   const fetchAccountData = async () => {
     //  setIsLoading(true);
     try {
-      const response = await axios.get("http://localhost:5002/account/");
+      const response = await axios.get(`${BASE_URL}/account/`);
       const { data } = response;
 
       // console.log(data);

@@ -9,6 +9,7 @@ import InterestModal from "./InterestModal";
 import Option from "../SelectOption/Option";
 import SelectOption from "../SelectOption/SelectOption";
 import StyledFormInputs from "../StyledComponents/StyledFormInputs";
+import { BASE_URL } from "../../constants/paths";
 
 const Container = styled.div`
   align-items: flex-start;
@@ -140,7 +141,7 @@ function InterestForm({
         premiumEarned,
       };
 
-      await axios.put("http://localhost:5002/account/interest", data);
+      await axios.put(`${BASE_URL}/account/interest`, data);
 
       reset();
       fetchAccountData();

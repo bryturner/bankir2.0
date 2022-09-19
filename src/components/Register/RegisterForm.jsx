@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { PATH } from "../../constants/paths";
+import { BASE_URL, PATH } from "../../constants/paths";
 import AuthContext from "../../contexts/AuthContext";
 import RegisterButton from "./RegisterButton";
 import ErrorMessage from "../Messages/ErrorMessage";
@@ -153,11 +153,11 @@ function RegisterForm() {
     };
 
     try {
-      await axios.post("http://localhost:5002/auth/register", regData);
+      await axios.post(`${BASE_URL}auth/register`, regData);
 
       await getIsLoggedIn();
 
-      await axios.post("http://localhost:5002/account/newAccount", acctData);
+      await axios.post(`${BASE_URL}account/newAccount`, acctData);
 
       navigate(PATH.ACCOUNT);
     } catch (err) {
