@@ -141,7 +141,7 @@ function InterestForm({
         premiumEarned,
       };
 
-      await axios.put(`${BASE_URL}/account/interest`, data);
+      await axios.put(`${BASE_URL}account/interest`, data);
 
       reset();
       fetchAccountData();

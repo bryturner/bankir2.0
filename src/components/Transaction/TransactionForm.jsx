@@ -157,7 +157,7 @@ function TransactionForm({ fetchAccountData }) {
         description: description,
       };
 
-      await axios.put(`${BASE_URL}/account/transaction`, data);
+      await axios.put(`${BASE_URL}account/transaction`, data);
 
       reset();
       setError("");

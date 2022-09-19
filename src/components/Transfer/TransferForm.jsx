@@ -205,9 +205,9 @@ function TransferForm({ fetchAccountData }) {
 
       let res;
       if (transferTo === "otherUser") {
-        res = await axios.put(`${BASE_URL}/account/transferToOther`, data);
+        res = await axios.put(`${BASE_URL}account/transferToOther`, data);
       } else {
-        res = await axios.put(`${BASE_URL}/account/transferToSame`, data);
+        res = await axios.put(`${BASE_URL}account/transferToSame`, data);
       }
       console.log(res.data);
       reset();
